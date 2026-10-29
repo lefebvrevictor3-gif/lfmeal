@@ -165,6 +165,18 @@
   .formule .prix small { font:400 15px var(--texte); color:var(--gris); }
   .formule .unite { font-size:13.5px; color:var(--gris); }
   .formule .btn { margin-top:28px; justify-content:center; }
+  .pastille-prix { display:inline-flex; align-items:baseline; gap:8px; margin-top:26px; padding:10px 18px; border-radius:999px; background:var(--beige); border:1px solid var(--bronze); color:var(--brun); text-decoration:none; font:600 22px/1 var(--serif); }
+  .pastille-prix span { font:500 italic 15px var(--serif); color:var(--bronze); }
+  .pastille-prix small { font:400 14px var(--texte); color:var(--gris); }
+  .encoche { margin-top:44px; display:grid; grid-template-columns:1fr auto 1fr; gap:24px; align-items:center; background:var(--brun); color:var(--creme); border-radius:14px; padding:30px 34px; position:relative; }
+  .encoche .eyebrow { color:var(--bronze-clair); }
+  .encoche-prix { font:600 44px/1.05 var(--serif); margin:10px 0 8px; }
+  .encoche-prix span { font:500 italic 20px var(--serif); color:var(--bronze-clair); }
+  .encoche-prix small { font:400 15px var(--texte); color:rgba(255,253,248,.7); }
+  .encoche-case p { font-size:14px; color:rgba(255,253,248,.7); margin:0; }
+  .encoche-sep { width:64px; height:64px; border-radius:50%; border:1.5px solid var(--bronze-clair); display:grid; place-items:center; font:700 20px var(--serif); color:var(--bronze-clair); }
+  .encoche-note { grid-column:1 / -1; font-size:13.5px; color:rgba(255,253,248,.65); border-top:1px solid rgba(255,253,248,.15); padding-top:14px; margin:4px 0 0; }
+  @media (max-width:760px) { .encoche { grid-template-columns:1fr; padding:26px 22px; } .encoche-sep { display:none; } .encoche-prix { font-size:36px; } }
   .inclus { margin-top:44px; display:grid; grid-template-columns:repeat(3, 1fr); gap:14px 32px; font-size:15.5px; }
   .inclus div { padding-left:28px; position:relative; }
   .inclus div::before { content:"✓"; position:absolute; left:0; color:var(--bronze); font-weight:700; }
@@ -248,6 +260,7 @@
           <a class="btn btn-or" href="#reserver">Réserver mon appel de 20 min →</a>
           <a class="btn btn-ligne" href="#formules">Voir les formules</a>
         </div>
+        <a class="pastille-prix" href="#formules"><span>Dès</span> 15,88 € <small>le repas, suivi compris</small></a>
         <p class="hero-note">Appel découverte de 20 min · Semaine d’essai, déduite de ton 1er mois · Places limitées</p>
       </div>
       <div class="etiquette reveal" aria-label="Exemple d'étiquette LF Meal">
@@ -367,26 +380,40 @@
         <h2>Un abonnement. Tout est compris.</h2>
         <p class="lead">Tu commences par <b>une semaine d’essai</b> : 10 repas (déjeuner + dîner, 5 jours) pour 172 €, <b>déduits de ton premier mois</b> si tu continues. Ensuite, on part sur 3 mois : le temps qu’il faut pour voir la différence.</p>
       </div>
+      <div class="encoche reveal">
+        <div class="encoche-case">
+          <div class="eyebrow">Sans dessert</div>
+          <div class="encoche-prix"><span>dès</span> 15,88 €<small> / repas</small></div>
+          <p>de 15,88 € (7/7) à 17,23 € (5/7) · moyenne 16,55 €</p>
+        </div>
+        <div class="encoche-sep" aria-hidden="true">LF</div>
+        <div class="encoche-case">
+          <div class="eyebrow">Avec dessert</div>
+          <div class="encoche-prix"><span>dès</span> 17,66 €<small> / repas + dessert</small></div>
+          <p>de 17,66 € (7/7) à 18,98 € (5/7) · moyenne 18,32 €</p>
+        </div>
+        <p class="encoche-note">Cuisiné, pesé, livré au bureau et suivi mensuel compris. Bilan de 90 min et canal direct inclus.</p>
+      </div>
       <div class="formules-grid">
         <div class="formule reveal">
           <h3>5/7</h3><div class="vol">Déjeuner + dîner · 40 repas/mois</div>
-          <div class="prix">689 €<small> /mois</small></div><div class="unite">soit environ 17 € le repas, suivi compris</div>
+          <div class="prix">689 €<small> /mois</small></div><div class="unite">soit <b>17,23 €</b> le repas, suivi compris</div>
           <a class="btn btn-ligne" href="#reserver">Commencer l’essai</a>
         </div>
         <div class="formule vedette reveal">
           <span class="badge">Recommandé</span>
           <h3>5/7 + dessert</h3><div class="vol">40 repas + 20 desserts/mois</div>
-          <div class="prix">759 €<small> /mois</small></div><div class="unite">la semaine de travail, sans compromis</div>
+          <div class="prix">759 €<small> /mois</small></div><div class="unite">soit <b>18,98 €</b> le repas + dessert</div>
           <a class="btn btn-or" href="#reserver">Commencer l’essai</a>
         </div>
         <div class="formule reveal">
           <h3>7/7</h3><div class="vol">Déjeuner + dîner · 56 repas/mois</div>
-          <div class="prix">889 €<small> /mois</small></div><div class="unite">soit environ 16 € le repas, suivi compris</div>
+          <div class="prix">889 €<small> /mois</small></div><div class="unite">soit <b>15,88 €</b> le repas, suivi compris</div>
           <a class="btn btn-ligne" href="#reserver">Commencer l’essai</a>
         </div>
         <div class="formule reveal">
           <h3>7/7 + dessert</h3><div class="vol">56 repas + 28 desserts/mois</div>
-          <div class="prix">989 €<small> /mois</small></div><div class="unite">tous les repas de ta semaine, gérés</div>
+          <div class="prix">989 €<small> /mois</small></div><div class="unite">soit <b>17,66 €</b> le repas + dessert</div>
           <a class="btn btn-ligne" href="#reserver">Commencer l’essai</a>
         </div>
       </div>
