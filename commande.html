@@ -39,6 +39,8 @@
   .periode button b { display:block; font-family:var(--serif); font-size:16px; }
   .periode button.actif { border-color:var(--brun); background:var(--brun); color:var(--creme); }
   .periode button.actif b { color:var(--creme); }
+  .autre { border-top:1px dashed var(--ligne); padding-top:12px; }
+  input[type=date] { width:100%; font:inherit; color:var(--encre); background:#fff; border:1px solid var(--ligne); border-radius:8px; padding:10px 12px; }
   .limite { font-size:13.5px; color:var(--gris); }
   .limite b { color:var(--brun); }
 
@@ -96,6 +98,7 @@
     </div>
     <div class="champ"><label>Livraison</label><div class="periode" id="periode"></div></div>
     <div class="limite" id="limite"></div>
+    <div class="champ autre"><label for="date-autre">Tu veux commander plus tard ? Choisis le jour où tu veux commencer :</label><input type="date" id="date-autre"></div>
   </div>
 
   <div class="raccourcis">
@@ -164,6 +167,25 @@
   }
   const P = periodes();
   let periode = P[0];
+
+  // Date choisie à la main : on la ramène à la livraison qui la couvre (lundi pour lun → mer, jeudi pour jeu → dim).
+  function periodePour(date) {
+    const d = date.getDay(), debut = new Date(date); debut.setHours(0, 0, 0, 0);
+    const recul = d >= 1 && d <= 3 ? d - 1 : (d === 0 ? 3 : d - 4);
+    debut.setDate(debut.getDate() - recul);
+    const limite = new Date(debut); limite.setDate(limite.getDate() - 1); limite.setHours(20, 0, 0, 0);
+    return { cle: d >= 1 && d <= 3 ? "A" : "B", debut, limite, heure:"20 h" };
+  }
+  const iso = x => `${x.getFullYear()}-${String(x.getMonth() + 1).padStart(2, "0")}-${String(x.getDate()).padStart(2, "0")}`;
+  $("date-autre").min = iso(new Date());
+  $("date-autre").onchange = e => {
+    if (!e.target.value) return;
+    const [a, m, j] = e.target.value.split("-").map(Number), p = periodePour(new Date(a, m - 1, j));
+    if (p.limite <= new Date()) { toast(`Trop tard pour la livraison du ${fmt(p.debut)} : choisis une date plus loin`); e.target.value = ""; return; }
+    const deja = P.find(x => x.debut.getTime() === p.debut.getTime());
+    if (deja) periode = deja; else { P.push(p); P.sort((x, y) => x.debut - y.debut); periode = p; }
+    render(); toast(`Livraison du ${fmt(p.debut)} sélectionnée`);
+  };
   const fmt = date => `${JOURS[date.getDay()].toLowerCase()} ${date.getDate()}/${date.getMonth() + 1}`;
 
   function renderPeriodes() {
