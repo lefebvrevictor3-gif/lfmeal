@@ -129,7 +129,7 @@
 
 <script>
   // ===== RÉGLAGES (à modifier ici) =====
-  const EMAIL = "lfmeal5@gmail.com";               // adresse qui reçoit les commandes (envoi automatique via FormSubmit). Prioritaire sur WhatsApp.
+  const CLE_WEB3FORMS = "";       // clé d'accès Web3Forms (reçue sur lfmeal5@gmail.com). Vide = pas d'envoi par mail.
   const WHATSAPP = "";            // ton numéro au format international sans + ni espaces, ex. "33612345678". Vide = copie du récap + Instagram.
   const LIVRAISON_A = "lundi";    // livraison de la commande du dimanche 20 h (lundi → mercredi)
   const LIVRAISON_B = "jeudi";    // livraison de la commande du mercredi 20 h (jeudi → vendredi ou dimanche)
@@ -225,13 +225,13 @@
   $("envoyer").onclick = async () => {
     if (!$("prenom").value.trim()) { $("prenom").focus(); toast("Indique ton prénom d'abord"); return; }
     const texte = recap();
-    if (EMAIL) {
+    if (CLE_WEB3FORMS) {
       const b = $("envoyer"); b.disabled = true; b.textContent = "Envoi…";
       try {
-        const r = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-          body: JSON.stringify({ _subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, _template:"box", _captcha:"false", Commande:texte }) });
+        const r = await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+          body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Commande:texte }) });
         const j = await r.json().catch(() => ({}));
-        if (!r.ok || j.success === "false" || j.success === false) throw new Error(j.message || r.status);
+        if (!r.ok || !j.success) throw new Error(j.message || r.status);
         b.textContent = "Commande envoyée ✓"; toast("Commande envoyée, merci ! Tu recevras tes repas le " + fmt(periode.debut));
         return;
       } catch (e) { b.disabled = false; b.textContent = "Envoyer ma commande"; toast("Envoi impossible, on passe par Instagram"); }
