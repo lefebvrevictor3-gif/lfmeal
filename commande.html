@@ -129,6 +129,7 @@
 
 <script>
   // ===== RÉGLAGES (à modifier ici) =====
+  const EMAIL = "lefebvrevictor3@gmail.com";               // adresse qui reçoit les commandes (envoi automatique via FormSubmit). Prioritaire sur WhatsApp.
   const WHATSAPP = "";            // ton numéro au format international sans + ni espaces, ex. "33612345678". Vide = copie du récap + Instagram.
   const LIVRAISON_A = "lundi";    // livraison de la commande du dimanche 20 h (lundi → mercredi)
   const LIVRAISON_B = "jeudi";    // livraison de la commande du mercredi 20 h (jeudi → vendredi ou dimanche)
@@ -224,6 +225,17 @@
   $("envoyer").onclick = async () => {
     if (!$("prenom").value.trim()) { $("prenom").focus(); toast("Indique ton prénom d'abord"); return; }
     const texte = recap();
+    if (EMAIL) {
+      const b = $("envoyer"); b.disabled = true; b.textContent = "Envoi…";
+      try {
+        const r = await fetch(`https://formsubmit.co/ajax/${EMAIL}`, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+          body: JSON.stringify({ _subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, _template:"box", _captcha:"false", Commande:texte }) });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || j.success === "false" || j.success === false) throw new Error(j.message || r.status);
+        b.textContent = "Commande envoyée ✓"; toast("Commande envoyée, merci ! Tu recevras tes repas le " + fmt(periode.debut));
+        return;
+      } catch (e) { b.disabled = false; b.textContent = "Envoyer ma commande"; toast("Envoi impossible, on passe par Instagram"); }
+    }
     if (WHATSAPP) { location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texte)}`; return; }
     try { await navigator.clipboard.writeText(texte); toast("Commande copiée : colle-la dans un message à @lf_meal"); } catch { prompt("Copie ta commande :", texte); }
     setTimeout(() => window.open("https://ig.me/m/lf_meal", "_blank"), 900);
