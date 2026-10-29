@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mes repas de la semaine — LF Meal</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme:#FFFDF8; --beige:#F6EFE0; --sable:#EADFC8; --bronze:#8F6419; --bronze-clair:#B8893A;
+    --brun:#5B3A12; --encre:#2B1D0E; --gris:#7A6A55; --ligne:rgba(91,58,18,.16); --ok:#4E7A3A; --alerte:#B4462F;
+    --serif:"Playfair Display", Georgia, serif; --texte:"Lora", Georgia, serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--creme); color:var(--encre); font:16px/1.6 var(--texte); -webkit-font-smoothing:antialiased; padding-bottom:120px; }
+  .wrap { max-width:760px; margin:0 auto; padding:0 18px; }
+  h1, h2, h3 { font-family:var(--serif); color:var(--brun); font-weight:600; line-height:1.2; margin:0; }
+  .eyebrow { font:600 11px/1 var(--texte); letter-spacing:.2em; text-transform:uppercase; color:var(--bronze); }
+  header { padding:28px 0 10px; }
+  .logo { font:700 22px/1 var(--serif); color:var(--brun); text-decoration:none; }
+  .logo span { color:var(--bronze); font-style:italic; font-weight:500; }
+  .intro { padding:18px 0 8px; }
+  .intro h1 { font-size:clamp(28px, 6vw, 40px); margin:10px 0 8px; }
+  .intro p { color:var(--gris); }
+
+  .carte-info { background:var(--beige); border:1px solid var(--ligne); border-radius:10px; padding:16px 18px; margin:18px 0; display:grid; gap:12px; }
+  .champ { display:grid; gap:6px; }
+  .champ label { font-size:13px; color:var(--gris); }
+  input[type=text], select, textarea { width:100%; font:inherit; color:var(--encre); background:#fff; border:1px solid var(--ligne); border-radius:8px; padding:11px 12px; }
+  select { appearance:none; background-image:linear-gradient(45deg, transparent 50%, var(--bronze) 50%), linear-gradient(135deg, var(--bronze) 50%, transparent 50%); background-position:calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size:5px 5px; background-repeat:no-repeat; padding-right:34px; }
+  .ligne2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:520px) { .ligne2 { grid-template-columns:1fr; } }
+
+  .periode { display:flex; gap:8px; flex-wrap:wrap; }
+  .periode button { flex:1; min-width:150px; font:inherit; font-size:14px; padding:10px 12px; border-radius:8px; border:1px solid var(--ligne); background:#fff; color:var(--brun); cursor:pointer; text-align:left; }
+  .periode button b { display:block; font-family:var(--serif); font-size:16px; }
+  .periode button.actif { border-color:var(--brun); background:var(--brun); color:var(--creme); }
+  .periode button.actif b { color:var(--creme); }
+  .limite { font-size:13.5px; color:var(--gris); }
+  .limite b { color:var(--brun); }
+
+  .raccourcis { display:flex; gap:8px; flex-wrap:wrap; margin:22px 0 4px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 18px; border-radius:999px; font:600 14px/1 var(--texte); border:1px solid var(--brun); color:var(--brun); background:transparent; cursor:pointer; text-decoration:none; }
+  .btn.plein { background:var(--brun); color:var(--creme); }
+  .btn:disabled { opacity:.45; cursor:not-allowed; }
+
+  .jour { border:1px solid var(--ligne); border-radius:12px; background:#fff; margin:14px 0; overflow:hidden; }
+  .jour-tete { display:flex; justify-content:space-between; align-items:baseline; padding:14px 16px; border-bottom:1px dashed var(--ligne); background:var(--creme); }
+  .jour-tete h3 { font-size:20px; }
+  .jour-tete span { font-size:13px; color:var(--gris); }
+  .creneau { display:grid; grid-template-columns:92px 1fr; gap:12px; align-items:center; padding:12px 16px; border-bottom:1px solid var(--ligne); }
+  .creneau:last-child { border-bottom:none; }
+  .creneau .nom { font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--gris); }
+  .creneau .macros { grid-column:2; font-size:12.5px; color:var(--gris); margin-top:-4px; min-height:1em; }
+  @media (max-width:420px) { .creneau { grid-template-columns:1fr; gap:6px; } .creneau .macros { grid-column:1; } }
+
+  .remarques { margin:22px 0; }
+  .barre { position:fixed; left:0; right:0; bottom:0; background:rgba(255,253,248,.96); backdrop-filter:blur(8px); border-top:1px solid var(--ligne); padding:12px 0; }
+  .barre .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .compteur { font-size:14px; color:var(--gris); }
+  .compteur b { font-family:var(--serif); font-size:18px; color:var(--brun); }
+  .compteur.ok b { color:var(--ok); }
+  .note { font-size:13px; color:var(--gris); margin-top:10px; }
+  .toast { position:fixed; left:50%; bottom:90px; transform:translateX(-50%); background:var(--brun); color:var(--creme); padding:10px 16px; border-radius:999px; font-size:14px; opacity:0; transition:opacity .3s; pointer-events:none; }
+  .toast.vu { opacity:1; }
+  .admin { margin:28px 0; padding:16px 18px; border:1px dashed var(--bronze); border-radius:10px; display:none; }
+  .admin.vu { display:block; }
+  .admin code { display:block; word-break:break-all; background:var(--beige); padding:10px; border-radius:6px; font-size:13px; margin-top:8px; }
+</style>
+</head>
+<body>
+
+<header class="wrap"><a class="logo" href="index.html">LF <span>Meal</span></a></header>
+
+<main class="wrap">
+  <section class="intro">
+    <div class="eyebrow">Ta commande</div>
+    <h1>Tes repas de la semaine</h1>
+    <p>Choisis un plat pour chaque repas. Pas d'idée ? Laisse « Choix du chef » : je compose pour toi selon ton protocole.</p>
+  </section>
+
+  <div class="carte-info">
+    <div class="ligne2">
+      <div class="champ"><label for="prenom">Ton prénom</label><input type="text" id="prenom" autocomplete="given-name" placeholder="Ex. Thomas"></div>
+      <div class="champ"><label for="formule">Ta formule</label>
+        <select id="formule">
+          <option value="5">5/7 · déjeuner + dîner</option>
+          <option value="5d">5/7 + dessert</option>
+          <option value="7">7/7 · déjeuner + dîner</option>
+          <option value="7d">7/7 + dessert</option>
+        </select>
+      </div>
+    </div>
+    <div class="champ"><label>Livraison</label><div class="periode" id="periode"></div></div>
+    <div class="limite" id="limite"></div>
+  </div>
+
+  <div class="raccourcis">
+    <button class="btn" id="chef-tout" type="button">Tout en « Choix du chef »</button>
+    <button class="btn" id="hasard" type="button">Remplir au hasard</button>
+  </div>
+
+  <div id="jours"></div>
+
+  <div class="remarques champ">
+    <label for="remarques">Une remarque ? (envie particulière, absence, changement d'adresse…)</label>
+    <textarea id="remarques" rows="3" placeholder="Facultatif"></textarea>
+  </div>
+  <p class="note">Tes allergies et exclusions notées au bilan sont toujours prises en compte, même en « Choix du chef ».</p>
+
+  <div class="admin" id="admin">
+    <div class="eyebrow">Pour Victor · lien client</div>
+    <p class="note">Remplis prénom et formule ci-dessus, puis copie ce lien et envoie-le au client : sa page sera pré-remplie.</p>
+    <code id="lien-client"></code>
+    <button class="btn" id="copier-lien" type="button" style="margin-top:10px">Copier le lien</button>
+  </div>
+</main>
+
+<div class="barre">
+  <div class="wrap">
+    <div class="compteur" id="compteur"></div>
+    <button class="btn plein" id="envoyer" type="button">Envoyer ma commande</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+  // ===== RÉGLAGES (à modifier ici) =====
+  const WHATSAPP = "";            // ton numéro au format international sans + ni espaces, ex. "33612345678". Vide = copie du récap + Instagram.
+  const LIVRAISON_A = "lundi";    // livraison de la commande du dimanche 20 h (lundi → mercredi)
+  const LIVRAISON_B = "jeudi";    // livraison de la commande du mercredi 20 h (jeudi → vendredi ou dimanche)
+
+  const PLATS = [
+    ["LF Burger", 593, 47, 45, 24], ["Le Mexicain", 545, 31, 76, 13], ["Le Curry Coco", 640, 38, 86, 16],
+    ["Le Taboulé", 611, 50, 78, 12], ["LF Salad", 383, 48, 33, 10], ["Le Potager", 564, 52, 11, 31],
+    ["Le Dernier Hiver", 415, 25, 37, 19], ["Le Konjac", 250, 35, 11, 9], ["LF Dwich", 768, 66, 79, 18],
+    ["Le Plat du Môme", 713, 51, 77, 21], ["Le Classico", 571, 39, 77, 11], ["L'Omega", 631, 34, 85, 16],
+  ];
+  const DESSERTS = [
+    ["Crème brûlée", 474, 43, 17, 24], ["Banana pancakes", 523, 42, 32, 26], ["Panna cotta coco", 183, null, 31, 4],
+    ["Overnight oats Snickers", 539, 47, 43, 19], ["Cheesecake spéculoos", 577, 42, 38, 28],
+  ];
+  const CHEF = "Choix du chef";
+  const JOURS = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+  const $ = id => document.getElementById(id);
+  const params = new URLSearchParams(location.search);
+  if (params.get("prenom")) $("prenom").value = params.get("prenom");
+  if (params.get("formule")) $("formule").value = params.get("formule");
+  if (params.has("admin")) $("admin").classList.add("vu");
+
+  // Deux commandes par semaine : dimanche 20 h (livraison lundi, lundi → mercredi) et mercredi 20 h (livraison jeudi, jeudi → fin de semaine).
+  function periodes(now = new Date()) {
+    const prochain = jour => { const x = new Date(now); x.setHours(20, 0, 0, 0); x.setDate(x.getDate() + ((jour - x.getDay() + 7) % 7)); if (x <= now) x.setDate(x.getDate() + 7); return x; };
+    const lendemain = d => { const x = new Date(d); x.setDate(x.getDate() + 1); x.setHours(0, 0, 0, 0); return x; };
+    const dim = prochain(0), mer = prochain(3);
+    const A = { cle:"A", limite:dim, debut:lendemain(dim), heure:"20 h" };
+    const B = { cle:"B", limite:mer, debut:lendemain(mer), heure:"20 h" };
+    return dim < mer ? [A, B] : [B, A];
+  }
+  const P = periodes();
+  let periode = P[0];
+  const fmt = date => `${JOURS[date.getDay()].toLowerCase()} ${date.getDate()}/${date.getMonth() + 1}`;
+
+  function renderPeriodes() {
+    $("periode").innerHTML = P.map((p, i) => `<button type="button" data-i="${i}" class="${p === periode ? "actif" : ""}"><b>Livraison du ${fmt(p.debut)}</b>${p.cle === "A" ? "lundi → mercredi" : "jeudi → fin de semaine"}</button>`).join("");
+    $("periode").querySelectorAll("button").forEach(b => b.onclick = () => { periode = P[+b.dataset.i]; render(); });
+    $("limite").innerHTML = `À envoyer avant <b>${fmt(periode.limite)} à ${periode.heure}</b>.`;
+  }
+
+  function jours() {
+    const f = $("formule").value, sept = f.startsWith("7");
+    const n = periode.cle === "A" ? 3 : (sept ? 4 : 2);
+    return Array.from({ length:n }, (_, i) => { const x = new Date(periode.debut); x.setDate(x.getDate() + i); return x; });
+  }
+  const avecDessert = () => $("formule").value.endsWith("d");
+  const options = (liste, val) => `<option${val === CHEF ? " selected" : ""}>${CHEF}</option>` + liste.map(([n]) => `<option${n === val ? " selected" : ""}>${n}</option>`).join("");
+  const macro = (liste, nom) => { const x = liste.find(p => p[0] === nom); return x ? `${x[1]} kcal${x[2] != null ? ` · P ${x[2]}` : ""} · G ${x[3]} · L ${x[4]}` : ""; };
+
+  let choix = {};
+  function render() {
+    renderPeriodes();
+    const creneaux = [["Déjeuner", PLATS], ["Dîner", PLATS]].concat(avecDessert() ? [["Dessert", DESSERTS]] : []);
+    $("jours").innerHTML = jours().map(j => {
+      const k = j.toDateString();
+      return `<div class="jour"><div class="jour-tete"><h3>${JOURS[j.getDay()]}</h3><span>${j.getDate()}/${j.getMonth() + 1}</span></div>` +
+        creneaux.map(([nom, liste]) => {
+          const id = `${k}|${nom}`, val = choix[id] || CHEF;
+          return `<div class="creneau"><span class="nom">${nom}</span><select data-id="${id}" data-liste="${nom === "Dessert" ? "d" : "p"}">${options(liste, val)}</select><span class="macros" id="m-${btoa(unescape(encodeURIComponent(id)))}">${macro(liste, val)}</span></div>`;
+        }).join("") + `</div>`;
+    }).join("");
+    $("jours").querySelectorAll("select").forEach(s => s.onchange = () => {
+      choix[s.dataset.id] = s.value;
+      document.getElementById("m-" + btoa(unescape(encodeURIComponent(s.dataset.id)))).textContent = macro(s.dataset.liste === "d" ? DESSERTS : PLATS, s.value);
+      compteur();
+    });
+    compteur();
+    lienClient();
+  }
+
+  function selections() { return [...$("jours").querySelectorAll("select")]; }
+  function compteur() {
+    const s = selections(), perso = s.filter(x => x.value !== CHEF).length;
+    const repas = s.filter(x => x.dataset.liste === "p").length, desserts = s.length - repas;
+    $("compteur").innerHTML = `<b>${repas}</b> repas${desserts ? ` + <b>${desserts}</b> desserts` : ""} · ${perso} choisis, ${s.length - perso} au choix du chef`;
+    $("compteur").classList.toggle("ok", !!$("prenom").value.trim());
+  }
+
+  function recap() {
+    const f = $("formule").selectedOptions[0].textContent;
+    const lignes = jours().map(j => {
+      const k = j.toDateString(), get = n => choix[`${k}|${n}`] || CHEF;
+      return `• ${JOURS[j.getDay()]} ${j.getDate()}/${j.getMonth() + 1} : déj ${get("Déjeuner")} · dîner ${get("Dîner")}${avecDessert() ? ` · dessert ${get("Dessert")}` : ""}`;
+    });
+    const rq = $("remarques").value.trim();
+    return `Commande LF Meal — ${$("prenom").value.trim()} (${f})\nLivraison du ${fmt(periode.debut)}\n\n${lignes.join("\n")}${rq ? `\n\nRemarque : ${rq}` : ""}`;
+  }
+
+  function toast(t) { $("toast").textContent = t; $("toast").classList.add("vu"); setTimeout(() => $("toast").classList.remove("vu"), 2600); }
+
+  $("envoyer").onclick = async () => {
+    if (!$("prenom").value.trim()) { $("prenom").focus(); toast("Indique ton prénom d'abord"); return; }
+    const texte = recap();
+    if (WHATSAPP) { location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texte)}`; return; }
+    try { await navigator.clipboard.writeText(texte); toast("Commande copiée : colle-la dans un message à @lf_meal"); } catch { prompt("Copie ta commande :", texte); }
+    setTimeout(() => window.open("https://ig.me/m/lf_meal", "_blank"), 900);
+  };
+
+  $("chef-tout").onclick = () => { choix = {}; render(); toast("Tout est au choix du chef"); };
+  $("hasard").onclick = () => {
+    selections().forEach(s => { const l = s.dataset.liste === "d" ? DESSERTS : PLATS; choix[s.dataset.id] = l[Math.floor(Math.random() * l.length)][0]; });
+    render();
+  };
+  $("formule").onchange = render;
+  $("prenom").oninput = () => { compteur(); lienClient(); };
+
+  function lienClient() {
+    if (!$("admin").classList.contains("vu")) return;
+    const u = new URL(location.href.split("?")[0]);
+    if ($("prenom").value.trim()) u.searchParams.set("prenom", $("prenom").value.trim());
+    u.searchParams.set("formule", $("formule").value);
+    $("lien-client").textContent = u.toString();
+  }
+  $("copier-lien").onclick = async () => { try { await navigator.clipboard.writeText($("lien-client").textContent); toast("Lien copié"); } catch { prompt("Copie le lien :", $("lien-client").textContent); } };
+
+  render();
+</script>
+</body>
+</html>
