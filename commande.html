@@ -136,6 +136,7 @@
   const WHATSAPP = "";            // ton numéro au format international sans + ni espaces, ex. "33612345678". Vide = copie du récap + Instagram.
   const LIVRAISON_A = "lundi";    // livraison de la commande du dimanche 20 h (lundi → mercredi)
   const LIVRAISON_B = "jeudi";    // livraison de la commande du mercredi 20 h (jeudi → vendredi ou dimanche)
+  const CRENEAU = "entre 10 h et 11 h 30";   // créneau de livraison affiché au client
 
   const PLATS = [
     ["LF Burger", 593, 47, 45, 24], ["Le Mexicain", 545, 31, 76, 13], ["Le Curry Coco", 640, 38, 86, 16],
@@ -191,7 +192,7 @@
   function renderPeriodes() {
     $("periode").innerHTML = P.map((p, i) => `<button type="button" data-i="${i}" class="${p === periode ? "actif" : ""}"><b>Livraison du ${fmt(p.debut)}</b>${p.cle === "A" ? "lundi → mercredi" : "jeudi → fin de semaine"}</button>`).join("");
     $("periode").querySelectorAll("button").forEach(b => b.onclick = () => { periode = P[+b.dataset.i]; render(); });
-    $("limite").innerHTML = `À envoyer avant <b>${fmt(periode.limite)} à ${periode.heure}</b>.`;
+    $("limite").innerHTML = `Livrés le <b>${fmt(periode.debut)} ${CRENEAU}</b>, sur ton lieu de travail. À envoyer avant <b>${fmt(periode.limite)} à ${periode.heure}</b>.`;
   }
 
   function jours() {
@@ -239,7 +240,7 @@
       return `• ${JOURS[j.getDay()]} ${j.getDate()}/${j.getMonth() + 1} : déj ${get("Déjeuner")} · dîner ${get("Dîner")}${avecDessert() ? ` · dessert ${get("Dessert")}` : ""}`;
     });
     const rq = $("remarques").value.trim();
-    return `Commande LF Meal — ${$("prenom").value.trim()} (${f})\nLivraison du ${fmt(periode.debut)}\n\n${lignes.join("\n")}${rq ? `\n\nRemarque : ${rq}` : ""}`;
+    return `Commande LF Meal — ${$("prenom").value.trim()} (${f})\nLivraison du ${fmt(periode.debut)}, ${CRENEAU}\n\n${lignes.join("\n")}${rq ? `\n\nRemarque : ${rq}` : ""}`;
   }
 
   function toast(t) { $("toast").textContent = t; $("toast").classList.add("vu"); setTimeout(() => $("toast").classList.remove("vu"), 2600); }
@@ -254,7 +255,7 @@
           body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Commande:texte }) });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.success) throw new Error(j.message || r.status);
-        b.textContent = "Commande envoyée ✓"; toast("Commande envoyée, merci ! Tu recevras tes repas le " + fmt(periode.debut));
+        b.textContent = "Commande envoyée ✓"; toast(`Commande envoyée, merci ! Livraison le ${fmt(periode.debut)} ${CRENEAU}`);
         return;
       } catch (e) { b.disabled = false; b.textContent = "Envoyer ma commande"; toast("Envoi impossible, on passe par Instagram"); }
     }
