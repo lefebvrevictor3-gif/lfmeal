@@ -190,6 +190,28 @@
   .signature { font:500 italic 30px/1 var(--serif); color:var(--bronze); margin-top:28px; }
   @media (max-width:860px) { .chef-grid { grid-template-columns:1fr; gap:40px; } .chef-photo { max-width:360px; } }
 
+  /* Transformation */
+  .transfo-duo { display:grid; grid-template-columns:1fr auto 1fr; gap:28px; align-items:center; max-width:820px; margin:56px auto 0; }
+  .transfo-photo { position:relative; margin:0; border-radius:10px; overflow:hidden; aspect-ratio:3/4; box-shadow:0 30px 60px -32px rgba(91,58,18,.55); }
+  .transfo-photo img { width:100%; height:100%; object-fit:cover; }
+  .transfo-photo figcaption { position:absolute; left:14px; bottom:14px; background:var(--creme); color:var(--brun); font:600 16px/1 var(--serif); padding:9px 14px; border-radius:999px; }
+  .transfo-photo.apres { outline:2px solid var(--bronze-clair); outline-offset:4px; }
+  .transfo-duo.reveal { opacity:1; transform:none; }
+  .transfo-duo .avant { opacity:0; transform:translateX(-30px); transition:opacity .9s ease, transform .9s ease; }
+  .transfo-duo .apres { opacity:0; transform:translateX(30px) scale(.96); transition:opacity .9s ease .5s, transform .9s ease .5s; }
+  .transfo-duo.vu .avant, .transfo-duo.vu .apres { opacity:1; transform:none; }
+  .transfo-fleche { width:96px; color:var(--bronze); text-align:center; opacity:0; transition:opacity .6s ease .35s; }
+  .transfo-duo.vu .transfo-fleche { opacity:1; }
+  .transfo-fleche svg { display:block; width:100%; animation:fleche 1.8s ease-in-out infinite; }
+  .transfo-fleche .trait { stroke-dasharray:100; stroke-dashoffset:100; }
+  .transfo-duo.vu .trait { transition:stroke-dashoffset .8s ease .4s; stroke-dashoffset:0; }
+  .transfo-fleche span { display:block; margin-top:6px; font:500 italic 17px var(--serif); }
+  @keyframes fleche { 0%, 100% { transform:translateX(-5px); } 50% { transform:translateX(7px); } }
+  .transfo-texte { max-width:720px; margin:48px auto 0; }
+  .transfo-note { font-size:13.5px; color:var(--gris); font-style:italic; }
+  @media (max-width:640px) { .transfo-duo { gap:10px; } .transfo-fleche { width:48px; } .transfo-fleche span { font-size:13px; } .transfo-photo figcaption { left:8px; bottom:8px; font-size:13px; padding:7px 10px; } }
+  @media (prefers-reduced-motion:reduce) { .transfo-duo .avant, .transfo-duo .apres, .transfo-fleche { opacity:1; transform:none; transition:none; } .transfo-fleche svg { animation:none; } .transfo-fleche .trait { stroke-dashoffset:0; } }
+
   /* FAQ */
   .faq { background:var(--beige); }
   .faq-liste { max-width:820px; margin:48px auto 0; }
@@ -430,15 +452,34 @@
   </section>
 
   <!-- LE CHEF -->
-  <section style="padding-top:0">
-    <div class="wrap chef-grid">
-      <div class="chef-photo reveal" aria-hidden="true">V</div>
-      <div class="stack reveal">
+  <section class="transfo" id="victor">
+    <div class="wrap">
+      <div class="center stack reveal">
         <div class="eyebrow">Derrière les fourneaux</div>
-        <h2>Un cuisinier qui pèse tout.</h2>
-        <p class="lead">Je m'appelle Victor. J'ai appris la cuisine en cuisine, et la nutrition par passion, à force d'appliquer à mon assiette l'exigence que je mets dans le sport.</p>
-        <p>LF Meal, c'est ce que j'aurais voulu avoir en lançant mes projets : des repas qui ont du goût, calibrés pour mes objectifs, sans y passer mes soirées. Je cuisine moi-même chaque plat, pour un nombre limité de clients, et je reste ton interlocuteur du premier bilan au dernier repas.</p>
+        <h2>Je sais ce que ça demande.</h2>
+      </div>
+
+      <div class="transfo-duo reveal">
+        <figure class="transfo-photo avant">
+          <img src="transfo-15.jpg" alt="Victor à 15 ans, en randonnée sur le GR 20" loading="lazy">
+          <figcaption>15 ans</figcaption>
+        </figure>
+        <div class="transfo-fleche" aria-hidden="true">
+          <svg viewBox="0 0 120 48" fill="none"><path class="trait" d="M4 24 H104" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path class="pointe" d="M90 10 L108 24 L90 38" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>4 ans</span>
+        </div>
+        <figure class="transfo-photo apres">
+          <img src="transfo-19.jpg" alt="Victor à 19 ans, après quatre ans d’entraînement" loading="lazy">
+          <figcaption>19 ans</figcaption>
+        </figure>
+      </div>
+
+      <div class="transfo-texte stack reveal">
+        <p class="lead">Je m’appelle Victor. Entre ces deux photos, il y a quatre ans : de mes 15 à mes 19 ans. Quatre ans à m’entraîner, à peser ce que je mangeais, à me tromper et à recommencer.</p>
+        <p>J’ai appris la nutrition comme j’ai appris la cuisine : en la pratiquant sur moi, tous les jours. Je sais ce que c’est de tenir un objectif quand la vie se met en travers, et je sais ce qui marche vraiment dans l’assiette.</p>
+        <p><b>LF Meal, c’est tout ce que j’aurais aimé savoir quand je me suis lancé.</b> Des repas qui ont du goût, calibrés pour ton objectif, et quelqu’un en face qui est passé par là. Je cuisine moi-même chaque plat, pour un nombre limité de clients, et je reste ton interlocuteur du premier appel au dernier repas.</p>
         <div class="signature">Victor</div>
+        <p class="transfo-note">Mon parcours personnel, pas une promesse de résultat : chaque corps et chaque rythme sont différents.</p>
       </div>
     </div>
   </section>
