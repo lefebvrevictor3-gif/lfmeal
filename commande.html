@@ -98,6 +98,7 @@
     </div>
     <div class="champ"><label>Livraison</label><div class="periode" id="periode"></div></div>
     <div class="limite" id="limite"></div>
+    <div class="champ"><label for="lieu">Lieu de livraison</label><input type="text" id="lieu" autocomplete="street-address" placeholder="Ex. Flexo, 2e étage, ou ton adresse"></div>
     <div class="champ autre"><label for="date-autre">Tu veux commander plus tard ? Choisis le jour où tu veux commencer :</label><input type="date" id="date-autre"></div>
   </div>
 
@@ -109,7 +110,7 @@
   <div id="jours"></div>
 
   <div class="remarques champ">
-    <label for="remarques">Une remarque ? (envie particulière, absence, changement d'adresse…)</label>
+    <label for="remarques">Une remarque ? (envie particulière, absence…)</label>
     <textarea id="remarques" rows="3" placeholder="Facultatif"></textarea>
   </div>
   <p class="note">Tes allergies et exclusions notées au bilan sont toujours prises en compte, même en « Choix du chef ».</p>
@@ -154,6 +155,8 @@
   const $ = id => document.getElementById(id);
   const params = new URLSearchParams(location.search);
   if (params.get("prenom")) $("prenom").value = params.get("prenom");
+  if (params.get("lieu")) $("lieu").value = params.get("lieu");
+  else try { $("lieu").value = localStorage.getItem("lfmeal-lieu") || ""; } catch {}
   if (params.get("formule")) $("formule").value = params.get("formule");
   if (params.has("admin")) $("admin").classList.add("vu");
 
@@ -192,7 +195,7 @@
   function renderPeriodes() {
     $("periode").innerHTML = P.map((p, i) => `<button type="button" data-i="${i}" class="${p === periode ? "actif" : ""}"><b>Livraison du ${fmt(p.debut)}</b>${p.cle === "A" ? "lundi → mercredi" : "jeudi → fin de semaine"}</button>`).join("");
     $("periode").querySelectorAll("button").forEach(b => b.onclick = () => { periode = P[+b.dataset.i]; render(); });
-    $("limite").innerHTML = `Livrés le <b>${fmt(periode.debut)} ${CRENEAU}</b>, sur ton lieu de travail. À envoyer avant <b>${fmt(periode.limite)} à ${periode.heure}</b>.`;
+    $("limite").innerHTML = `Livrés le <b>${fmt(periode.debut)} ${CRENEAU}</b>, au lieu que tu indiques ci-dessous. À envoyer avant <b>${fmt(periode.limite)} à ${periode.heure}</b>.`;
   }
 
   function jours() {
@@ -240,19 +243,21 @@
       return `• ${JOURS[j.getDay()]} ${j.getDate()}/${j.getMonth() + 1} : déj ${get("Déjeuner")} · dîner ${get("Dîner")}${avecDessert() ? ` · dessert ${get("Dessert")}` : ""}`;
     });
     const rq = $("remarques").value.trim();
-    return `Commande LF Meal — ${$("prenom").value.trim()} (${f})\nLivraison du ${fmt(periode.debut)}, ${CRENEAU}\n\n${lignes.join("\n")}${rq ? `\n\nRemarque : ${rq}` : ""}`;
+    return `Commande LF Meal — ${$("prenom").value.trim()} (${f})\nLivraison du ${fmt(periode.debut)}, ${CRENEAU}\nLieu : ${$("lieu").value.trim()}\n\n${lignes.join("\n")}${rq ? `\n\nRemarque : ${rq}` : ""}`;
   }
 
   function toast(t) { $("toast").textContent = t; $("toast").classList.add("vu"); setTimeout(() => $("toast").classList.remove("vu"), 2600); }
 
   $("envoyer").onclick = async () => {
     if (!$("prenom").value.trim()) { $("prenom").focus(); toast("Indique ton prénom d'abord"); return; }
+    if (!$("lieu").value.trim()) { $("lieu").focus(); toast("Indique ton lieu de livraison"); return; }
+    try { localStorage.setItem("lfmeal-lieu", $("lieu").value.trim()); } catch {}
     const texte = recap();
     if (CLE_WEB3FORMS) {
       const b = $("envoyer"); b.disabled = true; b.textContent = "Envoi…";
       try {
         const r = await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-          body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Commande:texte }) });
+          body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Lieu:$("lieu").value.trim(), Commande:texte }) });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.success) throw new Error(j.message || r.status);
         b.textContent = "Commande envoyée ✓"; toast(`Commande envoyée, merci ! Livraison le ${fmt(periode.debut)} ${CRENEAU}`);
@@ -271,11 +276,13 @@
   };
   $("formule").onchange = render;
   $("prenom").oninput = () => { compteur(); lienClient(); };
+  $("lieu").oninput = lienClient;
 
   function lienClient() {
     if (!$("admin").classList.contains("vu")) return;
     const u = new URL(location.href.split("?")[0]);
     if ($("prenom").value.trim()) u.searchParams.set("prenom", $("prenom").value.trim());
+    if ($("lieu").value.trim()) u.searchParams.set("lieu", $("lieu").value.trim());
     u.searchParams.set("formule", $("formule").value);
     $("lien-client").textContent = u.toString();
   }
