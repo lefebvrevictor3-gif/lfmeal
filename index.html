@@ -119,6 +119,8 @@
   .plat .num { font:500 italic 13px/1 var(--serif); color:var(--bronze); }
   .plat h3 { font-size:21px; margin:8px 0 6px; }
   .plat .desc { font-size:13.5px; line-height:1.5; color:var(--gris); margin-bottom:16px; flex:1; }
+  .plat .allergenes { font-size:12px; line-height:1.45; color:var(--gris); margin:-8px 0 16px; padding-top:8px; border-top:1px dashed var(--ligne); }
+  .plat .allergenes b { color:var(--brun); font-weight:600; }
   .plat .badge-plat { position:absolute; top:-11px; right:16px; background:var(--bronze); color:var(--creme); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; padding:5px 10px; border-radius:999px; }
   .kcal { display:flex; align-items:baseline; gap:6px; }
   .kcal b { font:600 40px/1 var(--serif); color:var(--brun); letter-spacing:-.01em; }
@@ -367,7 +369,7 @@
       </div>
       <div class="plats" id="grille-desserts"></div>
       <div class="legende"><span><i style="background:var(--m-p)"></i>Protéines</span><span><i style="background:var(--m-g)"></i>Glucides</span><span><i style="background:var(--m-l)"></i>Lipides</span><span class="leg-note">La barre montre la part de chaque macro dans les calories du plat.</span></div>
-      <p class="note">Valeurs indicatives pour une portion de base, ajustées ensuite à ton protocole. Ingrédients et allergènes (gluten, lait, œuf, arachide, fruits à coque, soja, poisson…) détaillés sur chaque étiquette et communiqués avant ton premier repas.</p>
+      <p class="note">Valeurs indicatives pour une portion de base, ajustées ensuite à ton protocole. Allergènes indiqués sous chaque plat et rappelés sur chaque étiquette. Tout est préparé dans la même cuisine : des traces d’autres allergènes sont possibles. Allergie sévère ? Signale-la pendant le bilan. <a href="mentions-legales.html#allergenes">Détail des allergènes</a></p>
     </div>
   </section>
 
@@ -550,25 +552,25 @@
 
   // ===== CARTE : modifier les valeurs ici (portion de base, en grammes). null = pas encore calculé. =====
   const PLATS = [
-    { nom:"LF Burger",        kcal:593, p:47, g:45, l:24, desc:"Pain brioché, haché de bœuf 5 %, comté, oignons rouges, roquette fraîche, tomate, sauce secrète" },
-    { nom:"Le Mexicain",      kcal:545, p:31, g:76, l:13, desc:"Écrasé de patates douces, miel, haché de bœuf 5 %, pulpe de tomate, épices mexicaines" },
-    { nom:"Le Curry Coco",    kcal:640, p:38, g:86, l:16, desc:"Riz jasmin parfumé, aiguillettes de poulet, sauce curry au lait de coco, cébette" },
-    { nom:"Le Taboulé",       kcal:611, p:50, g:78, l:12, desc:"Semoule parfumée, concombre, tomate, menthe, poulet épicé" },
-    { nom:"LF Salad",         kcal:383, p:48, g:33, l:10, desc:"Roquette fraîche, oignons rouges, poulet épicé, billes de mozzarella, tomates séchées" },
-    { nom:"Le Potager",       kcal:564, p:52, g:11, l:31, desc:"Légumes de saison, coulis de tomates, herbes de Provence, aiguillettes de poulet, mozzarella" },
-    { nom:"Le Dernier Hiver", kcal:415, p:25, g:37, l:19, desc:"Pommes de terre cuites à l’eau, cancoillotte, guanciale grillé" },
-    { nom:"Le Konjac",        kcal:250, p:35, g:11, l:9,  desc:"Lamelles de bavette d’aloyau, sauce soja sucrée, nouilles de konjac, carottes et concombre" },
-    { nom:"LF Dwich",         kcal:768, p:66, g:79, l:18, desc:"Demi-baguette, poulet épicé, salade, tomates, oignons rouges, demi-mozzarella, sauce secrète", badge:"Le plus protéiné" },
-    { nom:"Le Plat du Môme",  kcal:713, p:51, g:77, l:21, desc:"Coquillettes fraîches, crème légère, gruyère allégé, dés de jambon, poivre" },
-    { nom:"Le Classico",      kcal:571, p:39, g:77, l:11, desc:"Riz thaï, filet de poulet, haricots verts, filet d’huile d’olive vierge, fleur de sel" },
-    { nom:"L\x27Omega",          kcal:631, p:34, g:85, l:16, desc:"Riz thaï parfumé, pavé de saumon, haricots verts, fleur de sel" },
+    { nom:"LF Burger",        kcal:593, p:47, g:45, l:24, desc:"Pain brioché, haché de bœuf 5 %, comté, oignons rouges, roquette fraîche, tomate, sauce secrète", al:["Gluten","Lait","Moutarde"] },
+    { nom:"Le Mexicain",      kcal:545, p:31, g:76, l:13, desc:"Écrasé de patates douces, miel, haché de bœuf 5 %, pulpe de tomate, épices mexicaines", al:[] },
+    { nom:"Le Curry Coco",    kcal:640, p:38, g:86, l:16, desc:"Riz jasmin parfumé, aiguillettes de poulet, sauce curry au lait de coco, cébette", al:[] },
+    { nom:"Le Taboulé",       kcal:611, p:50, g:78, l:12, desc:"Semoule parfumée, concombre, tomate, menthe, poulet épicé", al:["Gluten"] },
+    { nom:"LF Salad",         kcal:383, p:48, g:33, l:10, desc:"Roquette fraîche, oignons rouges, poulet épicé, billes de mozzarella, tomates séchées", al:["Lait"] },
+    { nom:"Le Potager",       kcal:564, p:52, g:11, l:31, desc:"Légumes de saison, coulis de tomates, herbes de Provence, aiguillettes de poulet, mozzarella", al:["Lait"] },
+    { nom:"Le Dernier Hiver", kcal:415, p:25, g:37, l:19, desc:"Pommes de terre cuites à l’eau, cancoillotte, guanciale grillé", al:["Lait"] },
+    { nom:"Le Konjac",        kcal:250, p:35, g:11, l:9,  desc:"Lamelles de bavette d’aloyau, sauce soja sucrée, nouilles de konjac, carottes et concombre", al:["Soja","Gluten"] },
+    { nom:"LF Dwich",         kcal:768, p:66, g:79, l:18, desc:"Demi-baguette, poulet épicé, salade, tomates, oignons rouges, demi-mozzarella, sauce secrète", badge:"Le plus protéiné", al:["Gluten","Lait","Moutarde"] },
+    { nom:"Le Plat du Môme",  kcal:713, p:51, g:77, l:21, desc:"Coquillettes fraîches, crème légère, gruyère allégé, dés de jambon, poivre", al:["Gluten","Lait"] },
+    { nom:"Le Classico",      kcal:571, p:39, g:77, l:11, desc:"Riz thaï, filet de poulet, haricots verts, filet d’huile d’olive vierge, fleur de sel", al:[] },
+    { nom:"L\x27Omega",          kcal:631, p:34, g:85, l:16, desc:"Riz thaï parfumé, pavé de saumon, haricots verts, fleur de sel", al:["Poisson"] },
   ];
   const DESSERTS = [
-    { nom:"Crème brûlée",         kcal:474, p:43,   g:17, l:24, desc:"Crème vanille à la whey, sucre brûlé minute" },
-    { nom:"Banana pancakes",      kcal:523, p:42,   g:32, l:26, desc:"Bananes écrasées, œuf, whey vanille, pâte à tartiner allégée" },
-    { nom:"Panna cotta coco",     kcal:183, p:null, g:31, l:4,  desc:"Lait de coco, miel, vanille de Madagascar, coulis de fruits rouges maison, myrtilles, menthe" },
-    { nom:"Overnight oats Snickers", kcal:539, p:47, g:43, l:19, desc:"Flocons d’avoine, lait végétal, cacahuètes, skyr, beurre de cacahuète, whey et chocolat noir 85 %" },
-    { nom:"Cheesecake spéculoos", kcal:577, p:42,   g:38, l:28, desc:"Skyr, Philadelphia, whey spéculoos, lait végétal, pâte à tartiner et brisures de spéculoos" },
+    { nom:"Crème brûlée",         kcal:474, p:43,   g:17, l:24, desc:"Crème vanille à la whey, sucre brûlé minute", al:["Œuf","Lait"] },
+    { nom:"Banana pancakes",      kcal:523, p:42,   g:32, l:26, desc:"Bananes écrasées, œuf, whey vanille, pâte à tartiner allégée", al:["Œuf","Lait","Fruits à coque"] },
+    { nom:"Panna cotta coco",     kcal:183, p:null, g:31, l:4,  desc:"Lait de coco, miel, vanille de Madagascar, coulis de fruits rouges maison, myrtilles, menthe", al:[] },
+    { nom:"Overnight oats Snickers", kcal:539, p:47, g:43, l:19, desc:"Flocons d’avoine, lait végétal, cacahuètes, skyr, beurre de cacahuète, whey et chocolat noir 85 %", al:["Arachide","Gluten","Lait"] },
+    { nom:"Cheesecake spéculoos", kcal:577, p:42,   g:38, l:28, desc:"Skyr, Philadelphia, whey spéculoos, lait végétal, pâte à tartiner et brisures de spéculoos", al:["Gluten","Lait","Fruits à coque","Soja"] },
   ];
 
   function carte(items, id) {
@@ -581,6 +583,7 @@
         <span class="num">N° ${String(i + 1).padStart(2, "0")}</span>
         <h3>${d.nom}</h3>
         ${d.desc ? `<p class="desc">${d.desc}</p>` : ""}
+        ${d.al ? `<p class="allergenes">${d.al.length ? `<b>Allergènes :</b> ${d.al.join(" · ")}` : "Aucun allergène majeur"}</p>` : ""}
         <div class="kcal"><b>${d.kcal}</b><span>kcal</span></div>
         <div class="split" aria-hidden="true">${parts}</div>
         <div class="mac-grid">
