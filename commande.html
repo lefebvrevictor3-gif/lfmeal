@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://calendly.com; connect-src 'self' https://api.web3forms.com https://calendly.com; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Mes repas de la semaine — LF Meal</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +88,7 @@
 
   <div class="carte-info">
     <div class="ligne2">
-      <div class="champ"><label for="prenom">Ton prénom</label><input type="text" id="prenom" autocomplete="given-name" placeholder="Ex. Thomas"></div>
+      <div class="champ"><label for="prenom">Ton prénom</label><input type="text" id="prenom" maxlength="60" autocomplete="given-name" placeholder="Ex. Thomas"></div>
       <div class="champ"><label for="formule">Ta formule</label>
         <select id="formule">
           <option value="5">5/7 · déjeuner + dîner</option>
@@ -98,8 +100,9 @@
     </div>
     <div class="champ"><label>Livraison</label><div class="periode" id="periode"></div></div>
     <div class="limite" id="limite"></div>
-    <div class="champ"><label for="lieu">Lieu de livraison</label><input type="text" id="lieu" autocomplete="street-address" placeholder="Ex. : adresse, lieu de travail"></div>
+    <div class="champ"><label for="lieu">Lieu de livraison</label><input type="text" id="lieu" maxlength="200" autocomplete="street-address" placeholder="Ex. : adresse, lieu de travail"></div>
     <div class="champ autre"><label for="date-autre">Tu veux commander plus tard ? Choisis le jour où tu veux commencer :</label><input type="date" id="date-autre"></div>
+    <input type="checkbox" id="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
   </div>
 
   <div class="raccourcis">
@@ -111,7 +114,7 @@
 
   <div class="remarques champ">
     <label for="remarques">Une remarque ? (envie particulière, absence…)</label>
-    <textarea id="remarques" rows="3" placeholder="Facultatif"></textarea>
+    <textarea id="remarques" maxlength="1000" rows="3" placeholder="Facultatif"></textarea>
   </div>
   <p class="note">Tes allergies et exclusions notées au bilan sont toujours prises en compte, même en « Choix du chef ».</p>
 
@@ -133,7 +136,7 @@
 
 <script>
   // ===== RÉGLAGES (à modifier ici) =====
-  const CLE_WEB3FORMS = "5c59d910-62d0-40ec-9440-1dd9b8510006";       // clé d'accès Web3Forms (reçue sur lfmeal5@gmail.com). Vide = pas d'envoi par mail.
+  const CLE_WEB3FORMS = "5c59d910-62d0-40ec-9440-1dd9b8510006";       // clé publique Web3Forms (faite pour être visible). Vide = pas d'envoi par mail.
   const WHATSAPP = "";            // ton numéro au format international sans + ni espaces, ex. "33612345678". Vide = copie du récap + Instagram.
   const LIVRAISON_A = "lundi";    // livraison de la commande du dimanche 20 h (lundi → mercredi)
   const LIVRAISON_B = "jeudi";    // livraison de la commande du mercredi 20 h (jeudi → vendredi ou dimanche)
@@ -257,7 +260,7 @@
       const b = $("envoyer"); b.disabled = true; b.textContent = "Envoi…";
       try {
         const r = await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-          body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Lieu:$("lieu").value.trim(), Commande:texte }) });
+          body: JSON.stringify({ access_key:CLE_WEB3FORMS, subject:`Commande LF Meal — ${$("prenom").value.trim()} — livraison du ${fmt(periode.debut)}`, from_name:"Site LF Meal", Client:$("prenom").value.trim(), Lieu:$("lieu").value.trim(), Commande:texte, botcheck:$("botcheck").checked }) });
         const j = await r.json().catch(() => ({}));
         if (!r.ok || !j.success) throw new Error(j.message || r.status);
         b.textContent = "Commande envoyée ✓"; toast(`Commande envoyée, merci ! Livraison le ${fmt(periode.debut)} ${CRENEAU}`);
@@ -266,7 +269,7 @@
     }
     if (WHATSAPP) { location.href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(texte)}`; return; }
     try { await navigator.clipboard.writeText(texte); toast("Commande copiée : colle-la dans un message à @lf_meal"); } catch { prompt("Copie ta commande :", texte); }
-    setTimeout(() => window.open("https://ig.me/m/lf_meal", "_blank"), 900);
+    setTimeout(() => window.open("https://ig.me/m/lf_meal", "_blank", "noopener"), 900);
   };
 
   $("chef-tout").onclick = () => { choix = {}; render(); toast("Tout est au choix du chef"); };
