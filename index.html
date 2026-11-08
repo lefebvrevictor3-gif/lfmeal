@@ -740,5 +740,105 @@
   ]
 }
 </script>
+<!-- Jauge de défilement : un petit personnage qui se redresse en descendant la page -->
+<style>
+  .jauge { position:fixed; right:20px; top:120px; bottom:96px; width:72px; z-index:40; pointer-events:none; display:none; }
+  @media (min-width:1320px) { .jauge { display:block; } }
+  .jauge-rail { position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); background:rgba(143,100,25,.18); border-radius:2px; }
+  .jauge-plein { position:absolute; left:0; top:0; width:100%; height:0; background:var(--bronze-clair); border-radius:2px; }
+  .jauge-perso { position:absolute; left:50%; top:0; width:60px; margin-left:-30px; will-change:transform; }
+  .jauge-perso .disque { width:60px; height:60px; border-radius:50%; background:var(--creme); border:1px solid var(--ligne); box-shadow:0 6px 16px -8px rgba(43,29,14,.35); display:grid; place-items:center; overflow:hidden; }
+  .jauge-perso svg { width:46px; height:56px; display:block; }
+  .jauge-lbl { margin-top:6px; text-align:center; white-space:nowrap; font:500 11px/1.25 var(--texte); color:var(--brun); background:var(--creme); border:1px solid var(--ligne); border-radius:8px; padding:3px 6px; }
+  .jauge-bout { position:absolute; left:50%; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--creme); border:2px solid var(--bronze-clair); }
+  .jauge-bout.haut { top:-4px; } .jauge-bout.bas { bottom:-4px; }
+</style>
+<div class="jauge" aria-hidden="true">
+  <div class="jauge-rail"><div class="jauge-plein"></div></div>
+  <span class="jauge-bout haut"></span><span class="jauge-bout bas"></span>
+  <div class="jauge-perso">
+    <div class="disque">
+      <svg viewBox="5 2 50 94">
+        <g class="j-corps">
+          <path class="j-jambe-g" fill="none" stroke-linecap="round"/>
+          <path class="j-jambe-d" fill="none" stroke-linecap="round"/>
+          <path class="j-torse"/>
+          <path class="j-bras-g" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path class="j-bras-d" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle class="j-tete" r="9"/>
+        </g>
+        <circle class="j-oeil-g" r="1.3" fill="#2B1D0E"/>
+        <circle class="j-oeil-d" r="1.3" fill="#2B1D0E"/>
+        <path class="j-sourire" fill="none" stroke="#2B1D0E" stroke-width="1.5" stroke-linecap="round"/>
+        <path class="j-joue-g" fill="none" stroke="#E9A08A" stroke-width="2" stroke-linecap="round" opacity="0"/>
+        <path class="j-joue-d" fill="none" stroke="#E9A08A" stroke-width="2" stroke-linecap="round" opacity="0"/>
+      </svg>
+    </div>
+    <div class="jauge-lbl">Le départ</div>
+  </div>
+</div>
+<script>
+(() => {
+  const j = document.querySelector('.jauge');
+  if (!j) return;
+  const $ = (s) => j.querySelector(s);
+  const perso = $('.jauge-perso'), plein = $('.jauge-plein'), lbl = $('.jauge-lbl');
+  const L = (a, b, t) => a + (b - a) * t;
+  const mix = (c1, c2, t) => '#' + [0, 2, 4].map((i) => Math.round(L(parseInt(c1.substr(i, 2), 16), parseInt(c2.substr(i, 2), 16), t)).toString(16).padStart(2, '0')).join('');
+  const etapes = [['', 'Le départ']];
+  document.querySelectorAll('section').forEach((s) => {
+    const e = s.querySelector(':scope .eyebrow'); if (e && !s.classList.contains('hero')) etapes.push([s, e.textContent.split('·')[0].trim()]);
+  });
+  const set = (sel, attrs) => { const el = $(sel); for (const k in attrs) el.setAttribute(k, attrs[k]); };
+
+  function dessine(t) {
+    // t = 0 : fatigué, voûté · t = 1 : droit, musclé, bras levés en signe de victoire
+    const e = t * t * (3 - 2 * t);
+    const peau = mix('C9B7A0', 'B8893A', e), ligne = mix('A8957C', '8F6419', e);
+    const dos = L(4, 0, e), tx = 30 + dos;          // la tête et les épaules avancent quand il est voûté
+    const ty = L(19, 14, e);
+    const ep = L(7, 14, e), taille = L(5.5, 7, e);   // demi-largeur épaules / taille
+    const yEp = ty + 11, yHanche = L(58, 56, e);
+    const bras = L(2.6, 6.2, e), jambe = L(3, 6.5, e);
+    set('.j-tete', { cx: tx, cy: ty, fill: peau, stroke: ligne, 'stroke-width': 1.2 });
+    set('.j-torse', { d: `M${tx - ep} ${yEp} Q${tx} ${yEp - 3} ${tx + ep} ${yEp} L${30 + taille} ${yHanche} L${30 - taille} ${yHanche} Z`, fill: peau, stroke: ligne, 'stroke-width': 1.2, 'stroke-linejoin': 'round' });
+    const brasPath = (s) => {
+      const sx = tx + s * ep;
+      const coude = [sx + s * L(3.5, 10, e), L(yEp + 15, yEp - 2, e)];
+      const main = [sx + s * L(5, 7, e), L(yEp + 30, yEp - 13, e)];
+      return `M${sx} ${yEp + 1} L${coude[0]} ${coude[1]} L${main[0]} ${main[1]}`;
+    };
+    set('.j-bras-g', { d: brasPath(-1), stroke: peau, 'stroke-width': bras });
+    set('.j-bras-d', { d: brasPath(1), stroke: peau, 'stroke-width': bras });
+    const jambePath = (s) => `M${30 + s * (taille - 1.5)} ${yHanche - 1} L${30 + s * L(5, 9, e)} 94`;
+    set('.j-jambe-g', { d: jambePath(-1), stroke: peau, 'stroke-width': jambe });
+    set('.j-jambe-d', { d: jambePath(1), stroke: peau, 'stroke-width': jambe });
+    set('.j-oeil-g', { cx: tx - 3, cy: ty - 1.5 }); set('.j-oeil-d', { cx: tx + 3, cy: ty - 1.5 });
+    const sw = L(2.4, 4, e), sy = ty + 3, creux = L(1.2, 3.2, e);
+    set('.j-sourire', { d: `M${tx - sw} ${sy} Q${tx} ${sy + creux * 1.6} ${tx + sw} ${sy}` });
+    const joue = Math.max(0, (e - .5) * 2);
+    set('.j-joue-g', { d: `M${tx - 6.5} ${ty + 2} l1.6 0`, opacity: joue }); set('.j-joue-d', { d: `M${tx + 4.9} ${ty + 2} l1.6 0`, opacity: joue });
+  }
+
+  let attente = false;
+  function maj() {
+    attente = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const t = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    const h = j.clientHeight - perso.offsetHeight;
+    perso.style.transform = `translateY(${(t * h).toFixed(1)}px)`;
+    plein.style.height = (t * 100).toFixed(2) + '%';
+    dessine(t);
+    let nom = etapes[0][1];
+    for (const [s, n] of etapes) if (s && s.getBoundingClientRect().top < innerHeight * .45) nom = n;
+    if (t > .985) nom = 'En forme';
+    if (lbl.textContent !== nom) lbl.textContent = nom;
+  }
+  const demande = () => { if (!attente) { attente = true; requestAnimationFrame(maj); } };
+  addEventListener('scroll', demande, { passive: true });
+  addEventListener('resize', demande);
+  maj();
+})();
+</script>
 </body>
 </html>
