@@ -742,57 +742,87 @@
 </script>
 <!-- Jauge de défilement : un corps qui se sculpte en descendant la page -->
 <style>
-  .jauge { position:fixed; right:18px; top:112px; bottom:40px; width:84px; z-index:40; pointer-events:none; display:none; }
+  .jauge { position:fixed; right:14px; top:112px; bottom:36px; width:60px; z-index:40; pointer-events:none; display:none; }
   @media (min-width:1320px) { .jauge { display:block; } }
-  .jauge-rail { position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); background:rgba(143,100,25,.18); border-radius:2px; }
+  .jauge-rail { position:absolute; left:50%; top:0; bottom:0; width:1.5px; transform:translateX(-50%); background:rgba(143,100,25,.16); border-radius:2px; }
   .jauge-plein { position:absolute; left:0; top:0; width:100%; height:0; background:var(--bronze-clair); border-radius:2px; }
-  .jauge-bout { position:absolute; left:50%; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--creme); border:2px solid var(--bronze-clair); }
-  .jauge-bout.haut { top:-4px; } .jauge-bout.bas { bottom:-4px; }
-  .jauge-perso { position:absolute; left:0; top:0; width:84px; will-change:transform; }
-  .jauge-perso svg { display:block; width:84px; height:168px; overflow:visible; filter:drop-shadow(0 6px 10px rgba(43,29,14,.25)); }
-  .jauge-lbl { margin:4px auto 0; width:max-content; white-space:nowrap; font:500 11px/1.25 var(--texte); color:var(--brun); background:var(--creme); border:1px solid var(--ligne); border-radius:8px; padding:3px 7px; }
+  .jauge-bout { position:absolute; left:50%; width:7px; height:7px; margin-left:-3.5px; border-radius:50%; background:var(--creme); border:1.5px solid var(--bronze-clair); }
+  .jauge-bout.haut { top:-3.5px; } .jauge-bout.bas { bottom:-3.5px; }
+  .jauge-perso { position:absolute; left:0; top:0; width:60px; will-change:transform; }
+  .jauge-perso svg { display:block; width:60px; height:120px; overflow:visible; filter:drop-shadow(0 4px 6px rgba(43,29,14,.22)); }
+  .jauge-lbl { margin:2px auto 0; width:max-content; white-space:nowrap; font:500 10.5px/1.25 var(--texte); color:var(--brun); background:var(--creme); border:1px solid var(--ligne); border-radius:7px; padding:2px 6px; }
 </style>
 <div class="jauge" aria-hidden="true">
   <div class="jauge-rail"><div class="jauge-plein"></div></div>
   <span class="jauge-bout haut"></span><span class="jauge-bout bas"></span>
   <div class="jauge-perso">
-    <svg viewBox="0 0 100 200">
+    <svg viewBox="8 2 84 196">
       <defs>
         <linearGradient id="j-peau" x1="0" y1="0" x2="1" y2="0">
-          <stop class="j-p1" offset="0"/><stop class="j-p2" offset=".5"/><stop class="j-p1" offset="1"/>
+          <stop class="j-p0" offset="0"/><stop class="j-p1" offset=".55"/><stop class="j-p2" offset="1"/>
         </linearGradient>
+        <radialGradient id="j-peau-tete" cx=".45" cy=".4" r=".7">
+          <stop class="j-p2" offset="0"/><stop class="j-p1" offset=".6"/><stop class="j-p0" offset="1"/>
+        </radialGradient>
+        <linearGradient id="j-tissu" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#2E1D0A"/><stop offset=".7" stop-color="#4A2F10"/><stop offset="1" stop-color="#57381A"/>
+        </linearGradient>
+        <filter id="j-flou" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.3"/></filter>
+        <filter id="j-flou-fin" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation=".45"/></filter>
+        <clipPath id="j-clip"><path class="j-corps"/></clipPath>
         <g id="j-moitie">
           <path class="j-corps" fill="url(#j-peau)"/>
-          <path class="j-short" fill="#5B3A12"/>
-          <g class="j-muscles" fill="none" stroke-linecap="round" stroke-width=".9">
-            <path d="M50 42 C44 41 36 42 32 48"/>
-            <path d="M33 52 C38 58 45 58 50 56"/>
-
-            <path d="M44 60 C43 70 43.5 82 45.5 92"/>
-            <path d="M44 66 Q47 67.5 50 67"/><path d="M44 74 Q47 75.5 50 75"/><path d="M44.5 82 Q47 83.5 50 83"/>
-
-            <path d="M40 132 C41 138 42 144 44 148"/><path d="M36 132 C37 138 38 144 40 150"/>
-            <path d="M38 160 C40 164 41 168 41 172"/>
+          <g clip-path="url(#j-clip)">
+            <g class="j-ombres-m" fill="#6B4E33" filter="url(#j-flou-fin)">
+              <ellipse cx="43" cy="37.5" rx="6.5" ry=".7" transform="rotate(8 43 37.5)"/>
+              <ellipse cx="42.5" cy="51" rx="5.5" ry=".55" transform="rotate(12 42.5 51)"/>
+              <ellipse cx="42" cy="55.5" rx="5.5" ry=".55" transform="rotate(14 42 55.5)"/>
+              <ellipse cx="41.8" cy="60" rx="5" ry=".55" transform="rotate(16 41.8 60)"/>
+              <ellipse cx="41.5" cy="64.5" rx="4.2" ry=".5" transform="rotate(18 41.5 64.5)"/>
+              <ellipse cx="39.5" cy="98" rx="1" ry="3" opacity=".6"/>
+            </g>
+            <g class="j-lum-a" fill="#F6D3A6" filter="url(#j-flou)">
+              <ellipse cx="27" cy="49" rx="3.6" ry="5"/>
+              <ellipse cx="42" cy="47" rx="6.5" ry="3.6"/>
+              <ellipse cx="22.6" cy="70" rx="1.7" ry="5"/>
+              <ellipse cx="46.6" cy="64" rx="2.5" ry="2.7"/><ellipse cx="46.6" cy="71.5" rx="2.5" ry="2.7"/><ellipse cx="46.6" cy="79" rx="2.5" ry="2.7"/><ellipse cx="46.8" cy="87" rx="2.3" ry="2.7"/>
+              <ellipse cx="36.5" cy="134" rx="2.8" ry="10"/>
+              <ellipse cx="38" cy="163" rx="1.6" ry="5"/>
+            </g>
+            <g class="j-ombres-a" fill="#4A2A12" filter="url(#j-flou-fin)">
+              <path d="M33 54 C38 60 45 60 50 58 L50 61 C45 63 38 62 33 57 Z"/>
+              <rect x="49.3" y="60" width="1.4" height="34" rx=".7"/>
+              <ellipse cx="46.5" cy="67.7" rx="3.6" ry=".65"/><ellipse cx="46.5" cy="75.3" rx="3.6" ry=".65"/><ellipse cx="46.6" cy="83" rx="3.4" ry=".65"/>
+              <ellipse cx="43.2" cy="76" rx=".8" ry="15"/>
+              <ellipse cx="37.6" cy="66" rx="1.7" ry=".55" transform="rotate(35 37.6 66)"/><ellipse cx="38.2" cy="70.5" rx="1.7" ry=".55" transform="rotate(35 38.2 70.5)"/><ellipse cx="38.8" cy="75" rx="1.7" ry=".55" transform="rotate(35 38.8 75)"/>
+              <path d="M38.5 82 C40 87 41.5 91 43 95" stroke="#4A2A12" stroke-width="1.1" fill="none"/>
+              <ellipse cx="26.3" cy="58" rx="1" ry="4.5" transform="rotate(-22 26.3 58)"/>
+              <ellipse cx="20.6" cy="74" rx=".8" ry="5"/>
+              <ellipse cx="30.5" cy="43" rx="5" ry=".8" transform="rotate(-25 30.5 43)"/>
+              <ellipse cx="39.8" cy="138" rx=".9" ry="9" transform="rotate(-8 39.8 138)"/>
+              <ellipse cx="44.3" cy="147" rx="2" ry="1.2"/>
+              <ellipse cx="40.2" cy="164" rx=".7" ry="5"/>
+            </g>
           </g>
-          <g class="j-muscles-fin" fill="none" stroke-linecap="round" stroke-width=".9">
-            <path d="M24 47 C27 52 29 56 30 60"/>
-            <path d="M22 66 C24 70 25 74 24 78"/>
-            <path d="M37 74 C39 80 40 86 41 92"/>
-          </g>
-          <g class="j-cotes" fill="none" stroke-linecap="round" stroke-width=".7">
-            <path d="M42 52 Q46 54.5 50 54"/><path d="M42.5 57 Q46 59.5 50 59"/><path d="M43 62 Q46.5 64 50 63.5"/>
-          </g>
+          <path class="j-short" fill="url(#j-tissu)"/>
+          <path class="j-ceinture" fill="none" stroke="#6E4A20" stroke-width=".8"/>
         </g>
       </defs>
       <use href="#j-moitie"/>
       <use href="#j-moitie" transform="translate(100 0) scale(-1 1)"/>
-      <path class="j-cheveux" fill="#3A2614"/>
-      <ellipse class="j-tete" rx="8.5" ry="10.5" fill="url(#j-peau)"/>
-      <path class="j-frange" fill="#3A2614"/>
-      <circle class="j-oeil-g" r=".95" fill="#2B1D0E"/><circle class="j-oeil-d" r=".95" fill="#2B1D0E"/>
-      <path class="j-cerne-g" fill="none" stroke="#7B6A8A" stroke-width="1" stroke-linecap="round"/><path class="j-cerne-d" fill="none" stroke="#7B6A8A" stroke-width="1" stroke-linecap="round"/>
-      <path class="j-paup-g" fill="none" stroke="#2B1D0E" stroke-width=".9" stroke-linecap="round"/><path class="j-paup-d" fill="none" stroke="#2B1D0E" stroke-width=".9" stroke-linecap="round"/>
-      <path class="j-sourire" fill="none" stroke="#2B1D0E" stroke-width="1.1" stroke-linecap="round"/>
+      <g class="j-visage">
+        <ellipse cx="50" cy="29" rx="5" ry="1.6" fill="#4A2A12" opacity=".35" filter="url(#j-flou)"/>
+        <ellipse cx="41.6" cy="20" rx="1.2" ry="2.2" fill="url(#j-peau-tete)"/><ellipse cx="58.4" cy="20" rx="1.2" ry="2.2" fill="url(#j-peau-tete)"/>
+        <ellipse cx="50" cy="19" rx="8.4" ry="10.4" fill="url(#j-peau-tete)"/>
+        <g class="j-joues" fill="#5E4129" filter="url(#j-flou)"><ellipse cx="44.6" cy="23" rx="1.6" ry="2.6"/><ellipse cx="55.4" cy="23" rx="1.6" ry="2.6"/></g>
+        <g class="j-orbites" fill="#5E4129" filter="url(#j-flou-fin)"><ellipse cx="46.6" cy="18.6" rx="2.3" ry="1.4"/><ellipse cx="53.4" cy="18.6" rx="2.3" ry="1.4"/></g>
+        <g class="j-cernes" fill="#5B4A6A" filter="url(#j-flou-fin)"><ellipse cx="46.6" cy="20.6" rx="2" ry=".8"/><ellipse cx="53.4" cy="20.6" rx="2" ry=".8"/></g>
+        <g fill="#24170C"><ellipse class="j-oeil" cx="46.6" cy="18.7" rx="1.05" ry=".55"/><ellipse class="j-oeil" cx="53.4" cy="18.7" rx="1.05" ry=".55"/></g>
+        <g class="j-sourcils" stroke="#2A1A0C" stroke-width=".7" stroke-linecap="round" fill="none"><path class="j-s-g"/><path class="j-s-d"/></g>
+        <path d="M50 19.5 L49.2 23.2 Q50 23.8 50.9 23.2" fill="none" stroke="#7A5434" stroke-width=".55" stroke-linecap="round" opacity=".8"/>
+        <path class="j-bouche" fill="none" stroke="#6E3B2A" stroke-width=".8" stroke-linecap="round"/>
+        <path class="j-cheveux" fill="#2A1A0C" d="M41.4 18 C40.8 9.5 45 6.6 50 6.6 C55 6.6 59.2 9.5 58.6 18 C57.6 13.6 56 11.4 53.6 11 C51.6 12 48 12.2 45.6 11.2 C43.8 12.4 42.2 14.6 41.4 18 Z"/>
+      </g>
     </svg>
     <div class="jauge-lbl">Le départ</div>
   </div>
@@ -801,13 +831,12 @@
 (() => {
   const j = document.querySelector('.jauge');
   if (!j) return;
-  const $ = (s) => j.querySelector(s);
-  const perso = $('.jauge-perso'), plein = $('.jauge-plein'), lbl = $('.jauge-lbl');
+  const perso = j.querySelector('.jauge-perso'), plein = j.querySelector('.jauge-plein'), lbl = j.querySelector('.jauge-lbl');
   const L = (a, b, t) => a + (b - a) * t;
   const mix = (c1, c2, t) => '#' + [0, 2, 4].map((i) => Math.round(L(parseInt(c1.substr(i, 2), 16), parseInt(c2.substr(i, 2), 16), t)).toString(16).padStart(2, '0')).join('');
-  // Deux silhouettes (moitié gauche, symétrisée) avec exactement les mêmes commandes : on interpole chaque nombre
-  const MAIGRE = 'M50 33 L46.5 33 C46 37 44 38 41 39 C38 40 36 41 35 44 C34.5 47 34.5 50 34.5 52 C34 58 33.5 64 33.5 70 C33 80 32.5 90 32.5 98 C32.5 102 32 106 32.5 110 C34 112 35.5 110 35.5 106 C35.5 98 36 90 36.2 82 C36.5 74 37 66 37.5 60 C38 66 38.5 70 39 76 C39.5 84 40 90 40 96 L39.5 100 L39 104 C38.6 112 38.5 120 39 128 C39.5 138 40 146 40.5 150 C40 158 40 166 41 174 C41.5 180 41.5 186 41.5 190 L37 194 L47.5 194 L47 188 C47 180 47.5 170 47 160 C47.5 152 48 146 48 138 C48 130 49 124 50 120 Z';
-  const ATHLETE = 'M50 31 L45 31 C45 35 42 36 37 37 C31 38 26 40 24 45 C22 49 21 54 22 58 C20 64 19 70 20 76 C19 82 18 90 18 98 C18 102 17 106 18 110 C20 112 22 110 22 106 C23 98 24 90 25 82 C26 74 28 66 30 62 C31 66 32 70 33 74 C35 82 37 90 38 96 L37 100 L34 104 C32 112 31 120 32 128 C33 138 36 146 37 150 C35 158 35 166 38 174 C39 180 39 186 39 190 L33 194 L47 194 L46 188 C46 180 47 170 46 160 C47 152 48 146 48 138 C48 130 49 124 50 120 Z';
+  // Deux silhouettes (moitié gauche, symétrisée) avec les mêmes commandes : chaque nombre est interpolé
+  const MAIGRE = 'M50 29 L46.5 29 C46 37 44 38 41 39 C38 40 36 41 35 44 C34.5 47 34.5 50 34.5 52 C34 58 33.5 64 33.5 70 C33 80 32.5 90 32.5 98 C32.5 102 32 106 32.5 110 C34 112 35.5 110 35.5 106 C35.5 98 36 90 36.2 82 C36.5 74 37 66 37.5 60 C38 66 38.5 70 39 76 C39.5 84 40 90 40 96 L39.5 100 L39 104 C38.6 112 38.5 120 39 128 C39.5 138 40 146 40.5 150 C40 158 40 166 41 174 C41.5 180 41.5 186 41.5 190 L37 194 L47.5 194 L47 188 C47 180 47.5 170 47 160 C47.5 152 48 146 48 138 C48 130 49 124 50 120 Z';
+  const ATHLETE = 'M50 25 L45.5 25 C45 35 42 36 37 37 C31 38 26 40 24 45 C22 49 21 54 22 58 C20 64 19 70 20 76 C19 82 18 90 18 98 C18 102 17 106 18 110 C20 112 22 110 22 106 C23 98 24 90 25 82 C26 74 28 66 30 62 C31 66 32 70 33 74 C35 82 37 90 38 96 L37 100 L34 104 C32 112 31 120 32 128 C33 138 36 146 37 150 C35 158 35 166 38 174 C39 180 39 186 39 190 L33 194 L47 194 L46 188 C46 180 47 170 46 160 C47 152 48 146 48 138 C48 130 49 124 50 120 Z';
   const SHORT_M = 'M50 98 L40 97 L39 104 C38.6 112 38.5 118 39 124 L48 126 L50 118 Z';
   const SHORT_A = 'M50 98 L38 97 L34 104 C32 112 31 118 32 124 L48 126 L50 118 Z';
   const nums = (s) => s.match(/-?\d+(\.\d+)?/g).map(Number);
@@ -819,27 +848,28 @@
   const set = (sel, attrs) => j.querySelectorAll(sel).forEach((el) => { for (const k in attrs) el.setAttribute(k, attrs[k]); });
 
   function dessine(t) {
-    const e = t * t * (3 - 2 * t);
+    const e = t * t * (3 - 2 * t), fatigue = Math.max(0, 1 - e * 1.5);
     set('.j-corps', { d: morph(MAIGRE, ATHLETE, e) });
     set('.j-short', { d: morph(SHORT_M, SHORT_A, e) });
-    set('.j-p1', { 'stop-color': mix('CDB497', 'A86D3C', e) });
-    set('.j-p2', { 'stop-color': mix('E2CCAE', 'D29A62', e) });
-    set('.j-muscles', { stroke: mix('B0977A', '7A4A22', e), opacity: Math.max(0, (e - .25) / .75) * .8 });
-    set('.j-muscles-fin', { stroke: mix('B0977A', '7A4A22', e), opacity: Math.max(0, (e - .8) / .2) * .8 });
-    set('.j-cotes', { stroke: '#A88E70', opacity: Math.max(0, 1 - e * 2.2) * .7 });
-    const hy = L(23.5, 19, e), hx = 50;
-    set('.j-tete', { cx: hx, cy: hy });
-    set('.j-cheveux', { d: `M${hx - 8.6} ${hy - 1} C${hx - 9} ${hy - 9} ${hx - 4} ${hy - 13} ${hx} ${hy - 13} C${hx + 4} ${hy - 13} ${hx + 9} ${hy - 9} ${hx + 8.6} ${hy - 1} C${hx + 7} ${hy - 6} ${hx + 3} ${hy - 7} ${hx} ${hy - 7} C${hx - 3} ${hy - 7} ${hx - 7} ${hy - 6} ${hx - 8.6} ${hy - 1} Z` });
-    set('.j-frange', { d: `M${hx - 7} ${hy - 6.5} C${hx - 3} ${hy - 9} ${hx + 3} ${hy - 9} ${hx + 7} ${hy - 6.5} C${hx + 4} ${hy - 7.5} ${hx - 4} ${hy - 7.5} ${hx - 7} ${hy - 6.5} Z` });
-    set('.j-oeil-g', { cx: hx - 3.4, cy: hy - .5 }); set('.j-oeil-d', { cx: hx + 3.4, cy: hy - .5 });
-    const sw = L(1.7, 3.6, e), sy = hy + 4.6;
-    set('.j-sourire', { d: `M${hx - sw} ${sy} Q${hx} ${sy + L(-0.35, 3, e)} ${hx + sw} ${sy}` });
-    const fatigue = Math.max(0, 1 - e * 1.6);
-    for (const [c, s] of [['g', -1], ['d', 1]]) {
-      const ox = hx + s * 3.4, oy = hy - .5;
-      set(`.j-cerne-${c}`, { d: `M${ox - 1.8} ${oy + 1.8} Q${ox} ${oy + 3.2} ${ox + 1.8} ${oy + 1.8}`, opacity: fatigue * .9 });
-      set(`.j-paup-${c}`, { d: `M${ox - 1.9} ${oy - .1} Q${ox} ${oy - 1.2} ${ox + 1.9} ${oy - .1}`, opacity: fatigue });
-    }
+    set('.j-ceinture', { d: `M50 ${99.2} L${L(40.2, 38.2, e)} ${98.3}` });
+    // Peau : terne et pâle au départ, hâlée et lumineuse à la fin
+    set('.j-p0', { 'stop-color': mix('A99173', '8A5530', e) });
+    set('.j-p1', { 'stop-color': mix('CDB89C', 'C68A55', e) });
+    set('.j-p2', { 'stop-color': mix('D9C7AE', 'E2AE79', e) });
+    set('.j-ombres-m', { opacity: (fatigue * .75).toFixed(3) });
+    set('.j-lum-a', { opacity: (Math.max(0, (e - .2) / .8) * .32).toFixed(3) });
+    set('.j-ombres-a', { opacity: (Math.max(0, (e - .25) / .75) * .5).toFixed(3) });
+    // Visage : tête basse, orbites creuses, cernes et joues creuses au départ ; tête haute et sourire à la fin
+    set('.j-visage', { transform: `translate(0 ${L(4, 0, e).toFixed(2)})` });
+    set('.j-joues', { opacity: (fatigue * .45).toFixed(3) });
+    set('.j-orbites', { opacity: L(.7, .3, e).toFixed(3) });
+    set('.j-cernes', { opacity: (fatigue * .85).toFixed(3) });
+    set('.j-oeil', { ry: L(.38, .6, e).toFixed(2) });
+    const sb = L(.9, -.3, e);
+    set('.j-s-g', { d: `M44.4 ${16.6 + sb} Q46.6 ${15.6 - sb * .2} 48.6 ${16.4 - sb * .3}` });
+    set('.j-s-d', { d: `M55.6 ${16.6 + sb} Q53.4 ${15.6 - sb * .2} 51.4 ${16.4 - sb * .3}` });
+    const lb = L(2.1, 3, e);
+    set('.j-bouche', { d: `M${50 - lb} 25.6 Q50 ${25.6 + L(-.25, 1.6, e)} ${50 + lb} 25.6` });
   }
 
   let attente = false;
