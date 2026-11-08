@@ -740,40 +740,60 @@
   ]
 }
 </script>
-<!-- Jauge de défilement : un petit personnage qui se redresse en descendant la page -->
+<!-- Jauge de défilement : un corps qui se sculpte en descendant la page -->
 <style>
-  .jauge { position:fixed; right:20px; top:120px; bottom:96px; width:72px; z-index:40; pointer-events:none; display:none; }
+  .jauge { position:fixed; right:18px; top:112px; bottom:40px; width:84px; z-index:40; pointer-events:none; display:none; }
   @media (min-width:1320px) { .jauge { display:block; } }
   .jauge-rail { position:absolute; left:50%; top:0; bottom:0; width:2px; transform:translateX(-50%); background:rgba(143,100,25,.18); border-radius:2px; }
   .jauge-plein { position:absolute; left:0; top:0; width:100%; height:0; background:var(--bronze-clair); border-radius:2px; }
-  .jauge-perso { position:absolute; left:50%; top:0; width:60px; margin-left:-30px; will-change:transform; }
-  .jauge-perso .disque { width:60px; height:60px; border-radius:50%; background:var(--creme); border:1px solid var(--ligne); box-shadow:0 6px 16px -8px rgba(43,29,14,.35); display:grid; place-items:center; overflow:hidden; }
-  .jauge-perso svg { width:46px; height:56px; display:block; }
-  .jauge-lbl { margin-top:6px; text-align:center; white-space:nowrap; font:500 11px/1.25 var(--texte); color:var(--brun); background:var(--creme); border:1px solid var(--ligne); border-radius:8px; padding:3px 6px; }
   .jauge-bout { position:absolute; left:50%; width:8px; height:8px; margin-left:-4px; border-radius:50%; background:var(--creme); border:2px solid var(--bronze-clair); }
   .jauge-bout.haut { top:-4px; } .jauge-bout.bas { bottom:-4px; }
+  .jauge-perso { position:absolute; left:0; top:0; width:84px; will-change:transform; }
+  .jauge-perso svg { display:block; width:84px; height:168px; overflow:visible; filter:drop-shadow(0 6px 10px rgba(43,29,14,.25)); }
+  .jauge-lbl { margin:4px auto 0; width:max-content; white-space:nowrap; font:500 11px/1.25 var(--texte); color:var(--brun); background:var(--creme); border:1px solid var(--ligne); border-radius:8px; padding:3px 7px; }
 </style>
 <div class="jauge" aria-hidden="true">
   <div class="jauge-rail"><div class="jauge-plein"></div></div>
   <span class="jauge-bout haut"></span><span class="jauge-bout bas"></span>
   <div class="jauge-perso">
-    <div class="disque">
-      <svg viewBox="5 2 50 94">
-        <g class="j-corps">
-          <path class="j-jambe-g" fill="none" stroke-linecap="round"/>
-          <path class="j-jambe-d" fill="none" stroke-linecap="round"/>
-          <path class="j-torse"/>
-          <path class="j-bras-g" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <path class="j-bras-d" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle class="j-tete" r="9"/>
+    <svg viewBox="0 0 100 200">
+      <defs>
+        <linearGradient id="j-peau" x1="0" y1="0" x2="1" y2="0">
+          <stop class="j-p1" offset="0"/><stop class="j-p2" offset=".5"/><stop class="j-p1" offset="1"/>
+        </linearGradient>
+        <g id="j-moitie">
+          <path class="j-corps" fill="url(#j-peau)"/>
+          <path class="j-short" fill="#5B3A12"/>
+          <g class="j-muscles" fill="none" stroke-linecap="round" stroke-width=".9">
+            <path d="M50 42 C44 41 36 42 32 48"/>
+            <path d="M33 52 C38 58 45 58 50 56"/>
+
+            <path d="M44 60 C43 70 43.5 82 45.5 92"/>
+            <path d="M44 66 Q47 67.5 50 67"/><path d="M44 74 Q47 75.5 50 75"/><path d="M44.5 82 Q47 83.5 50 83"/>
+
+            <path d="M40 132 C41 138 42 144 44 148"/><path d="M36 132 C37 138 38 144 40 150"/>
+            <path d="M38 160 C40 164 41 168 41 172"/>
+          </g>
+          <g class="j-muscles-fin" fill="none" stroke-linecap="round" stroke-width=".9">
+            <path d="M24 47 C27 52 29 56 30 60"/>
+            <path d="M22 66 C24 70 25 74 24 78"/>
+            <path d="M37 74 C39 80 40 86 41 92"/>
+          </g>
+          <g class="j-cotes" fill="none" stroke-linecap="round" stroke-width=".7">
+            <path d="M42 52 Q46 54.5 50 54"/><path d="M42.5 57 Q46 59.5 50 59"/><path d="M43 62 Q46.5 64 50 63.5"/>
+          </g>
         </g>
-        <circle class="j-oeil-g" r="1.3" fill="#2B1D0E"/>
-        <circle class="j-oeil-d" r="1.3" fill="#2B1D0E"/>
-        <path class="j-sourire" fill="none" stroke="#2B1D0E" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="j-joue-g" fill="none" stroke="#E9A08A" stroke-width="2" stroke-linecap="round" opacity="0"/>
-        <path class="j-joue-d" fill="none" stroke="#E9A08A" stroke-width="2" stroke-linecap="round" opacity="0"/>
-      </svg>
-    </div>
+      </defs>
+      <use href="#j-moitie"/>
+      <use href="#j-moitie" transform="translate(100 0) scale(-1 1)"/>
+      <path class="j-cheveux" fill="#3A2614"/>
+      <ellipse class="j-tete" rx="8.5" ry="10.5" fill="url(#j-peau)"/>
+      <path class="j-frange" fill="#3A2614"/>
+      <circle class="j-oeil-g" r=".95" fill="#2B1D0E"/><circle class="j-oeil-d" r=".95" fill="#2B1D0E"/>
+      <path class="j-cerne-g" fill="none" stroke="#7B6A8A" stroke-width="1" stroke-linecap="round"/><path class="j-cerne-d" fill="none" stroke="#7B6A8A" stroke-width="1" stroke-linecap="round"/>
+      <path class="j-paup-g" fill="none" stroke="#2B1D0E" stroke-width=".9" stroke-linecap="round"/><path class="j-paup-d" fill="none" stroke="#2B1D0E" stroke-width=".9" stroke-linecap="round"/>
+      <path class="j-sourire" fill="none" stroke="#2B1D0E" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
     <div class="jauge-lbl">Le départ</div>
   </div>
 </div>
@@ -785,39 +805,41 @@
   const perso = $('.jauge-perso'), plein = $('.jauge-plein'), lbl = $('.jauge-lbl');
   const L = (a, b, t) => a + (b - a) * t;
   const mix = (c1, c2, t) => '#' + [0, 2, 4].map((i) => Math.round(L(parseInt(c1.substr(i, 2), 16), parseInt(c2.substr(i, 2), 16), t)).toString(16).padStart(2, '0')).join('');
-  const etapes = [['', 'Le départ']];
+  // Deux silhouettes (moitié gauche, symétrisée) avec exactement les mêmes commandes : on interpole chaque nombre
+  const MAIGRE = 'M50 33 L46.5 33 C46 37 44 38 41 39 C38 40 36 41 35 44 C34.5 47 34.5 50 34.5 52 C34 58 33.5 64 33.5 70 C33 80 32.5 90 32.5 98 C32.5 102 32 106 32.5 110 C34 112 35.5 110 35.5 106 C35.5 98 36 90 36.2 82 C36.5 74 37 66 37.5 60 C38 66 38.5 70 39 76 C39.5 84 40 90 40 96 L39.5 100 L39 104 C38.6 112 38.5 120 39 128 C39.5 138 40 146 40.5 150 C40 158 40 166 41 174 C41.5 180 41.5 186 41.5 190 L37 194 L47.5 194 L47 188 C47 180 47.5 170 47 160 C47.5 152 48 146 48 138 C48 130 49 124 50 120 Z';
+  const ATHLETE = 'M50 31 L45 31 C45 35 42 36 37 37 C31 38 26 40 24 45 C22 49 21 54 22 58 C20 64 19 70 20 76 C19 82 18 90 18 98 C18 102 17 106 18 110 C20 112 22 110 22 106 C23 98 24 90 25 82 C26 74 28 66 30 62 C31 66 32 70 33 74 C35 82 37 90 38 96 L37 100 L34 104 C32 112 31 120 32 128 C33 138 36 146 37 150 C35 158 35 166 38 174 C39 180 39 186 39 190 L33 194 L47 194 L46 188 C46 180 47 170 46 160 C47 152 48 146 48 138 C48 130 49 124 50 120 Z';
+  const SHORT_M = 'M50 98 L40 97 L39 104 C38.6 112 38.5 118 39 124 L48 126 L50 118 Z';
+  const SHORT_A = 'M50 98 L38 97 L34 104 C32 112 31 118 32 124 L48 126 L50 118 Z';
+  const nums = (s) => s.match(/-?\d+(\.\d+)?/g).map(Number);
+  const morph = (a, b, t) => { const na = nums(a), nb = nums(b); let i = 0; return a.replace(/-?\d+(\.\d+)?/g, () => { const v = L(na[i], nb[i], t); i++; return v.toFixed(2); }); };
+  const etapes = [];
   document.querySelectorAll('section').forEach((s) => {
-    const e = s.querySelector(':scope .eyebrow'); if (e && !s.classList.contains('hero')) etapes.push([s, e.textContent.split('·')[0].trim()]);
+    const e = s.querySelector('.eyebrow'); if (e && !s.classList.contains('hero')) etapes.push([s, e.textContent.split('·')[0].trim()]);
   });
-  const set = (sel, attrs) => { const el = $(sel); for (const k in attrs) el.setAttribute(k, attrs[k]); };
+  const set = (sel, attrs) => j.querySelectorAll(sel).forEach((el) => { for (const k in attrs) el.setAttribute(k, attrs[k]); });
 
   function dessine(t) {
-    // t = 0 : fatigué, voûté · t = 1 : droit, musclé, bras levés en signe de victoire
     const e = t * t * (3 - 2 * t);
-    const peau = mix('C9B7A0', 'B8893A', e), ligne = mix('A8957C', '8F6419', e);
-    const dos = L(4, 0, e), tx = 30 + dos;          // la tête et les épaules avancent quand il est voûté
-    const ty = L(19, 14, e);
-    const ep = L(7, 14, e), taille = L(5.5, 7, e);   // demi-largeur épaules / taille
-    const yEp = ty + 11, yHanche = L(58, 56, e);
-    const bras = L(2.6, 6.2, e), jambe = L(3, 6.5, e);
-    set('.j-tete', { cx: tx, cy: ty, fill: peau, stroke: ligne, 'stroke-width': 1.2 });
-    set('.j-torse', { d: `M${tx - ep} ${yEp} Q${tx} ${yEp - 3} ${tx + ep} ${yEp} L${30 + taille} ${yHanche} L${30 - taille} ${yHanche} Z`, fill: peau, stroke: ligne, 'stroke-width': 1.2, 'stroke-linejoin': 'round' });
-    const brasPath = (s) => {
-      const sx = tx + s * ep;
-      const coude = [sx + s * L(3.5, 10, e), L(yEp + 15, yEp - 2, e)];
-      const main = [sx + s * L(5, 7, e), L(yEp + 30, yEp - 13, e)];
-      return `M${sx} ${yEp + 1} L${coude[0]} ${coude[1]} L${main[0]} ${main[1]}`;
-    };
-    set('.j-bras-g', { d: brasPath(-1), stroke: peau, 'stroke-width': bras });
-    set('.j-bras-d', { d: brasPath(1), stroke: peau, 'stroke-width': bras });
-    const jambePath = (s) => `M${30 + s * (taille - 1.5)} ${yHanche - 1} L${30 + s * L(5, 9, e)} 94`;
-    set('.j-jambe-g', { d: jambePath(-1), stroke: peau, 'stroke-width': jambe });
-    set('.j-jambe-d', { d: jambePath(1), stroke: peau, 'stroke-width': jambe });
-    set('.j-oeil-g', { cx: tx - 3, cy: ty - 1.5 }); set('.j-oeil-d', { cx: tx + 3, cy: ty - 1.5 });
-    const sw = L(2.4, 4, e), sy = ty + 3, creux = L(1.2, 3.2, e);
-    set('.j-sourire', { d: `M${tx - sw} ${sy} Q${tx} ${sy + creux * 1.6} ${tx + sw} ${sy}` });
-    const joue = Math.max(0, (e - .5) * 2);
-    set('.j-joue-g', { d: `M${tx - 6.5} ${ty + 2} l1.6 0`, opacity: joue }); set('.j-joue-d', { d: `M${tx + 4.9} ${ty + 2} l1.6 0`, opacity: joue });
+    set('.j-corps', { d: morph(MAIGRE, ATHLETE, e) });
+    set('.j-short', { d: morph(SHORT_M, SHORT_A, e) });
+    set('.j-p1', { 'stop-color': mix('CDB497', 'A86D3C', e) });
+    set('.j-p2', { 'stop-color': mix('E2CCAE', 'D29A62', e) });
+    set('.j-muscles', { stroke: mix('B0977A', '7A4A22', e), opacity: Math.max(0, (e - .25) / .75) * .8 });
+    set('.j-muscles-fin', { stroke: mix('B0977A', '7A4A22', e), opacity: Math.max(0, (e - .8) / .2) * .8 });
+    set('.j-cotes', { stroke: '#A88E70', opacity: Math.max(0, 1 - e * 2.2) * .7 });
+    const hy = L(23.5, 19, e), hx = 50;
+    set('.j-tete', { cx: hx, cy: hy });
+    set('.j-cheveux', { d: `M${hx - 8.6} ${hy - 1} C${hx - 9} ${hy - 9} ${hx - 4} ${hy - 13} ${hx} ${hy - 13} C${hx + 4} ${hy - 13} ${hx + 9} ${hy - 9} ${hx + 8.6} ${hy - 1} C${hx + 7} ${hy - 6} ${hx + 3} ${hy - 7} ${hx} ${hy - 7} C${hx - 3} ${hy - 7} ${hx - 7} ${hy - 6} ${hx - 8.6} ${hy - 1} Z` });
+    set('.j-frange', { d: `M${hx - 7} ${hy - 6.5} C${hx - 3} ${hy - 9} ${hx + 3} ${hy - 9} ${hx + 7} ${hy - 6.5} C${hx + 4} ${hy - 7.5} ${hx - 4} ${hy - 7.5} ${hx - 7} ${hy - 6.5} Z` });
+    set('.j-oeil-g', { cx: hx - 3.4, cy: hy - .5 }); set('.j-oeil-d', { cx: hx + 3.4, cy: hy - .5 });
+    const sw = L(1.7, 3.6, e), sy = hy + 4.6;
+    set('.j-sourire', { d: `M${hx - sw} ${sy} Q${hx} ${sy + L(-0.35, 3, e)} ${hx + sw} ${sy}` });
+    const fatigue = Math.max(0, 1 - e * 1.6);
+    for (const [c, s] of [['g', -1], ['d', 1]]) {
+      const ox = hx + s * 3.4, oy = hy - .5;
+      set(`.j-cerne-${c}`, { d: `M${ox - 1.8} ${oy + 1.8} Q${ox} ${oy + 3.2} ${ox + 1.8} ${oy + 1.8}`, opacity: fatigue * .9 });
+      set(`.j-paup-${c}`, { d: `M${ox - 1.9} ${oy - .1} Q${ox} ${oy - 1.2} ${ox + 1.9} ${oy - .1}`, opacity: fatigue });
+    }
   }
 
   let attente = false;
@@ -829,8 +851,8 @@
     perso.style.transform = `translateY(${(t * h).toFixed(1)}px)`;
     plein.style.height = (t * 100).toFixed(2) + '%';
     dessine(t);
-    let nom = etapes[0][1];
-    for (const [s, n] of etapes) if (s && s.getBoundingClientRect().top < innerHeight * .45) nom = n;
+    let nom = 'Le départ';
+    for (const [s, n] of etapes) if (s.getBoundingClientRect().top < innerHeight * .45) nom = n;
     if (t > .985) nom = 'En forme';
     if (lbl.textContent !== nom) lbl.textContent = nom;
   }
