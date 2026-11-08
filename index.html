@@ -93,7 +93,7 @@
   h2 { font-size:clamp(30px, 4.2vw, 46px); }
   h3 { font-size:22px; }
   p { margin:0; }
-  .eyebrow { font:600 12px/1 var(--texte); letter-spacing:.22em; text-transform:uppercase; color:var(--bronze); }
+  .eyebrow { font:600 14px/1.2 var(--texte); letter-spacing:.02em; color:var(--bronze); }
   .lead { font-size:clamp(18px, 2vw, 20px); color:var(--gris); }
   section { padding:clamp(72px, 10vw, 120px) 0; }
   .center { text-align:center; }
@@ -111,7 +111,7 @@
   header { position:sticky; top:0; z-index:20; background:rgba(255,253,248,.88); backdrop-filter:blur(10px); border-bottom:1px solid transparent; transition:border-color .3s; }
   header.scrolled { border-color:var(--ligne); }
   .nav { display:flex; align-items:center; justify-content:space-between; height:72px; }
-  .logo { font:700 24px/1 var(--serif); color:var(--brun); text-decoration:none; letter-spacing:.04em; }
+  .logo { font:600 24px/1 var(--serif); color:var(--brun); text-decoration:none; letter-spacing:.04em; }
   .logo span { color:var(--bronze); font-style:italic; font-weight:500; }
   .nav ul { display:flex; gap:32px; list-style:none; margin:0; padding:0; font-size:15px; }
   .nav ul a { text-decoration:none; color:var(--brun); opacity:.8; }
@@ -141,7 +141,7 @@
   .macros { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; margin:20px 0 18px; }
   .macro { background:var(--beige); border-radius:4px; padding:10px 8px; text-align:center; }
   .macro b { display:block; font:600 22px/1 var(--serif); color:var(--brun); }
-  .macro small { font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gris); }
+  .macro small { font-size:12px; letter-spacing:.02em; color:var(--gris); }
   .et-bas { font-size:12px; color:var(--gris); line-height:1.6; border-top:1px dashed var(--ligne); padding-top:12px; }
   .et-tampon { position:absolute; right:-18px; bottom:-22px; width:96px; height:96px; border-radius:50%; border:2px solid var(--bronze); color:var(--bronze); display:grid; place-items:center; text-align:center; font:600 11px/1.25 var(--serif); letter-spacing:.08em; text-transform:uppercase; transform:rotate(12deg); background:var(--creme); }
   @media (max-width:900px) { .etiquette { margin:0 auto; } }
@@ -173,7 +173,7 @@
     .hero .macro:nth-child(3) { animation-delay:1.15s; }
     .hero .et-tampon { animation:intro-tampon .55s cubic-bezier(.3,1.4,.5,1) 1.55s both; }
   }
-  @keyframes intro-eyebrow { from { opacity:0; letter-spacing:.5em; } to { opacity:1; letter-spacing:.22em; } }
+  @keyframes intro-eyebrow { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
   @keyframes intro-surgit { from { transform:translateY(110%); } to { transform:none; } }
   @keyframes intro-trait { to { transform:scaleX(1); } }
   @keyframes intro-monte { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
@@ -194,7 +194,7 @@
   .manifeste { background:var(--brun); color:var(--creme); }
   .manifeste blockquote { margin:0 auto; max-width:860px; font:500 clamp(28px, 4vw, 44px)/1.3 var(--serif); font-style:italic; text-align:center; }
   .manifeste blockquote span { color:var(--bronze-clair); }
-  .manifeste p { text-align:center; margin-top:28px; color:rgba(255,253,248,.7); font-size:15px; letter-spacing:.08em; text-transform:uppercase; }
+  .manifeste p { text-align:center; margin-top:28px; color:rgba(255,253,248,.7); font-size:16px; letter-spacing:.01em; }
 
   /* Pour qui */
   .duo { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
@@ -225,16 +225,16 @@
   .plat .desc { font-size:13.5px; line-height:1.5; color:var(--gris); margin-bottom:16px; flex:1; }
   .plat .allergenes { font-size:12px; line-height:1.45; color:var(--gris); margin:-8px 0 16px; padding-top:8px; border-top:1px dashed var(--ligne); }
   .plat .allergenes b { color:var(--brun); font-weight:600; }
-  .plat .badge-plat { position:absolute; top:-11px; right:16px; background:var(--bronze); color:var(--creme); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; padding:5px 10px; border-radius:999px; }
+  .plat .badge-plat { position:absolute; top:-11px; right:16px; background:var(--bronze); color:var(--creme); font-size:12px; font-weight:500; letter-spacing:.01em; padding:5px 10px; border-radius:999px; }
   .kcal { display:flex; align-items:baseline; gap:6px; }
   .kcal b { font:600 40px/1 var(--serif); color:var(--brun); letter-spacing:-.01em; }
-  .kcal span { font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--gris); }
+  .kcal span { font-size:14px; letter-spacing:.02em; color:var(--gris); }
   .split { display:flex; height:6px; border-radius:99px; overflow:hidden; margin:16px 0 16px; background:repeating-linear-gradient(45deg, var(--beige) 0 4px, #fff 4px 8px); }
   .split i { display:block; height:100%; }
   .mac-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; border-top:1px dashed var(--ligne); padding-top:14px; }
   .mac b { display:block; font:600 18px/1.1 var(--serif); color:var(--brun); }
   .mac b.vide { color:#C9BCA6; }
-  .mac small { display:flex; align-items:center; gap:5px; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); margin-top:4px; }
+  .mac small { display:flex; align-items:center; gap:5px; font-size:12px; letter-spacing:.01em; color:var(--gris); margin-top:4px; }
   .mac small i, .legende i { width:7px; height:7px; border-radius:50%; display:inline-block; }
   @media (min-width:1001px) { #grille-desserts { grid-template-columns:repeat(5, 1fr); } }
   .sous-titre { margin-top:64px; }
@@ -264,7 +264,7 @@
   .formules-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; margin-top:56px; }
   .formule { border:1px solid var(--ligne); border-radius:8px; padding:32px 26px; background:#fff; display:flex; flex-direction:column; position:relative; }
   .formule.vedette { border-color:var(--brun); box-shadow:0 30px 60px -36px rgba(91,58,18,.55); }
-  .formule .badge { position:absolute; top:-12px; left:26px; background:var(--brun); color:var(--creme); font-size:11px; letter-spacing:.14em; text-transform:uppercase; padding:6px 12px; border-radius:999px; }
+  .formule .badge { position:absolute; top:-12px; left:26px; background:var(--brun); color:var(--creme); font-size:12px; font-weight:500; letter-spacing:.01em; padding:6px 12px; border-radius:999px; }
   .formule h3 { font-size:24px; }
   .formule .vol { font-size:14.5px; color:var(--gris); margin-top:6px; }
   .formule .prix { font:600 44px/1 var(--serif); color:var(--brun); margin:26px 0 4px; }
@@ -427,7 +427,7 @@
     <div class="wrap duo">
       <div class="stack reveal">
         <div class="eyebrow">Pour qui</div>
-        <h2>Pour ceux qui entreprennent et qui s'entraînent.</h2>
+        <h2>Pour ceux qui entreprennent et qui s'entraînent</h2>
         <p class="lead">Tu sais ce que tu devrais manger. Tu n'as juste pas le temps de le cuisiner, de le peser et de t'y tenir entre deux rendez-vous.</p>
       </div>
       <ul class="liste reveal">
@@ -444,7 +444,7 @@
     <div class="wrap">
       <div class="center stack reveal">
         <div class="eyebrow">Comment ça marche</div>
-        <h2>Quatre étapes, puis tu n'y penses plus.</h2>
+        <h2>Quatre étapes, puis tu n'y penses plus</h2>
       </div>
       <div class="etapes-grid">
         <div class="etape reveal"><h3>Le bilan</h3><p>90 minutes ensemble : tes objectifs, ton rythme, ton activité physique, ce que tu aimes et ce que tu ne manges pas.</p></div>
@@ -461,7 +461,7 @@
       <div class="carte-tete reveal">
         <div class="stack">
           <div class="eyebrow">La carte · repas protéinés</div>
-          <h2>Douze plats. Zéro à-peu-près.</h2>
+          <h2>Douze plats. Zéro à-peu-près</h2>
         </div>
         <p class="lead" style="max-width:420px">Des recettes de cuisinier, pas des barquettes de régime : jusqu’à 66 g de protéines par plat, macros affichées. Les portions sont ensuite ajustées à ton protocole.</p>
       </div>
@@ -481,7 +481,7 @@
     <div class="wrap">
       <div class="center stack reveal">
         <div class="eyebrow">Pourquoi LF Meal</div>
-        <h2>Ce que tu ne trouveras pas ailleurs.</h2>
+        <h2>Ce que tu ne trouveras pas ailleurs</h2>
       </div>
       <div class="table-wrap reveal">
         <table>
@@ -504,7 +504,7 @@
     <div class="wrap">
       <div class="center stack reveal">
         <div class="eyebrow">Formules</div>
-        <h2>Un abonnement. Tout est compris.</h2>
+        <h2>Un abonnement. Tout est compris</h2>
         <p class="lead">Tu commences par <b>une semaine d’essai</b> : 10 repas (déjeuner + dîner, 5 jours) pour 149 €, <b>déduits de ton premier mois</b> si tu continues. Ensuite, on part sur 3 mois : le temps qu’il faut pour voir la différence.</p>
       </div>
       <div class="encoche reveal">
@@ -561,7 +561,7 @@
     <div class="wrap">
       <div class="center stack reveal">
         <div class="eyebrow">Derrière les fourneaux</div>
-        <h2>Je sais ce que ça demande.</h2>
+        <h2>Je sais ce que ça demande</h2>
       </div>
 
       <div class="transfo-duo reveal">
@@ -594,7 +594,7 @@
     <div class="wrap">
       <div class="center stack reveal">
         <div class="eyebrow">Questions fréquentes</div>
-        <h2>Tout ce que tu te demandes.</h2>
+        <h2>Tout ce que tu te demandes</h2>
       </div>
       <div class="faq-liste">
         <details><summary>Où et quand livrez-vous ?</summary><p>À Montpellier, directement sur ton lieu de travail (bureau, coworking), le <b>lundi et le jeudi entre 10 h et 11 h 30</b>. Tu reçois un message dès que tes repas sont au frais. On vérifie ton adresse pendant l’appel découverte.</p></details>
@@ -616,7 +616,7 @@
     <div class="wrap reserver-grid">
       <div class="stack reveal">
         <div class="eyebrow" style="color:var(--bronze-clair)">Appel découverte · 20 min</div>
-        <h2>Parlons de tes objectifs.</h2>
+        <h2>Parlons de tes objectifs</h2>
         <p class="lead">Choisis un créneau. En 20 minutes, on fait le point sur tes objectifs, ton rythme et tes contraintes, et je te dis honnêtement si LF Meal est fait pour toi.</p>
         <ul class="reserver-liste">
           <li>Un appel avec moi, Victor, pas un commercial</li>
