@@ -195,6 +195,21 @@
   .manifeste blockquote { margin:0 auto; max-width:860px; font:500 clamp(28px, 4vw, 44px)/1.3 var(--serif); font-style:italic; text-align:center; }
   .manifeste blockquote span { color:var(--bronze-clair); }
   .manifeste p { text-align:center; margin-top:28px; color:rgba(255,253,248,.7); font-size:16px; letter-spacing:.01em; }
+  .manifeste-texte { position:relative; max-width:760px; margin:64px auto 0; padding:48px 48px 44px; background:var(--beige); color:var(--encre); border-radius:16px; border-left:6px solid var(--bronze-clair); box-shadow:0 24px 48px rgba(0,0,0,.28); }
+  .manifeste-texte .eyebrow { color:var(--bronze); }
+  .manifeste-texte h2 { color:var(--brun); font-size:clamp(26px, 3.2vw, 36px); margin-top:12px; }
+  .manifeste .manifeste-texte p { text-align:left; margin-top:18px; color:var(--encre); font-size:18px; line-height:1.7; letter-spacing:0; }
+  .manifeste-texte strong { font-weight:600; color:var(--brun); background:linear-gradient(transparent 58%, rgba(184,137,58,.38) 58%) no-repeat; background-size:0% 100%; transition:background-size .9s cubic-bezier(.6,0,.2,1); }
+  .manifeste-texte.vu strong { background-size:100% 100%; }
+  .manifeste-texte.vu strong:nth-of-type(2) { transition-delay:.25s; }
+  .manifeste-texte.vu p:nth-of-type(3) strong { transition-delay:1.1s; }
+  .manifeste .manifeste-texte p.maths { display:block; margin:28px 0 6px; font:500 italic clamp(28px, 4vw, 40px)/1.2 var(--serif); color:var(--bronze); }
+  .manifeste-texte .maths b { font-weight:600; }
+  @media (prefers-reduced-motion:no-preference) {
+    .manifeste-texte.vu .maths { animation:intro-monte .8s ease .6s both; }
+  }
+  @media (prefers-reduced-motion:reduce) { .manifeste-texte strong { background-size:100% 100%; transition:none; } }
+  @media (max-width:640px) { .manifeste-texte { padding:32px 22px 28px; margin-top:48px; } .manifeste .manifeste-texte p { font-size:17px; } }
 
   /* Pour qui */
   .duo { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
@@ -417,8 +432,16 @@
   <!-- MANIFESTE -->
   <section class="manifeste" id="concept">
     <div class="wrap">
-      <blockquote class="reveal">« Ce n'est pas un service de livraison de repas. C'est un <span>accompagnement nutritionnel</span> dont les repas sont le moyen. »</blockquote>
+      <blockquote class="reveal">« Ce n'est pas un service de livraison de repas. C'est un <span>cadre qui tient</span>, et les repas en sont le moyen. »</blockquote>
       <p>Victor, fondateur</p>
+      <div class="manifeste-texte reveal">
+        <div class="eyebrow">Mon histoire</div>
+        <h2>Plus qu’un abonnement : quelqu’un qui est passé par là</h2>
+        <p>De 15 à 19 ans, j’ai testé <strong>à peu près toutes les diètes possibles</strong>. J’ai calculé <strong>mon propre métabolisme de base</strong>, pesé chaque repas, compté chaque gramme de protéines.</p>
+        <p class="maths">Ce que j’en ai retenu : pour moi, <b>ça n’a été que des maths.</b></p>
+        <p>Et la seule diète qu’on tient sur la durée, c’est <strong>celle qu’on prend plaisir à manger</strong>.</p>
+        <p>C’est ce que je cuisine pour toi aujourd’hui : des repas qui ont du goût, pesés au gramme, avec les macros sur chaque étiquette. Ton objectif, on en parle dès la visio.</p>
+      </div>
     </div>
   </section>
 
