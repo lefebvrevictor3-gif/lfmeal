@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://assets.calendly.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://calendly.com; connect-src 'self' https://api.web3forms.com https://calendly.com; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Meal prep à Montpellier, pesé au gramme près | LF Meal</title>
-<meta name="description" content="Repas cuisinés maison, pesés au gramme près avec les macros, livrés sur ton lieu de travail à Montpellier. Abonnement avec bilan et suivi. Essai : 149 €.">
+<meta name="description" content="Ton programme repas sur mesure à Montpellier : cuisiné maison, pesé au gramme près pour ton objectif, livré chez toi ou au bureau. Bilan et suivi compris. Essai : 149 €.">
 <link rel="canonical" href="https://lfmeal.fr/">
 <meta name="theme-color" content="#5B3A12">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -17,14 +17,14 @@
 <meta property="og:locale" content="fr_FR">
 <meta property="og:url" content="https://lfmeal.fr/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="LF Meal — Emballé, c'est pesé.">
+<meta property="og:title" content="LF Meal — La seule diète qu'on tient, c'est celle qu'on aime manger.">
 <meta property="og:description" content="Repas cuisinés maison, pesés au gramme près et livrés au bureau à Montpellier, avec un suivi mensuel. Dès 14,09 € le repas.">
 <meta property="og:image" content="https://lfmeal.fr/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="LF Meal — Emballé, c'est pesé. Repas pesés au gramme près, livrés au bureau à Montpellier.">
+<meta property="og:image:alt" content="LF Meal — Repas pesés au gramme près, livrés à Montpellier.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="LF Meal — Emballé, c'est pesé.">
+<meta name="twitter:title" content="LF Meal — La seule diète qu'on tient, c'est celle qu'on aime manger.">
 <meta name="twitter:description" content="Repas cuisinés maison, pesés au gramme près et livrés au bureau à Montpellier.">
 <meta name="twitter:image" content="https://lfmeal.fr/og-image.jpg">
 <script type="application/ld+json">
@@ -36,8 +36,8 @@
       "@id": "https://lfmeal.fr/#entreprise",
       "name": "LF Meal",
       "alternateName": "LFMEAL",
-      "slogan": "Emballé, c'est pesé.",
-      "description": "Repas cuisinés maison, pesés au gramme près avec les macros (calories, protéines, glucides, lipides), livrés sur le lieu de travail à Montpellier. Abonnement mensuel avec bilan de 90 minutes, protocole et point mensuel.",
+      "slogan": "La seule diète qu'on tient, c'est celle qu'on aime manger.",
+      "description": "Repas cuisinés maison, pesés au gramme près avec les macros (calories, protéines, glucides, lipides), livrés sur le lieu de travail à Montpellier. Abonnement mensuel avec bilan en visio de 30 minutes, protocole et point mensuel.",
       "url": "https://lfmeal.fr/",
       "image": "https://lfmeal.fr/og-image.jpg",
       "logo": "https://lfmeal.fr/og-image.jpg",
@@ -60,6 +60,7 @@
       "@id": "https://lfmeal.fr/#victor",
       "name": "Victor",
       "jobTitle": "Fondateur et cuisinier de LF Meal",
+      "description": "Cuisinier passé par des restaurants étoilés.",
       "worksFor": { "@id": "https://lfmeal.fr/#entreprise" }
     },
     {
@@ -374,6 +375,137 @@
   .reveal { opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
   .reveal.vu { opacity:1; transform:none; }
   @media (prefers-reduced-motion:reduce) { .reveal { opacity:1; transform:none; transition:none; } html { scroll-behavior:auto; } }
+
+  /* ===== Refonte 15/11/2026 : vert forêt, mobile d'abord, textes courts ===== */
+  :root { --vert:#1F3F7A; --vert-fonce:#152C57; --vert-clair:#E8EDF6; --vert-vif:#AFC3EA; } /* bleu croco (bracelet de montre) ; autres versions dans site-versions/ */
+  main { overflow-x:clip; }
+  .btn-or { background:var(--vert); color:#fff; }
+  .btn-or:hover { background:var(--vert-fonce); }
+  .btn:focus-visible, a:focus-visible, summary:focus-visible { outline:2px solid var(--vert); outline-offset:3px; }
+  .hero h1 .pese::after { background:var(--vert); opacity:.85; }
+  .pastille-prix { background:var(--vert-clair); border-color:var(--vert); }
+  .pastille-prix span { color:var(--vert); }
+  .oui { color:var(--vert); }
+  .plat .badge-plat { background:var(--vert); }
+  .formule.vedette { border-color:var(--vert); box-shadow:0 30px 60px -36px rgba(31,63,122,.5); }
+  .formule .badge { background:var(--vert); }
+  .inclus div::before { color:var(--vert); }
+  .etape::before { color:var(--vert); }
+  em.accent { color:var(--vert); font-style:italic; }
+  .lead-court { max-width:620px; margin-left:auto; margin-right:auto; }
+  .final .btn-or { background:var(--vert-vif); color:var(--encre); }
+  .final .btn-or:hover { background:#C9D6F0; }
+  .reserver-liste li::before { color:var(--vert-vif); }
+  .transfo-photo.apres { outline-color:var(--vert); }
+  .transfo-fleche { color:var(--vert); }
+
+  /* Objectifs */
+  .obj-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:44px; }
+  .obj { background:#fff; border:1px solid var(--ligne); border-top:4px solid var(--vert); border-radius:10px; padding:24px 22px; }
+  .obj h3 { font-size:21px; }
+  .obj p { margin-top:8px; font-size:15.5px; color:var(--gris); line-height:1.5; }
+  .obj-note { text-align:center; margin-top:28px; font:500 italic 18px/1.4 var(--serif); color:var(--brun); }
+  @media (max-width:900px) { .obj-grid { grid-template-columns:1fr 1fr; } }
+
+  /* Comparatif industriel */
+  .vs { max-width:860px; margin:44px auto 0; background:var(--creme); border:1px solid var(--ligne); border-radius:12px; overflow:hidden; }
+  .vs-tete, .vs-ligne { display:grid; grid-template-columns:150px 1fr 1fr; }
+  .vs-tete span { padding:16px 18px; font:600 15px/1.3 var(--serif); color:var(--gris); }
+  .vs-tete .nous { background:var(--vert); color:#fff; }
+  .vs-ligne { border-top:1px solid var(--ligne); }
+  .vs-ligne > * { padding:16px 18px; font-size:15.5px; line-height:1.4; }
+  .vs-ligne b { font:600 15px/1.4 var(--serif); color:var(--brun); }
+  .vs-ligne span { color:var(--gris); }
+  .vs-ligne .nous { background:var(--vert-clair); color:var(--vert-fonce); font-weight:600; }
+
+  /* Mobile */
+  .glisse, .cta-mobile { display:none; }
+  .transfo-citation { font:500 italic clamp(22px, 3vw, 28px)/1.35 var(--serif); color:var(--vert); }
+  @media (max-width:700px) {
+    body { font-size:16px; padding-bottom:88px; }
+    .wrap { padding:0 20px; }
+    section { padding:60px 0; }
+    h2 { font-size:30px; }
+    .lead { font-size:17px; }
+    .hero { padding:28px 0 52px; }
+    .hero-grid { gap:40px; }
+    .hero-ctas { flex-direction:column; gap:10px; margin-top:26px; }
+    .hero-ctas .btn { justify-content:center; min-height:52px; font-size:16px; }
+    .hero-note { margin-top:14px; }
+    .etiquette { max-width:320px; padding:22px 22px 18px; }
+    .et-tampon { right:-6px; width:80px; height:80px; font-size:10px; }
+    .nav { height:64px; }
+    .nav .btn { padding:10px 14px; font-size:13px; }
+    .chiffres { padding:22px 0; }
+    .obj-grid { grid-template-columns:1fr 1fr; gap:10px; margin-top:32px; }
+    .obj { padding:18px 14px; }
+    .obj h3 { font-size:18px; }
+    .obj p { font-size:14px; }
+    .vs { margin-top:32px; }
+    .vs-tete { grid-template-columns:1fr 1fr; }
+    .vs-tete span:first-child { display:none; }
+    .vs-ligne { grid-template-columns:1fr 1fr; }
+    .vs-ligne b { grid-column:1 / -1; padding:14px 14px 6px; }
+    .vs-ligne span { padding:10px 14px 14px; font-size:14.5px; }
+    .vs-tete span { padding:12px 14px; font-size:14px; }
+    .etapes-grid { margin-top:32px; gap:10px; }
+    .etape { padding:20px; display:grid; grid-template-columns:auto 1fr; gap:4px 16px; align-items:start; }
+    .etape::before { grid-row:span 2; font-size:30px; margin:0; }
+    .etape h3 { margin:0; font-size:19px; }
+    .glisse { display:block; margin-top:20px; font-size:13.5px; color:var(--vert); font-weight:600; }
+    .glisse-bas { text-align:center; margin-top:10px; }
+    .plats, .formules-grid { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; margin:12px -20px 0; padding:14px 20px 10px; scroll-padding-inline:20px; scrollbar-width:none; -webkit-overflow-scrolling:touch; }
+    .plats::-webkit-scrollbar, .formules-grid::-webkit-scrollbar { display:none; }
+    .plat { flex:0 0 74%; scroll-snap-align:start; }
+    .formules-grid { margin-top:28px; }
+    .formule { flex:0 0 80%; scroll-snap-align:center; padding:28px 22px; }
+    .formule .prix { font-size:38px; }
+    .inclus { grid-template-columns:1fr 1fr; gap:10px 16px; font-size:14.5px; margin-top:28px; }
+    .sous-titre { margin-top:44px; }
+    .transfo-texte { margin-top:32px; }
+    .cta-mobile { display:flex; position:fixed; left:14px; right:14px; bottom:calc(14px + env(safe-area-inset-bottom)); z-index:30; justify-content:center; align-items:center; min-height:54px; border-radius:999px; background:var(--vert); color:#fff; font:600 16px/1 var(--texte); text-decoration:none; box-shadow:0 12px 30px -10px rgba(21,44,87,.55); transform:translateY(160%); transition:transform .3s ease; }
+    .cta-mobile.on { transform:none; }
+    details p { font-size:15.5px; }
+    summary { font-size:17px; padding:16px 0; }
+  }
+
+  /* Crédibilité du chef */
+  .hero-cred { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+  .hero-cred span, .cred-liste span { display:inline-flex; align-items:center; gap:8px; padding:7px 14px; border-radius:999px; background:var(--vert-clair); color:var(--vert-fonce); font:600 13.5px/1.2 var(--texte); }
+  .hero-cred span::before, .cred-liste span::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--vert); }
+  .cred-liste { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  @media (max-width:700px) { .hero-cred { margin-top:14px; } .hero-cred span { font-size:13px; padding:6px 12px; } }
+
+  /* Citation mise en avant en haut de page */
+  .hero-citation { margin-top:22px; padding:14px 0 14px 20px; border-left:4px solid var(--vert); font:500 italic clamp(22px, 2.6vw, 28px)/1.3 var(--serif); color:var(--brun); max-width:520px; }
+  .hero-citation em { color:var(--vert); font-style:italic; }
+  @media (prefers-reduced-motion:no-preference) { .hero .hero-citation { animation:intro-monte .8s ease .45s both; } }
+  @media (max-width:700px) { .hero-citation { margin-top:16px; padding:10px 0 10px 16px; font-size:21px; } }
+
+  /* Nouveau slogan en titre (15/11/2026) */
+  .hero h1 { font-size:clamp(40px, 5.8vw, 74px); line-height:1.08; }
+  .hero h1 em { color:var(--bronze); }
+  .hero h1 .pese::after { background:var(--bronze); opacity:.55; }
+  .hero h1 .l:nth-of-type(3) > * { animation-delay:.32s; }
+  @media (max-width:700px) { .hero h1 { font-size:38px; } }
+
+  /* Relation client */
+  .relation { background:var(--brun); color:var(--creme); }
+  .relation h2 { color:var(--creme); }
+  .relation .eyebrow { color:var(--bronze-clair); }
+  .relation .lead { color:rgba(255,253,248,.78); }
+  .relation-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:16px; margin-top:44px; }
+  .rel { background:rgba(255,253,248,.06); border:1px solid rgba(255,253,248,.14); border-top:3px solid var(--vert-vif); border-radius:10px; padding:24px 22px; }
+  .rel h3 { color:var(--creme); font-size:20px; }
+  .rel p { margin-top:8px; font-size:15px; line-height:1.5; color:rgba(255,253,248,.72); }
+  .relation-mot { text-align:center; margin-top:36px; font:500 italic clamp(22px, 2.8vw, 30px)/1.3 var(--serif); color:var(--bronze-clair); }
+  @media (max-width:900px) { .relation-grid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:700px) { .relation-grid { grid-template-columns:1fr; gap:10px; margin-top:28px; } .rel { padding:18px; } .rel h3 { font-size:18px; } .relation-mot { margin-top:28px; } }
+
+  /* Titre en deux phrases, une par ligne */
+  .h2-duo span { display:block; text-wrap:balance; }
+  .h2-duo { font-size:clamp(26px, 3.6vw, 42px); }
+  @media (max-width:700px) { .h2-duo { font-size:26px; line-height:1.2; } .h2-duo span + span { margin-top:4px; } }
 </style>
 </head>
 <body>
@@ -387,7 +519,7 @@
       <li><a href="#formules">Formules</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a class="btn btn-or" href="#reserver">Réserver un appel</a>
+    <a class="btn btn-or" href="#reserver">Réserver l’appel</a>
   </div>
 </header>
 
@@ -396,14 +528,15 @@
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="stack">
-        <h1><span class="eyebrow h1-kw">Meal prep à Montpellier · Chef &amp; nutrition</span><span class="l"><span>Emballé,</span></span><span class="l"><em>c'est <span class="pese">pesé.</span></em></span></h1>
-        <p class="lead">Tes déjeuners et tes dîners, cuisinés maison et pesés au gramme près pour tes objectifs, livrés sur ton lieu de travail à Montpellier. Tu réchauffes, tu manges, tu retournes bosser.</p>
+        <h1><span class="eyebrow h1-kw">Meal prep à Montpellier · Programme sur mesure</span><span class="l"><span>La seule diète</span></span><span class="l"><span>qu’on tient, c’est</span></span><span class="l"><em>celle qu’on <span class="pese">aime manger.</span></em></span></h1>
+        <p class="lead">Ton programme repas sur mesure : cuisiné maison, pesé au gramme près pour ton objectif, livré chez toi ou au bureau.</p>
+        <p class="hero-cred"><span>Cuisinier passé par des restaurants étoilés</span></p>
         <div class="hero-ctas">
-          <a class="btn btn-or" href="#reserver">Réserver mon appel de 20 min →</a>
+          <a class="btn btn-or" href="#reserver">Réserver l’appel →</a>
           <a class="btn btn-ligne" href="#formules">Voir les formules</a>
         </div>
         <a class="pastille-prix" href="#formules"><span>Dès</span> 14,09 € <small>le repas, suivi compris</small></a>
-        <p class="hero-note">Appel découverte de 20 min · Semaine d’essai, déduite de ton 1er mois · Places limitées</p>
+        <p class="hero-note">Semaine d’essai déduite du 1er mois · Places limitées</p>
       </div>
       <div class="etiquette" aria-label="Exemple d'étiquette LF Meal">
         <div class="et-haut"><span class="et-logo">LF Meal</span><span class="et-pour">pour : ton prénom</span></div>
@@ -415,7 +548,7 @@
           <div class="macro"><b>±1 g</b><small>Pesée</small></div>
         </div>
         <div class="et-bas">Ingrédients et allergènes détaillés · À conserver entre 0 et +4 °C · Retirer le couvercle avant réchauffage</div>
-        <div class="et-tampon">Emballé<br>c'est<br>pesé</div>
+        <div class="et-tampon">Pesé<br>au gramme<br>près</div>
       </div>
     </div>
   </section>
@@ -425,40 +558,61 @@
       <div class="chiffre"><b>Jusqu'à 66 g</b><span>de protéines par plat</span></div>
       <div class="chiffre"><b>12 plats</b><span>à la carte, qui tournent</span></div>
       <div class="chiffre"><b>Au gramme près</b><span>macros sur chaque étiquette</span></div>
-      <div class="chiffre"><b>Au bureau</b><span>livré chaque semaine</span></div>
+      <div class="chiffre"><b>2 fois</b><span>livré par semaine</span></div>
     </div>
   </div>
 
-  <!-- MANIFESTE -->
-  <section class="manifeste" id="concept">
+  <!-- OBJECTIFS -->
+  <section id="concept">
     <div class="wrap">
-      <blockquote class="reveal">« Ce n'est pas un service de livraison de repas. C'est un <span>cadre qui tient</span>, et les repas en sont le moyen. »</blockquote>
-      <p>Victor, fondateur</p>
-      <div class="manifeste-texte reveal">
-        <div class="eyebrow">Mon histoire</div>
-        <h2>Plus qu’un abonnement : quelqu’un qui est passé par là</h2>
-        <p>De 15 à 19 ans, j’ai testé <strong>à peu près toutes les diètes possibles</strong>. J’ai calculé <strong>mon propre métabolisme de base</strong>, pesé chaque repas, compté chaque gramme de protéines.</p>
-        <p class="maths">Ce que j’en ai retenu : pour moi, <b>ça n’a été que des maths.</b></p>
-        <p>Et la seule diète qu’on tient sur la durée, c’est <strong>celle qu’on prend plaisir à manger</strong>.</p>
-        <p>C’est ce que je cuisine pour toi aujourd’hui : des repas qui ont du goût, pesés au gramme près, avec les macros sur chaque étiquette. Ton objectif, on en parle dès la visio.</p>
+      <div class="center stack reveal">
+        <div class="eyebrow">Ton programme</div>
+        <h2>Un programme pour <em class="accent">ton</em> objectif</h2>
+        <p class="lead lead-court">On part de toi : ton corps, ton rythme, tes goûts. Chaque repas est calculé en conséquence.</p>
+      </div>
+      <div class="obj-grid">
+        <div class="obj reveal"><h3>Perdre du poids</h3><p>Calories calibrées, des plats qui ont du goût.</p></div>
+        <div class="obj reveal"><h3>Prendre du muscle</h3><p>Jusqu’à 66 g de protéines par plat.</p></div>
+        <div class="obj reveal"><h3>Nutrition brute</h3><p>Des produits bruts, riches en micro et macronutriments. Rien de transformé.</p></div>
+        <div class="obj reveal"><h3>Gagner du temps</h3><p>Zéro courses, zéro cuisine, zéro vaisselle.</p></div>
+      </div>
+      <p class="obj-note reveal">Tout commence par une visio de 30 min avec moi, Victor.</p>
+    </div>
+  </section>
+
+  <!-- COMPARATIF -->
+  <section class="comparatif" id="pourquoi">
+    <div class="wrap">
+      <div class="center stack reveal">
+        <div class="eyebrow">Pourquoi LF Meal</div>
+        <h2 class="h2-duo"><span>L’industriel nourrit tout le monde.</span> <span>Moi, je cuisine pour toi</span></h2>
+      </div>
+      <div class="vs reveal">
+        <div class="vs-tete"><span></span><span>Plat industriel</span><span class="nous">LF Meal</span></div>
+        <div class="vs-ligne"><b>Recette</b><span>Pensée pour tenir en rayon</span><span class="nous">Pensée pour ton objectif</span></div>
+        <div class="vs-ligne"><b>Cuisine</b><span>En usine, à la chaîne</span><span class="nous">À la main, par un cuisinier passé par l’étoilé</span></div>
+        <div class="vs-ligne"><b>Portions</b><span>Les mêmes pour tout le monde</span><span class="nous">Pesées au gramme près pour toi</span></div>
+        <div class="vs-ligne"><b>Ingrédients</b><span>Une liste à rallonge</span><span class="nous">Des ingrédients que tu connais</span></div>
+        <div class="vs-ligne"><b>Suivi</b><span>Aucun</span><span class="nous">Bilan, point mensuel, Victor joignable 7&nbsp;j/7</span></div>
       </div>
     </div>
   </section>
 
-  <!-- POUR QUI -->
-  <section>
-    <div class="wrap duo">
-      <div class="stack reveal">
-        <div class="eyebrow">Pour qui</div>
-        <h2>Pour ceux qui entreprennent et qui s'entraînent</h2>
-        <p class="lead">Tu sais ce que tu devrais manger. Tu n'as juste pas le temps de le cuisiner, de le peser et de t'y tenir entre deux rendez-vous.</p>
+  <!-- RELATION CLIENT -->
+  <section class="relation" id="relation">
+    <div class="wrap">
+      <div class="center stack reveal">
+        <div class="eyebrow">Plus qu’une livraison</div>
+        <h2>Un vrai suivi, pas juste des barquettes</h2>
+        <p class="lead lead-court">Je ne fais pas que livrer des plats. Je veux te connaître, t’écouter et t’accompagner dans ta progression, comme quelqu’un de ton équipe.</p>
       </div>
-      <ul class="liste reveal">
-        <li><b>Tu as un objectif précis</b> : prise de muscle, sèche, énergie stable. Tes repas suivent tes macros, pas l'inverse.</li>
-        <li><b>Tu manges au bureau</b> : livraison sur ton lieu de travail, réchauffage au micro-ondes en quelques minutes.</li>
-        <li><b>Tu ne veux plus y penser</b> : plus de courses, plus de batch cooking le dimanche, plus de « je verrai ce midi ».</li>
-        <li><b>Tu veux quelqu'un en face</b> : un interlocuteur direct qui ajuste quand ton agenda ou tes objectifs changent.</li>
-      </ul>
+      <div class="relation-grid">
+        <div class="rel reveal"><h3>Joignable 7&nbsp;j/7</h3><p>Une question, un doute, un imprévu : tu m’écris, je te réponds.</p></div>
+        <div class="rel reveal"><h3>Des conseils sur ta progression</h3><p>Ton entraînement, ta récupération, ton rythme : on en parle, je te partage ce que j’ai appris.</p></div>
+        <div class="rel reveal"><h3>Un point chaque mois</h3><p>On regarde ce qui marche et on ajuste tes repas ensemble.</p></div>
+        <div class="rel reveal"><h3>Un programme qui évolue</h3><p>Ton objectif change, tes repas aussi.</p></div>
+      </div>
+      <p class="relation-mot reveal">« Mon but : que tu aies ton propre chef dans ton équipe. »</p>
     </div>
   </section>
 
@@ -470,10 +624,10 @@
         <h2>Quatre étapes, puis tu n'y penses plus</h2>
       </div>
       <div class="etapes-grid">
-        <div class="etape reveal"><h3>Le bilan</h3><p>90 minutes ensemble : tes objectifs, ton rythme, ton activité physique, ce que tu aimes et ce que tu ne manges pas.</p></div>
-        <div class="etape reveal"><h3>Ton protocole</h3><p>Tes apports et tes macros sont calculés pour toi. Chaque plat est ajusté en conséquence.</p></div>
-        <div class="etape reveal"><h3>Cuisiné, pesé</h3><p>Chaque portion est cuisinée, pesée au gramme près et étiquetée à ton prénom avec ses valeurs.</p></div>
-        <div class="etape reveal"><h3>Livré &amp; suivi</h3><p>Livraison chaque semaine au bureau, un point de 30 minutes chaque mois, et un canal direct entre-temps.</p></div>
+        <div class="etape reveal"><h3>Le bilan</h3><p>Une visio de 30 min pour cerner ton objectif, ton rythme et tes goûts.</p></div>
+        <div class="etape reveal"><h3>Ton programme</h3><p>Tes calories et tes macros, calculées pour toi.</p></div>
+        <div class="etape reveal"><h3>Cuisiné, pesé</h3><p>Chaque portion pesée au gramme près, étiquetée à ton prénom.</p></div>
+        <div class="etape reveal"><h3>Livré, suivi</h3><p>2 livraisons par semaine et un point chaque mois.</p></div>
       </div>
     </div>
   </section>
@@ -486,39 +640,18 @@
           <div class="eyebrow">La carte · repas protéinés</div>
           <h2>Douze plats. Zéro à-peu-près</h2>
         </div>
-        <p class="lead" style="max-width:420px">Des recettes de cuisinier, pas des barquettes de régime : jusqu’à 66 g de protéines par plat, macros affichées. Les portions sont ensuite ajustées à ton protocole.</p>
+        <p class="lead" style="max-width:420px">Des recettes de cuisinier, pas des barquettes de régime. Portions ajustées à ton programme.</p>
       </div>
+      <p class="glisse">Glisse pour voir les 12 plats →</p>
       <div class="plats" id="grille-plats"></div>
       <div class="sous-titre reveal">
         <div class="eyebrow">En option</div>
         <h3>Les desserts</h3>
       </div>
+      <p class="glisse">Glisse pour voir les 5 desserts →</p>
       <div class="plats" id="grille-desserts"></div>
-      <div class="legende"><span><i style="background:var(--m-p)"></i>Protéines</span><span><i style="background:var(--m-g)"></i>Glucides</span><span><i style="background:var(--m-l)"></i>Lipides</span><span class="leg-note">La barre montre la part de chaque macro dans les calories du plat.</span></div>
-      <p class="note">Valeurs indicatives pour une portion de base, ajustées ensuite à ton protocole. Allergènes indiqués sous chaque plat et rappelés sur chaque étiquette. Tout est préparé dans la même cuisine : des traces d’autres allergènes sont possibles. Allergie sévère ? Signale-la pendant le bilan. <a href="mentions-legales.html#allergenes">Détail des allergènes</a></p>
-    </div>
-  </section>
-
-  <!-- COMPARATIF -->
-  <section class="comparatif">
-    <div class="wrap">
-      <div class="center stack reveal">
-        <div class="eyebrow">Pourquoi LF Meal</div>
-        <h2>Ce que tu ne trouveras pas ailleurs</h2>
-      </div>
-      <div class="table-wrap reveal">
-        <table>
-          <thead><tr><th></th><th>Livraison de restaurant</th><th>Plats préparés industriels</th><th class="nous">LF Meal</th></tr></thead>
-          <tbody>
-            <tr><td>Macros calculées pour toi</td><td class="non">—</td><td class="non">Standard</td><td class="nous"><span class="oui">✓</span> Au gramme près</td></tr>
-            <tr><td>Cuisiné à la main, à Montpellier</td><td>Variable</td><td class="non">—</td><td class="nous"><span class="oui">✓</span></td></tr>
-            <tr><td>Bilan et point mensuel</td><td class="non">—</td><td class="non">—</td><td class="nous"><span class="oui">✓</span></td></tr>
-            <tr><td>Ajusté à tes goûts et allergies</td><td>Au cas par cas</td><td class="non">—</td><td class="nous"><span class="oui">✓</span></td></tr>
-            <tr><td>Livré sur ton lieu de travail</td><td><span class="oui">✓</span></td><td>Chez toi</td><td class="nous"><span class="oui">✓</span></td></tr>
-            <tr><td>Un interlocuteur direct</td><td class="non">—</td><td class="non">Service client</td><td class="nous"><span class="oui">✓</span></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div class="legende"><span><i style="background:var(--m-p)"></i>Protéines</span><span><i style="background:var(--m-g)"></i>Glucides</span><span><i style="background:var(--m-l)"></i>Lipides</span></div>
+      <p class="note">Valeurs indicatives, ajustées à ton programme. Allergènes sous chaque plat et sur chaque étiquette ; tout est préparé dans la même cuisine, des traces sont possibles. Allergie sévère ? Signale-la au bilan. <a href="mentions-legales.html#allergenes">Détail des allergènes</a></p>
     </div>
   </section>
 
@@ -528,21 +661,7 @@
       <div class="center stack reveal">
         <div class="eyebrow">Formules</div>
         <h2>Un abonnement. Tout est compris</h2>
-        <p class="lead">Tu commences par <b>une semaine d’essai</b> : 10 repas (déjeuner + dîner, 5 jours) pour 149 €, <b>déduits de ton premier mois</b> si tu continues. Ensuite, on part sur 3 mois : le temps qu’il faut pour voir la différence.</p>
-      </div>
-      <div class="encoche reveal">
-        <div class="encoche-case">
-          <div class="eyebrow">Sans dessert</div>
-          <div class="encoche-prix"><span>dès</span> 14,09 €<small> / repas</small></div>
-          <p>de 14,09 € (7/7) à 14,73 € (5/7) · moyenne 14,41 €</p>
-        </div>
-        <div class="encoche-sep" aria-hidden="true">LF</div>
-        <div class="encoche-case">
-          <div class="eyebrow">Avec dessert</div>
-          <div class="encoche-prix"><span>dès</span> 15,98 €<small> / repas + dessert</small></div>
-          <p>de 15,98 € (5/7) à 16,77 € (7/7) · moyenne 16,37 €</p>
-        </div>
-        <p class="encoche-note">Repas cuisinés, pesés, livrés au bureau, suivi mensuel compris. Bilan de 90 min et canal direct inclus.</p>
+        <p class="lead lead-court">Commence par <b>une semaine d’essai</b> : 10 repas pour 149 €, <b>déduits de ton 1er mois</b>. Ensuite, 3 mois d’engagement.</p>
       </div>
       <div class="formules-grid">
         <div class="formule reveal">
@@ -567,14 +686,14 @@
           <a class="btn btn-ligne" href="#reserver">Commencer l’essai</a>
         </div>
       </div>
+      <p class="glisse glisse-bas">← Glisse pour comparer les 4 formules →</p>
       <div class="inclus reveal">
-        <div>Bilan de 90 minutes</div>
-        <div>Protocole et macros personnalisés</div>
-        <div>Livraison hebdomadaire au bureau</div>
-        <div>Point mensuel de 30 minutes</div>
-        <div>Canal direct avec Victor</div>
-        <div>Semaine d’essai déduite du 1er mois</div>
-        <div>Suspension d'un jour possible (48 h avant)</div>
+        <div>Bilan en visio de 30 min</div>
+        <div>Programme et macros sur mesure</div>
+        <div>2 livraisons par semaine</div>
+        <div>Point mensuel de 30 min</div>
+        <div>Victor joignable 7&nbsp;j/7</div>
+        <div>Essai déduit du 1er mois</div>
       </div>
     </div>
   </section>
@@ -603,11 +722,12 @@
       </div>
 
       <div class="transfo-texte stack reveal">
-        <p class="lead">Je m’appelle Victor. Entre ces deux photos, il y a quatre ans : de mes 15 à mes 19 ans. Quatre ans à m’entraîner, à peser ce que je mangeais, à me tromper et à recommencer.</p>
-        <p>J’ai appris la nutrition comme j’ai appris la cuisine : en la pratiquant sur moi, tous les jours. Je sais ce que c’est de tenir un objectif quand la vie se met en travers, et je sais ce qui marche vraiment dans l’assiette.</p>
-        <p><b>LF Meal, c’est tout ce que j’aurais aimé savoir quand je me suis lancé.</b> Des repas qui ont du goût, calibrés pour ton objectif, et quelqu’un en face qui est passé par là. Je cuisine moi-même chaque plat, pour un nombre limité de clients, et je reste ton interlocuteur du premier appel au dernier repas.</p>
+        <p class="lead">Je m’appelle Victor. La cuisine, c’est ma passion depuis toujours, et je l’ai apprise <b>dans les brigades de restaurants étoilés.</b></p>
+        <div class="cred-liste"><span>Restaurants étoilés</span><span>4 ans de nutrition testée sur moi</span></div>
+        <p>De 15 à 19 ans, j’ai aussi testé à peu près toutes les diètes et pesé chaque repas. Ce que j’en retiens : <b>ce n’est que des maths.</b></p>
+        <p>C’est ce que je cuisine pour toi, moi-même, pour un nombre limité de clients.</p>
         <div class="signature">Victor</div>
-        <p class="transfo-note">Mon parcours personnel, pas une promesse de résultat : chaque corps et chaque rythme sont différents.</p>
+        <p class="transfo-note">Mon parcours personnel, pas une promesse de résultat : chaque corps est différent.</p>
       </div>
     </div>
   </section>
@@ -620,16 +740,16 @@
         <h2>Tout ce que tu te demandes</h2>
       </div>
       <div class="faq-liste">
-        <details><summary>Où et quand livrez-vous ?</summary><p>À Montpellier, directement sur ton lieu de travail (bureau, coworking), le <b>lundi et le jeudi entre 10 h et 11 h 30</b>. Tu reçois un message dès que tes repas sont au frais. On vérifie ton adresse pendant l’appel découverte.</p></details>
-        <details><summary>Comment je réchauffe mes repas ?</summary><p>Au micro-ondes, en quelques minutes. Retire simplement le couvercle avant de réchauffer : la barquette, elle, passe au micro-ondes.</p></details>
-        <details><summary>Comment je conserve les repas ?</summary><p>Au réfrigérateur, entre 0 et +4 °C. La date limite de consommation est indiquée sur chaque étiquette.</p></details>
-        <details><summary>LF Meal, c'est du meal prep ?</summary><p>Oui, en plus précis. Comme le meal prep, tes repas de la semaine sont préparés à l'avance. Mais ici, ils sont cuisinés pour toi, pesés au gramme près selon tes objectifs, étiquetés avec les macros et livrés sur ton lieu de travail. Tu n'as ni courses, ni cuisine, ni vaisselle.</p></details>
-        <details><summary>Combien coûte un repas ?</summary><p>À partir de 14,09 € le repas avec la formule 7/7, et 14,73 € avec la formule 5/7. Le bilan, le protocole, la livraison et le point mensuel sont compris. Tu peux commencer par la semaine d'essai : 10 repas pour 149 €.</p></details>
-        <details><summary>Quelle différence avec Uber Eats ou une box repas ?</summary><p>Une box ou une appli te livre un plat standard. Ici, tu as un cuisinier qui connaît tes objectifs : portions pesées pour toi, macros affichées, menus ajustés chaque mois et un contact direct. C'est un accompagnement dont les repas sont le moyen.</p></details>
-        <details><summary>Et si j'ai des allergies ou des aliments que je n'aime pas ?</summary><p>C'est vu pendant le bilan. Les plats sont adaptés, et les allergènes de chaque plat sont indiqués sur la carte et sur chaque étiquette.</p></details>
-        <details><summary>Je dois m’engager tout de suite ?</summary><p>Non. Tu commences par une semaine d’essai : 10 repas sur 5 jours, déjeuner et dîner, pour 149 €. Si tu continues, ces 149 € sont déduits de ton premier mois et l’abonnement démarre pour 3 mois. Si tu t’arrêtes là, tu ne dois rien de plus.</p></details>
+        <details><summary>Où et quand livrez-vous ?</summary><p>À Montpellier, chez toi ou sur ton lieu de travail, le <b>lundi et le jeudi entre 10 h et 11 h 30</b>. Tu reçois un message dès que tes repas sont au frais.</p></details>
+        <details><summary>Comment je réchauffe mes repas ?</summary><p>Au micro-ondes, en quelques minutes. Retire le couvercle avant : la barquette, elle, passe au micro-ondes.</p></details>
+        <details><summary>Comment je conserve les repas ?</summary><p>Au réfrigérateur, entre 0 et +4 °C. La date limite est sur chaque étiquette.</p></details>
+        <details><summary>LF Meal, c'est du meal prep ?</summary><p>Oui, en plus précis : tes repas sont cuisinés pour toi, pesés au gramme près selon ton objectif, étiquetés avec les macros et livrés. Ni courses, ni cuisine, ni vaisselle.</p></details>
+        <details><summary>Combien coûte un repas ?</summary><p>À partir de 14,09 € le repas (formule 7/7), bilan, livraison et suivi compris. Semaine d’essai : 10 repas pour 149 €.</p></details>
+        <details><summary>Quelle différence avec Uber Eats ou une box repas ?</summary><p>Une appli ou une box te livre un plat standard. Ici, un cuisinier connaît ton objectif : portions pesées pour toi, macros affichées, menus ajustés et un contact direct.</p></details>
+        <details><summary>Et si j'ai des allergies ou des aliments que je n'aime pas ?</summary><p>On en parle au bilan et les plats sont adaptés. Les allergènes sont indiqués sur la carte et sur chaque étiquette.</p></details>
+        <details><summary>Je dois m’engager tout de suite ?</summary><p>Non. Tu commences par la semaine d’essai (149 €). Si tu continues, elle est déduite de ton 1er mois et l’abonnement démarre pour 3 mois. Sinon, tu ne dois rien de plus.</p></details>
         <details><summary>Je suis en déplacement un jour, je fais comment ?</summary><p>Tu peux suspendre une journée en prévenant 48 h à l'avance.</p></details>
-        <details><summary>LF Meal, c'est un suivi médical ?</summary><p>Non. LF Meal est un service de repas et d'accompagnement alimentaire, pas un suivi médical ni diététique. Si tu as une pathologie ou un traitement, parles-en d'abord à ton médecin.</p></details>
+        <details><summary>LF Meal, c'est un suivi médical ?</summary><p>Non. C’est un service de repas et d’accompagnement alimentaire, pas un suivi médical ni diététique. Pathologie ou traitement ? Parles-en d’abord à ton médecin.</p></details>
       </div>
     </div>
   </section>
@@ -638,13 +758,13 @@
   <section class="final" id="reserver">
     <div class="wrap reserver-grid">
       <div class="stack reveal">
-        <div class="eyebrow" style="color:var(--bronze-clair)">Appel découverte · 20 min</div>
-        <h2>Parlons de tes objectifs</h2>
-        <p class="lead">Choisis un créneau. En 20 minutes, on fait le point sur tes objectifs, ton rythme et tes contraintes, et je te dis honnêtement si LF Meal est fait pour toi.</p>
+        <div class="eyebrow" style="color:var(--vert-vif)">Visio découverte · 30 min</div>
+        <h2>Parlons de ton objectif</h2>
+        <p class="lead">Choisis un créneau. Je te dis honnêtement si LF Meal est fait pour toi.</p>
         <ul class="reserver-liste">
-          <li>Un appel avec moi, Victor, pas un commercial</li>
+          <li>Une visio avec moi, pas un commercial</li>
           <li>Ton bilan personnalisé pour démarrer</li>
-          <li>Puis une semaine d’essai, déduite de ton premier mois</li>
+          <li>Puis une semaine d’essai, déduite du 1er mois</li>
         </ul>
         <p class="places">Je cuisine moi-même pour un nombre limité de clients.</p>
       </div>
@@ -659,6 +779,8 @@
     </div>
   </section>
 </main>
+
+<a class="cta-mobile" id="cta-mobile" href="#reserver">Réserver l’appel</a>
 
 <footer>
   <div class="wrap">
@@ -675,7 +797,7 @@
   const AGENDA_URL = "https://calendly.com/lfmeal5/appel-decouverte";
   if (AGENDA_URL) {
     const box = document.getElementById("agenda");
-    box.innerHTML = `<div class="calendly-inline-widget" data-url="${AGENDA_URL}?hide_gdpr_banner=1&primary_color=8f6419"></div><p class="agenda-lien">Le calendrier ne s’affiche pas ? <a href="${AGENDA_URL}" target="_blank" rel="noopener">Ouvre-le ici →</a></p>`;
+    box.innerHTML = `<div class="calendly-inline-widget" data-url="${AGENDA_URL}?hide_gdpr_banner=1&primary_color=1f3f7a"></div><p class="agenda-lien">Le calendrier ne s’affiche pas ? <a href="${AGENDA_URL}" target="_blank" rel="noopener">Ouvre-le ici →</a></p>`;
     const s = document.createElement("script"); s.src = "https://assets.calendly.com/assets/external/widget.js"; s.async = true; document.body.appendChild(s);
   }
 
@@ -744,13 +866,20 @@
   addEventListener("scroll", () => header.classList.toggle("scrolled", scrollY > 10), { passive:true });
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("vu"); io.unobserve(e.target); } }), { threshold:.12 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // Bouton « Réserver » collé en bas sur mobile : visible après le haut de page, caché sur la section réservation
+  const cta = document.getElementById("cta-mobile"), heroEl = document.querySelector(".hero"), resa = document.getElementById("reserver");
+  let horsHero = false, surResa = false;
+  const majCta = () => cta.classList.toggle("on", horsHero && !surResa);
+  new IntersectionObserver(([e]) => { horsHero = !e.isIntersecting; majCta(); }).observe(heroEl);
+  new IntersectionObserver(([e]) => { surResa = e.isIntersecting; majCta(); }, { threshold:.05 }).observe(resa);
 </script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Où et quand livrez-vous ?", "acceptedAnswer": { "@type": "Answer", "text": "À Montpellier, directement sur ton lieu de travail (bureau, coworking), le lundi et le jeudi entre 10 h et 11 h 30. Tu reçois un message dès que tes repas sont au frais. On vérifie ton adresse pendant l’appel découverte." } },
+    { "@type": "Question", "name": "Où et quand livrez-vous ?", "acceptedAnswer": { "@type": "Answer", "text": "À Montpellier, chez toi ou sur ton lieu de travail, le lundi et le jeudi entre 10 h et 11 h 30. Tu reçois un message dès que tes repas sont au frais." } },
     { "@type": "Question", "name": "Comment je réchauffe mes repas ?", "acceptedAnswer": { "@type": "Answer", "text": "Au micro-ondes, en quelques minutes. Retire simplement le couvercle avant de réchauffer : la barquette, elle, passe au micro-ondes." } },
     { "@type": "Question", "name": "Comment je conserve les repas ?", "acceptedAnswer": { "@type": "Answer", "text": "Au réfrigérateur, entre 0 et +4 °C. La date limite de consommation est indiquée sur chaque étiquette." } },
     { "@type": "Question", "name": "LF Meal, c'est du meal prep ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, en plus précis. Comme le meal prep, tes repas de la semaine sont préparés à l'avance. Mais ici, ils sont cuisinés pour toi, pesés au gramme près selon tes objectifs, étiquetés avec les macros et livrés sur ton lieu de travail. Tu n'as ni courses, ni cuisine, ni vaisselle." } },
