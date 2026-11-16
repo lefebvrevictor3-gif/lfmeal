@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.web3forms.com; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="robots" content="noindex">
+<title>Ton bilan | LF Meal</title>
+<meta name="theme-color" content="#5B3A12">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme:#FFFDF8; --beige:#F6EFE0; --sable:#EADFC8; --bronze:#8F6419; --brun:#5B3A12; --encre:#2B1D0E; --gris:#7A6A55;
+    --ligne:rgba(91,58,18,.18); --bleu:#1F3F7A; --bleu-fonce:#152C57; --bleu-clair:#E8EDF6; --erreur:#A3321F;
+    --serif:"Playfair Display", Georgia, serif; --texte:"Lora", Georgia, serif;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--creme); color:var(--encre); font:16px/1.55 var(--texte); -webkit-font-smoothing:antialiased; padding-bottom:calc(96px + env(safe-area-inset-bottom)); }
+  .wrap { max-width:640px; margin:0 auto; padding:0 20px; }
+  header { padding:18px 0; border-bottom:1px solid var(--ligne); }
+  .logo { font:600 22px/1 var(--serif); color:var(--brun); text-decoration:none; letter-spacing:.04em; }
+  .logo span { color:var(--bronze); font-style:italic; font-weight:500; }
+  h1 { font:600 34px/1.12 var(--serif); color:var(--brun); margin:28px 0 0; }
+  h1 em { color:var(--bronze); font-weight:500; }
+  .intro { color:var(--gris); margin:14px 0 0; }
+  .temps { display:inline-flex; margin-top:16px; padding:7px 14px; border-radius:999px; background:var(--bleu-clair); color:var(--bleu-fonce); font-weight:600; font-size:13.5px; }
+
+  .barre { position:sticky; top:0; z-index:5; background:rgba(255,253,248,.94); backdrop-filter:blur(8px); padding:12px 0 10px; margin-top:22px; }
+  .barre-rail { height:6px; border-radius:99px; background:var(--sable); overflow:hidden; }
+  .barre-plein { height:100%; width:0; background:var(--bleu); border-radius:99px; transition:width .3s ease; }
+  .barre-txt { margin-top:6px; font-size:13px; color:var(--gris); }
+
+  fieldset { border:0; padding:0; margin:34px 0 0; min-width:0; }
+  legend { padding:0; font:600 24px/1.2 var(--serif); color:var(--brun); }
+  legend small { display:block; font:600 13px/1 var(--texte); color:var(--bronze); margin-bottom:8px; }
+  .q { margin-top:22px; }
+  .q > label, .q > .lbl { display:block; font-weight:600; color:var(--brun); }
+  .aide { display:block; font-weight:400; font-size:14px; color:var(--gris); margin-top:2px; }
+  .fac { font-weight:400; font-size:13px; color:var(--gris); }
+  input[type=text], input[type=tel], input[type=email], input[type=number], textarea {
+    width:100%; margin-top:8px; padding:13px 14px; border:1px solid var(--ligne); border-radius:10px; background:#fff; color:var(--encre);
+    font:16px/1.4 var(--texte); -webkit-appearance:none; appearance:none; }
+  textarea { resize:vertical; min-height:84px; }
+  input:focus, textarea:focus { outline:2px solid var(--bleu); outline-offset:1px; border-color:var(--bleu); }
+  .trio { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+  .duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  .choix { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .choix label { position:relative; cursor:pointer; }
+  .choix input { position:absolute; opacity:0; inset:0; width:100%; height:100%; margin:0; cursor:pointer; }
+  .choix span { display:inline-flex; align-items:center; min-height:44px; padding:9px 16px; border:1px solid var(--ligne); border-radius:999px; background:#fff; color:var(--brun); font-size:15px; transition:background .15s, color .15s, border-color .15s; }
+  .choix input:checked + span { background:var(--bleu); border-color:var(--bleu); color:#fff; font-weight:600; }
+  .choix input:focus-visible + span { outline:2px solid var(--bleu); outline-offset:2px; }
+  .note10 label { flex:1 0 auto; }
+  .note10 span { justify-content:center; min-width:44px; padding:9px 0; width:100%; }
+  .note10 { display:grid; grid-template-columns:repeat(5, 1fr); }
+
+  .encart { margin-top:14px; padding:14px 16px; border-radius:10px; background:var(--beige); border-left:4px solid var(--bronze); font-size:14.5px; color:var(--brun); }
+  .accord { display:flex; gap:12px; align-items:flex-start; margin-top:28px; font-size:14.5px; color:var(--gris); }
+  .accord input { flex:none; width:22px; height:22px; margin:2px 0 0; accent-color:var(--bleu); }
+  .err { display:none; margin-top:14px; padding:12px 14px; border-radius:10px; background:#FBEDEA; color:var(--erreur); font-weight:600; font-size:14.5px; }
+  .err.vu { display:block; }
+  .manque { outline:2px solid var(--erreur) !important; outline-offset:2px; border-radius:10px; }
+
+  .envoi { position:fixed; left:0; right:0; bottom:0; z-index:10; padding:12px 20px calc(12px + env(safe-area-inset-bottom)); background:rgba(255,253,248,.96); border-top:1px solid var(--ligne); }
+  .envoi button { display:block; width:100%; max-width:600px; margin:0 auto; min-height:54px; border:0; border-radius:999px; background:var(--bleu); color:#fff; font:600 17px/1 var(--texte); cursor:pointer; }
+  .envoi button:disabled { opacity:.6; cursor:default; }
+  .envoi button:focus-visible { outline:2px solid var(--brun); outline-offset:3px; }
+
+  .merci { display:none; text-align:center; padding:56px 0; }
+  .merci.vu { display:block; }
+  .merci h2 { font:600 32px/1.15 var(--serif); color:var(--brun); margin:0; }
+  .merci p { color:var(--gris); margin:14px auto 0; max-width:440px; }
+  .merci .cit { margin-top:28px; font:500 italic 22px/1.3 var(--serif); color:var(--bronze); }
+  .merci a { display:inline-flex; margin-top:28px; padding:14px 24px; border-radius:999px; background:var(--bleu); color:#fff; font-weight:600; text-decoration:none; }
+  .secours { display:none; margin-top:22px; text-align:left; }
+  .secours.vu { display:block; }
+  .secours textarea { min-height:160px; font-size:13.5px; }
+  footer { margin-top:44px; padding:22px 0; border-top:1px solid var(--ligne); font-size:13px; color:var(--gris); }
+  footer a { color:inherit; }
+  @media (max-width:380px) { .trio { grid-template-columns:1fr 1fr; } h1 { font-size:30px; } }
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><a class="logo" href="/">LF <span>Meal</span></a></div></header>
+
+<main class="wrap">
+  <div id="formulaire">
+    <h1>Ton bilan, <em>avant notre appel.</em></h1>
+    <p class="intro">Quelques questions pour préparer ton programme. Plus tu es précis, plus tes repas te ressembleront. Il n’y a pas de mauvaise réponse.</p>
+    <div class="temps">5 minutes · 6 étapes</div>
+
+    <div class="barre" aria-hidden="true">
+      <div class="barre-rail"><div class="barre-plein" id="plein"></div></div>
+      <div class="barre-txt" id="avance">0 réponse sur 15</div>
+    </div>
+
+    <form id="f" novalidate>
+      <fieldset>
+        <legend><small>Étape 1 sur 6</small>Toi</legend>
+        <div class="duo">
+          <div class="q"><label for="prenom">Prénom</label><input type="text" id="prenom" maxlength="60" autocomplete="given-name" data-req></div>
+          <div class="q"><label for="nom">Nom</label><input type="text" id="nom" maxlength="60" autocomplete="family-name" data-req></div>
+        </div>
+        <div class="q"><label for="tel">Téléphone</label><input type="tel" id="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" data-req></div>
+        <div class="q"><label for="mail">E-mail <span class="fac">(facultatif)</span></label><input type="email" id="mail" maxlength="120" autocomplete="email" inputmode="email"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 2 sur 6</small>Ton objectif</legend>
+        <div class="q" data-groupe="objectif" data-req-groupe>
+          <span class="lbl">Qu’est-ce que tu cherches en priorité ?<span class="aide">Tu peux en cocher plusieurs.</span></span>
+          <div class="choix">
+            <label><input type="checkbox" name="objectif" value="Perdre du poids"><span>Perdre du poids</span></label>
+            <label><input type="checkbox" name="objectif" value="Prendre du muscle"><span>Prendre du muscle</span></label>
+            <label><input type="checkbox" name="objectif" value="Manger de meilleurs produits"><span>Manger de meilleurs produits</span></label>
+            <label><input type="checkbox" name="objectif" value="Gagner du temps"><span>Gagner du temps</span></label>
+            <label><input type="checkbox" name="objectif" value="Plus d'énergie dans la journée"><span>Plus d’énergie dans la journée</span></label>
+          </div>
+        </div>
+        <div class="q"><label for="trois-mois">Dans 3 mois, si tout s’est bien passé, qu’est-ce qui a changé pour toi ?</label><textarea id="trois-mois" maxlength="800" data-req></textarea></div>
+        <div class="q"><label for="pourquoi">Pourquoi maintenant, et pas il y a 6 mois ?</label><textarea id="pourquoi" maxlength="800" data-req></textarea></div>
+        <div class="q" data-groupe="motivation" data-req-groupe>
+          <span class="lbl">De 1 à 10, à quel point tu veux changer ta façon de manger ?</span>
+          <div class="choix note10" id="note10"></div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 3 sur 6</small>Tes repas aujourd’hui</legend>
+        <div class="q"><label for="journee">Raconte-moi une journée normale côté repas.<span class="aide">Matin, midi, soir, grignotage.</span></label><textarea id="journee" maxlength="1000" data-req></textarea></div>
+        <div class="q"><label for="essais">Tu as déjà essayé de mieux manger ? Qu’est-ce qui a coincé ? <span class="fac">(facultatif)</span></label><textarea id="essais" maxlength="800"></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 4 sur 6</small>Ton sport</legend>
+        <div class="q" data-groupe="seances" data-req-groupe>
+          <span class="lbl">Combien de séances par semaine ?</span>
+          <div class="choix">
+            <label><input type="radio" name="seances" value="Aucune"><span>Aucune</span></label>
+            <label><input type="radio" name="seances" value="1 à 2"><span>1 à 2</span></label>
+            <label><input type="radio" name="seances" value="3 à 4"><span>3 à 4</span></label>
+            <label><input type="radio" name="seances" value="5 ou plus"><span>5 ou plus</span></label>
+          </div>
+        </div>
+        <div class="q"><label for="sport">Quel sport ? <span class="fac">(facultatif)</span></label><input type="text" id="sport" maxlength="120" placeholder="Musculation, course, CrossFit…"></div>
+        <div class="q" data-groupe="plan">
+          <span class="lbl">Tu as déjà un plan alimentaire d’un coach ou d’un diététicien ? <span class="fac">(facultatif)</span></span>
+          <div class="choix">
+            <label><input type="radio" name="plan" value="Oui"><span>Oui</span></label>
+            <label><input type="radio" name="plan" value="Non"><span>Non</span></label>
+          </div>
+          <span class="aide">Si oui, tu pourras me l’envoyer : je cuisine sur ton plan.</span>
+        </div>
+        <div class="q">
+          <span class="lbl">Tes mesures <span class="fac">(facultatif)</span><span class="aide">Elles servent uniquement à calculer tes portions.</span></span>
+          <div class="trio">
+            <input type="number" id="age" min="16" max="99" inputmode="numeric" placeholder="Âge" aria-label="Âge">
+            <input type="number" id="taille" min="120" max="230" inputmode="numeric" placeholder="Taille (cm)" aria-label="Taille en centimètres">
+            <input type="number" id="poids" min="35" max="250" inputmode="decimal" placeholder="Poids (kg)" aria-label="Poids en kilos">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 5 sur 6</small>Dans ton assiette</legend>
+        <div class="q" data-groupe="allergenes" data-req-groupe>
+          <span class="lbl">Allergies ou intolérances<span class="aide">Coche tout ce qui te concerne.</span></span>
+          <div class="choix">
+            <label><input type="checkbox" name="allergenes" value="Aucune" id="aucune"><span>Aucune</span></label>
+            <label><input type="checkbox" name="allergenes" value="Gluten"><span>Gluten</span></label>
+            <label><input type="checkbox" name="allergenes" value="Lait"><span>Lait</span></label>
+            <label><input type="checkbox" name="allergenes" value="Œuf"><span>Œuf</span></label>
+            <label><input type="checkbox" name="allergenes" value="Arachide"><span>Arachide</span></label>
+            <label><input type="checkbox" name="allergenes" value="Fruits à coque"><span>Fruits à coque</span></label>
+            <label><input type="checkbox" name="allergenes" value="Soja"><span>Soja</span></label>
+            <label><input type="checkbox" name="allergenes" value="Poisson"><span>Poisson</span></label>
+            <label><input type="checkbox" name="allergenes" value="Crustacés"><span>Crustacés</span></label>
+            <label><input type="checkbox" name="allergenes" value="Sésame"><span>Sésame</span></label>
+            <label><input type="checkbox" name="allergenes" value="Autre"><span>Autre</span></label>
+          </div>
+          <input type="text" id="allergie-detail" maxlength="300" placeholder="Précise si besoin (autre allergie, niveau de gravité)" aria-label="Précision sur tes allergies">
+          <div class="encart">Tout est préparé dans la même cuisine : des traces d’autres allergènes sont possibles. En cas d’allergie sévère, dis-le-moi ici et on en parle à l’appel.</div>
+        </div>
+        <div class="q"><label for="deteste">Les aliments que tu détestes <span class="fac">(facultatif)</span></label><input type="text" id="deteste" maxlength="300" placeholder="Poisson, champignons, coriandre…"></div>
+        <div class="q"><label for="sante">Quelque chose que je dois savoir pour cuisiner pour toi ? <span class="fac">(facultatif)</span><span class="aide">Régime particulier, aliment à éviter sur avis de ton médecin… LF Meal n’est pas un suivi médical.</span></label><textarea id="sante" maxlength="600"></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 6 sur 6</small>La livraison et la suite</legend>
+        <div class="q" data-groupe="lieu-type" data-req-groupe>
+          <span class="lbl">Je te livre où ?<span class="aide">Le lundi et le jeudi, entre 10 h et 11 h 30, à Montpellier.</span></span>
+          <div class="choix">
+            <label><input type="radio" name="lieu-type" value="Chez moi"><span>Chez moi</span></label>
+            <label><input type="radio" name="lieu-type" value="Au bureau"><span>Au bureau</span></label>
+          </div>
+          <input type="text" id="adresse" maxlength="200" autocomplete="street-address" placeholder="Adresse de livraison" aria-label="Adresse de livraison" data-req>
+        </div>
+        <div class="q" data-groupe="frigo" data-req-groupe>
+          <span class="lbl">Sur place, tu as un frigo et un micro-ondes ?</span>
+          <div class="choix">
+            <label><input type="radio" name="frigo" value="Oui, les deux"><span>Oui, les deux</span></label>
+            <label><input type="radio" name="frigo" value="Frigo seulement"><span>Frigo seulement</span></label>
+            <label><input type="radio" name="frigo" value="Non"><span>Non</span></label>
+          </div>
+        </div>
+        <div class="q" data-groupe="reception" data-req-groupe>
+          <span class="lbl">Quelqu’un peut réceptionner les repas sur ce créneau ?</span>
+          <div class="choix">
+            <label><input type="radio" name="reception" value="Oui"><span>Oui</span></label>
+            <label><input type="radio" name="reception" value="Pas toujours"><span>Pas toujours</span></label>
+            <label><input type="radio" name="reception" value="Non"><span>Non</span></label>
+          </div>
+        </div>
+        <div class="q" data-groupe="formule">
+          <span class="lbl">Quelle formule t’intéresse ? <span class="fac">(facultatif)</span></span>
+          <div class="choix">
+            <label><input type="radio" name="formule" value="5/7 (589 €)"><span>5/7 · 589 €</span></label>
+            <label><input type="radio" name="formule" value="5/7 + dessert (639 €)"><span>5/7 + dessert · 639 €</span></label>
+            <label><input type="radio" name="formule" value="7/7 (789 €)"><span>7/7 · 789 €</span></label>
+            <label><input type="radio" name="formule" value="7/7 + dessert (939 €)"><span>7/7 + dessert · 939 €</span></label>
+            <label><input type="radio" name="formule" value="Je ne sais pas encore"><span>Je ne sais pas encore</span></label>
+          </div>
+        </div>
+        <div class="q" data-groupe="budget" data-req-groupe>
+          <span class="lbl">Après la semaine d’essai, c’est à partir de 589 € par mois, avec 3 mois d’engagement. C’est envisageable pour toi ?</span>
+          <div class="choix">
+            <label><input type="radio" name="budget" value="Oui"><span>Oui</span></label>
+            <label><input type="radio" name="budget" value="À voir après l'essai"><span>À voir après l’essai</span></label>
+            <label><input type="radio" name="budget" value="Non"><span>Non</span></label>
+          </div>
+        </div>
+        <div class="q"><label for="question">Une question pour moi avant l’appel ? <span class="fac">(facultatif)</span></label><textarea id="question" maxlength="600"></textarea></div>
+      </fieldset>
+
+      <input type="checkbox" id="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="display:none">
+      <label class="accord"><input type="checkbox" id="accord"><span>J’accepte que LF Meal utilise mes réponses, y compris mes allergies, pour préparer mon programme et mes repas. Elles ne sont transmises à personne d’autre et je peux demander leur suppression à tout moment. <a href="mentions-legales.html">En savoir plus</a></span></label>
+      <div class="err" id="err" role="alert"></div>
+    </form>
+  </div>
+
+  <div class="merci" id="merci" tabindex="-1">
+    <h2>Merci <span id="merci-prenom"></span>, c’est bien reçu.</h2>
+    <p>Je lis tes réponses avant notre appel, et on construit ton programme ensemble.</p>
+    <p class="cit">« La seule diète qu’on tient, c’est celle qu’on aime manger. »</p>
+    <a href="/#reserver">Réserver l’appel</a>
+    <div class="secours" id="secours">
+      <p>L’envoi automatique n’a pas fonctionné. Copie ce texte et envoie-le-moi sur Instagram, <b>@lf_meal</b> :</p>
+      <textarea id="secours-txt" readonly aria-label="Tes réponses à copier"></textarea>
+    </div>
+  </div>
+
+  <footer>LF Meal · Montpellier · <a href="mentions-legales.html">Mentions légales</a><br>LF Meal est un service de repas et d’accompagnement alimentaire, pas un suivi médical ni diététique.</footer>
+</main>
+
+<div class="envoi" id="envoi"><button type="submit" form="f" id="btn">Envoyer mon bilan</button></div>
+
+<script>
+  // ===== RÉGLAGE : clé publique Web3Forms (la même que la page commande). Vide = pas d'envoi, le client copie ses réponses. =====
+  const CLE_WEB3FORMS = "5c59d910-62d0-40ec-9440-1dd9b8510006";
+
+  const $ = id => document.getElementById(id);
+  const f = $("f");
+
+  // Note de 1 à 10
+  $("note10").innerHTML = Array.from({ length:10 }, (_, i) => `<label><input type="radio" name="motivation" value="${i + 1}"><span>${i + 1}</span></label>`).join("");
+
+  // Prénom pré-rempli depuis le lien (?prenom=Thomas)
+  const p = new URLSearchParams(location.search).get("prenom");
+  if (p) $("prenom").value = p.slice(0, 60);
+
+  // « Aucune » allergie décoche les autres, et inversement
+  f.querySelectorAll('input[name="allergenes"]').forEach(c => c.addEventListener("change", () => {
+    if (c.id === "aucune" && c.checked) f.querySelectorAll('input[name="allergenes"]').forEach(x => { if (x !== c) x.checked = false; });
+    else if (c.checked) $("aucune").checked = false;
+  }));
+
+  const coches = nom => [...f.querySelectorAll(`input[name="${nom}"]:checked`)].map(x => x.value);
+  const champs = [...f.querySelectorAll("[data-req]")];
+  const groupes = [...f.querySelectorAll("[data-req-groupe]")];
+  const total = champs.length + groupes.length;
+
+  function avance() {
+    const n = champs.filter(c => c.value.trim()).length + groupes.filter(g => coches(g.dataset.groupe).length).length;
+    $("plein").style.width = (n / total * 100).toFixed(0) + "%";
+    $("avance").textContent = n >= total ? "Tout est rempli, tu peux envoyer" : `${n} réponse${n > 1 ? "s" : ""} sur ${total}`;
+  }
+  f.addEventListener("input", avance); f.addEventListener("change", avance); avance();
+
+  function recap() {
+    const v = id => $(id).value.trim();
+    const lignes = [
+      ["Prénom et nom", `${v("prenom")} ${v("nom")}`], ["Téléphone", v("tel")], ["E-mail", v("mail")],
+      ["Objectif", coches("objectif").join(", ")], ["Dans 3 mois", v("trois-mois")], ["Pourquoi maintenant", v("pourquoi")],
+      ["Motivation sur 10", coches("motivation")[0]],
+      ["Journée type", v("journee")], ["Essais passés", v("essais")],
+      ["Séances par semaine", coches("seances")[0]], ["Sport", v("sport")], ["Plan d'un coach ou diététicien", coches("plan")[0]],
+      ["Âge", v("age")], ["Taille (cm)", v("taille")], ["Poids (kg)", v("poids")],
+      ["Allergies ou intolérances", coches("allergenes").join(", ")], ["Précision allergies", v("allergie-detail")],
+      ["Aliments détestés", v("deteste")], ["À savoir pour cuisiner", v("sante")],
+      ["Livraison", coches("lieu-type")[0]], ["Adresse", v("adresse")], ["Frigo et micro-ondes", coches("frigo")[0]],
+      ["Réception lundi et jeudi", coches("reception")[0]], ["Formule", coches("formule")[0]], ["Budget envisageable", coches("budget")[0]],
+      ["Question", v("question")],
+    ].filter(([, val]) => val && val.trim());
+    return lignes;
+  }
+
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const err = $("err"); err.classList.remove("vu");
+    f.querySelectorAll(".manque").forEach(x => x.classList.remove("manque"));
+    const vides = champs.filter(c => !c.value.trim());
+    const groupesVides = groupes.filter(g => !coches(g.dataset.groupe).length);
+    vides.forEach(c => c.classList.add("manque"));
+    groupesVides.forEach(g => g.querySelector(".choix").classList.add("manque"));
+    const premier = vides[0] || (groupesVides[0] && groupesVides[0].querySelector("input"));
+    const tous = [...vides, ...groupesVides.map(g => g.querySelector("input"))].sort((a, b) => a.compareDocumentPosition(b) & 2 ? 1 : -1);
+    if (tous.length) {
+      const n = tous.length;
+      err.textContent = `Il manque ${n} réponse${n > 1 ? "s" : ""}. Elles sont entourées en rouge.`; err.classList.add("vu");
+      tous[0].scrollIntoView({ block:"center" }); tous[0].focus({ preventScroll:true }); return;
+    }
+    if ($("mail").value.trim() && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("mail").value.trim())) {
+      $("mail").classList.add("manque"); err.textContent = "Vérifie ton e-mail, il semble incomplet."; err.classList.add("vu"); $("mail").focus(); return;
+    }
+    if (!$("accord").checked) { err.textContent = "Coche la case d’accord juste au-dessus pour envoyer ton bilan."; err.classList.add("vu"); $("accord").focus(); return; }
+    if ($("botcheck").checked) return;
+
+    const lignes = recap(), texte = lignes.map(([k, val]) => `${k} : ${val}`).join("\n");
+    const btn = $("btn"); btn.disabled = true; btn.textContent = "Envoi en cours…";
+    let ok = false;
+    if (CLE_WEB3FORMS) {
+      try {
+        const corps = { access_key:CLE_WEB3FORMS, subject:`Bilan LF Meal — ${$("prenom").value.trim()} ${$("nom").value.trim()}`, from_name:"Site LF Meal" };
+        lignes.forEach(([k, val]) => { corps[k] = val; });
+        if ($("mail").value.trim()) corps.replyto = $("mail").value.trim();
+        const r = await fetch("https://api.web3forms.com/submit", { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body:JSON.stringify(corps) });
+        ok = r.ok && (await r.json()).success === true;
+      } catch { ok = false; }
+    }
+    $("merci-prenom").textContent = $("prenom").value.trim();
+    if (!ok) { $("secours-txt").value = texte; $("secours").classList.add("vu"); }
+    $("formulaire").style.display = "none"; $("envoi").style.display = "none";
+    $("merci").classList.add("vu"); scrollTo(0, 0); $("merci").focus({ preventScroll:true });
+  });
+</script>
+</body>
+</html>
