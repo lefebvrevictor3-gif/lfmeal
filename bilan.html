@@ -95,7 +95,7 @@
   <div id="formulaire">
     <h1>Ton bilan, <em>avant notre appel.</em></h1>
     <p class="intro">Quelques questions pour préparer ton programme. Plus tu es précis, plus tes repas te ressembleront. Il n’y a pas de mauvaise réponse.</p>
-    <div class="temps">5 minutes · 6 étapes</div>
+    <div class="temps">7 minutes · 7 étapes</div>
 
     <div class="barre" aria-hidden="true">
       <div class="barre-rail"><div class="barre-plein" id="plein"></div></div>
@@ -104,17 +104,20 @@
 
     <form id="f" novalidate>
       <fieldset>
-        <legend><small>Étape 1 sur 6</small>Toi</legend>
+        <legend><small>Étape 1 sur 7</small>Toi</legend>
         <div class="duo">
           <div class="q"><label for="prenom">Prénom</label><input type="text" id="prenom" maxlength="60" autocomplete="given-name" data-req></div>
           <div class="q"><label for="nom">Nom</label><input type="text" id="nom" maxlength="60" autocomplete="family-name" data-req></div>
         </div>
         <div class="q"><label for="tel">Téléphone</label><input type="tel" id="tel" maxlength="20" autocomplete="tel" inputmode="tel" placeholder="06 12 34 56 78" data-req></div>
         <div class="q"><label for="mail">E-mail <span class="fac">(facultatif)</span></label><input type="email" id="mail" maxlength="120" autocomplete="email" inputmode="email"></div>
+        <div class="q"><label for="metier">Tu fais quoi dans la vie ? <span class="fac">(facultatif)</span></label><input type="text" id="metier" maxlength="150" placeholder="Fondateur d’une agence, commercial, étudiant…"></div>
+        <div class="q" data-groupe="statut"><span class="lbl">Tu travailles plutôt… <span class="fac">(facultatif)</span></span><div class="choix"><label><input type="radio" name="statut" value="Salarié"><span>Salarié</span></label><label><input type="radio" name="statut" value="Entrepreneur"><span>Entrepreneur</span></label><label><input type="radio" name="statut" value="Indépendant"><span>Indépendant</span></label><label><input type="radio" name="statut" value="Étudiant"><span>Étudiant</span></label><label><input type="radio" name="statut" value="Autre"><span>Autre</span></label></div></div>
+        <div class="q" data-groupe="reveil"><span class="lbl">Tu te lèves à quelle heure en semaine ? <span class="fac">(facultatif)</span></span><div class="choix"><label><input type="radio" name="reveil" value="Avant 6 h"><span>Avant 6 h</span></label><label><input type="radio" name="reveil" value="6 h à 8 h"><span>6 h à 8 h</span></label><label><input type="radio" name="reveil" value="8 h à 10 h"><span>8 h à 10 h</span></label><label><input type="radio" name="reveil" value="Après 10 h"><span>Après 10 h</span></label></div></div>
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 2 sur 6</small>Ton objectif</legend>
+        <legend><small>Étape 2 sur 7</small>Ton objectif</legend>
         <div class="q" data-groupe="objectif" data-req-groupe>
           <span class="lbl">Qu’est-ce que tu cherches en priorité ?<span class="aide">Tu peux en cocher plusieurs.</span></span>
           <div class="choix">
@@ -127,6 +130,7 @@
         </div>
         <div class="q"><label for="trois-mois">Dans 3 mois, si tout s’est bien passé, qu’est-ce qui a changé pour toi ?</label><textarea id="trois-mois" maxlength="800" data-req></textarea></div>
         <div class="q"><label for="pourquoi">Pourquoi maintenant, et pas il y a 6 mois ?</label><textarea id="pourquoi" maxlength="800" data-req></textarea></div>
+        <div class="q"><label for="attentes">Qu’est-ce que tu attends de moi ? <span class="fac">(facultatif)</span><span class="aide">Les repas, le suivi, qu’on te pousse, qu’on te simplifie la vie…</span></label><textarea id="attentes" maxlength="800"></textarea></div>
         <div class="q" data-groupe="motivation" data-req-groupe>
           <span class="lbl">De 1 à 10, à quel point tu veux changer ta façon de manger ?</span>
           <div class="choix note10" id="note10"></div>
@@ -134,13 +138,14 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 3 sur 6</small>Tes repas aujourd’hui</legend>
+        <legend><small>Étape 3 sur 7</small>Tes repas aujourd’hui</legend>
         <div class="q"><label for="journee">Raconte-moi une journée normale côté repas.<span class="aide">Matin, midi, soir, grignotage.</span></label><textarea id="journee" maxlength="1000" data-req></textarea></div>
         <div class="q"><label for="essais">Tu as déjà essayé de mieux manger ? Qu’est-ce qui a coincé ? <span class="fac">(facultatif)</span></label><textarea id="essais" maxlength="800"></textarea></div>
+        <div class="q"><label for="vice">Ton petit vice que tu n’arrives pas à lâcher ? <span class="fac">(facultatif)</span></label><input type="text" id="vice" maxlength="200" placeholder="Le sucré du soir, les sodas, le fast-food du vendredi…"></div>
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 4 sur 6</small>Ton sport</legend>
+        <legend><small>Étape 4 sur 7</small>Ton sport</legend>
         <div class="q" data-groupe="seances" data-req-groupe>
           <span class="lbl">Combien de séances par semaine ?</span>
           <div class="choix">
@@ -151,6 +156,7 @@
           </div>
         </div>
         <div class="q"><label for="sport">Quel sport ? <span class="fac">(facultatif)</span></label><input type="text" id="sport" maxlength="120" placeholder="Musculation, course, CrossFit…"></div>
+        <div class="q"><label for="blessure">Une blessure ou une douleur qui limite ton entraînement ? <span class="fac">(facultatif)</span></label><input type="text" id="blessure" maxlength="200" placeholder="Non, ou : genou, épaule…"></div>
         <div class="q" data-groupe="plan">
           <span class="lbl">Tu as déjà un plan alimentaire d’un coach ou d’un diététicien ? <span class="fac">(facultatif)</span></span>
           <div class="choix">
@@ -170,7 +176,7 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 5 sur 6</small>Dans ton assiette</legend>
+        <legend><small>Étape 5 sur 7</small>Dans ton assiette</legend>
         <div class="q" data-groupe="allergenes" data-req-groupe>
           <span class="lbl">Allergies ou intolérances<span class="aide">Coche tout ce qui te concerne.</span></span>
           <div class="choix">
@@ -189,12 +195,25 @@
           <input type="text" id="allergie-detail" maxlength="300" placeholder="Précise si besoin (autre allergie, niveau de gravité)" aria-label="Précision sur tes allergies">
           <div class="encart">Tout est préparé dans la même cuisine : des traces d’autres allergènes sont possibles. En cas d’allergie sévère, dis-le-moi ici et on en parle à l’appel.</div>
         </div>
+        <div class="q"><label for="aime">Tes 3 aliments préférés <span class="fac">(facultatif)</span></label><input type="text" id="aime" maxlength="200" placeholder="Bœuf, patate douce, avocat…"></div>
         <div class="q"><label for="deteste">Les aliments que tu détestes <span class="fac">(facultatif)</span></label><input type="text" id="deteste" maxlength="300" placeholder="Poisson, champignons, coriandre…"></div>
         <div class="q"><label for="sante">Quelque chose que je dois savoir pour cuisiner pour toi ? <span class="fac">(facultatif)</span><span class="aide">Régime particulier, aliment à éviter sur avis de ton médecin… LF Meal n’est pas un suivi médical.</span></label><textarea id="sante" maxlength="600"></textarea></div>
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 6 sur 6</small>La livraison et la suite</legend>
+        <legend><small>Étape 6 sur 7</small>Mieux te connaître</legend>
+        <p class="intro">Rien d’obligatoire ici. Ça m’aide à cuisiner pour toi, pas pour un profil type.</p>
+        <div class="q"><label for="passions">Hors sport, c’est quoi tes passions ? <span class="fac">(facultatif)</span></label><input type="text" id="passions" maxlength="200"></div>
+        <div class="q"><label for="journee-libre">Une journée totalement libre, tu fais quoi ? <span class="fac">(facultatif)</span></label><textarea id="journee-libre" maxlength="600"></textarea></div>
+        <div class="q"><label for="serie">La dernière série ou le dernier film qui t’a marqué ? <span class="fac">(facultatif)</span></label><input type="text" id="serie" maxlength="150"></div>
+        <div class="q"><label for="comptes">Les comptes ou podcasts que tu suis le plus ? <span class="fac">(facultatif)</span></label><input type="text" id="comptes" maxlength="200"></div>
+        <div class="q"><label for="voiture">Ta voiture de rêve ? <span class="fac">(facultatif)</span></label><input type="text" id="voiture" maxlength="100"></div>
+        <div class="q" data-groupe="connu"><span class="lbl">Comment tu as connu LF Meal ? <span class="fac">(facultatif)</span></span><div class="choix"><label><input type="radio" name="connu" value="Instagram"><span>Instagram</span></label><label><input type="radio" name="connu" value="Un ami"><span>Un ami</span></label><label><input type="radio" name="connu" value="Le site"><span>Le site</span></label><label><input type="radio" name="connu" value="Autre"><span>Autre</span></label></div></div>
+        <div class="q"><label for="declic">Qu’est-ce qui t’a donné envie de réserver l’appel ? <span class="fac">(facultatif)</span></label><textarea id="declic" maxlength="600"></textarea></div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 7 sur 7</small>La livraison et la suite</legend>
         <div class="q" data-groupe="lieu-type" data-req-groupe>
           <span class="lbl">Je te livre où ?<span class="aide">Le lundi et le jeudi, entre 10 h et 11 h 30, à Montpellier.</span></span>
           <div class="choix">
@@ -298,15 +317,18 @@
     const v = id => $(id).value.trim();
     const lignes = [
       ["Prénom et nom", `${v("prenom")} ${v("nom")}`], ["Téléphone", v("tel")], ["E-mail", v("mail")],
-      ["Objectif", coches("objectif").join(", ")], ["Dans 3 mois", v("trois-mois")], ["Pourquoi maintenant", v("pourquoi")],
+      ["Métier", v("metier")], ["Statut", coches("statut")[0]], ["Réveil en semaine", coches("reveil")[0]],
+      ["Objectif", coches("objectif").join(", ")], ["Dans 3 mois", v("trois-mois")], ["Pourquoi maintenant", v("pourquoi")], ["Attentes", v("attentes")],
       ["Motivation sur 10", coches("motivation")[0]],
-      ["Journée type", v("journee")], ["Essais passés", v("essais")],
-      ["Séances par semaine", coches("seances")[0]], ["Sport", v("sport")], ["Plan d'un coach ou diététicien", coches("plan")[0]],
+      ["Journée type", v("journee")], ["Essais passés", v("essais")], ["Vice", v("vice")],
+      ["Séances par semaine", coches("seances")[0]], ["Sport", v("sport")], ["Blessure", v("blessure")], ["Plan d'un coach ou diététicien", coches("plan")[0]],
       ["Âge", v("age")], ["Taille (cm)", v("taille")], ["Poids (kg)", v("poids")],
       ["Allergies ou intolérances", coches("allergenes").join(", ")], ["Précision allergies", v("allergie-detail")],
-      ["Aliments détestés", v("deteste")], ["À savoir pour cuisiner", v("sante")],
+      ["Aliments préférés", v("aime")], ["Aliments détestés", v("deteste")], ["À savoir pour cuisiner", v("sante")],
       ["Livraison", coches("lieu-type")[0]], ["Adresse", v("adresse")], ["Frigo et micro-ondes", coches("frigo")[0]],
       ["Réception lundi et jeudi", coches("reception")[0]], ["Formule", coches("formule")[0]], ["Budget envisageable", coches("budget")[0]],
+      ["Passions", v("passions")], ["Journée libre", v("journee-libre")], ["Série ou film", v("serie")], ["Comptes et podcasts", v("comptes")],
+      ["Voiture de rêve", v("voiture")], ["Connu par", coches("connu")[0]], ["Envie de réserver", v("declic")],
       ["Question", v("question")],
     ].filter(([, val]) => val && val.trim());
     return lignes;
