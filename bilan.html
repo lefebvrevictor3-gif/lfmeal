@@ -61,6 +61,25 @@
   .note10 span { justify-content:center; min-width:44px; padding:9px 0; width:100%; }
   .note10 { display:grid; grid-template-columns:repeat(5, 1fr); }
 
+  .mesures { margin-top:10px; }
+  .mesure { position:relative; display:block; padding:10px 12px 12px; border:1px solid var(--ligne); border-radius:12px; background:#fff; cursor:text; }
+  .mesure:focus-within { border-color:var(--bleu); outline:2px solid var(--bleu); outline-offset:1px; }
+  .mesure > span { display:block; font-size:13px; font-weight:600; color:var(--gris); }
+  .mesure input[type=number] { margin:2px 0 0; padding:0 30px 0 0; border:0; background:transparent; font:600 24px/1.2 var(--serif); color:var(--brun); }
+  .mesure input:focus { outline:0; }
+  .mesure em { position:absolute; right:12px; bottom:14px; font-style:normal; font-size:14px; color:var(--bronze); }
+  .niveaux { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+  .niveaux label { position:relative; cursor:pointer; display:flex; }
+  .niveaux input { position:absolute; opacity:0; inset:0; width:100%; height:100%; margin:0; cursor:pointer; }
+  .niveaux span { display:flex; flex-direction:column; gap:6px; width:100%; padding:14px; border:1px solid var(--ligne); border-radius:12px; background:#fff; transition:background .15s, border-color .15s; }
+  .niveaux b { font:600 17px/1.2 var(--serif); color:var(--brun); }
+  .niveaux i { font-style:normal; font-size:13.5px; line-height:1.4; color:var(--gris); flex:1; }
+  .jauge { display:block; height:5px; margin-top:4px; border-radius:99px; background:linear-gradient(90deg, var(--bronze) calc(var(--n) * 25%), var(--sable) 0); }
+  .niveaux input:checked + span { background:var(--bleu-clair); border-color:var(--bleu); box-shadow:inset 0 0 0 1px var(--bleu); }
+  .niveaux input:checked + span b { color:var(--bleu-fonce); }
+  .niveaux input:focus-visible + span { outline:2px solid var(--bleu); outline-offset:2px; }
+  .mesures input.manque { outline:0 !important; }
+  .mesure:has(input.manque) { outline:2px solid var(--erreur); outline-offset:2px; }
   .encart { margin-top:14px; padding:14px 16px; border-radius:10px; background:var(--beige); border-left:4px solid var(--bronze); font-size:14.5px; color:var(--brun); }
   .accord { display:flex; gap:12px; align-items:flex-start; margin-top:28px; font-size:14.5px; color:var(--gris); }
   .accord input { flex:none; width:22px; height:22px; margin:2px 0 0; accent-color:var(--bleu); }
@@ -84,6 +103,7 @@
   .secours textarea { min-height:160px; font-size:13.5px; }
   footer { margin-top:44px; padding:22px 0; border-top:1px solid var(--ligne); font-size:13px; color:var(--gris); }
   footer a { color:inherit; }
+  @media (max-width:420px) { .niveaux { grid-template-columns:1fr; } }
   @media (max-width:380px) { .trio { grid-template-columns:1fr 1fr; } h1 { font-size:30px; } }
 </style>
 </head>
@@ -95,7 +115,7 @@
   <div id="formulaire">
     <h1>Ton bilan, <em>après notre appel.</em></h1>
     <p class="intro">Quelques questions pour préparer ton programme. Plus tu es précis, plus tes repas te ressembleront. Il n’y a pas de mauvaise réponse.</p>
-    <div class="temps">7 minutes · 7 étapes</div>
+    <div class="temps">8 minutes · 8 étapes</div>
 
     <div class="barre" aria-hidden="true">
       <div class="barre-rail"><div class="barre-plein" id="plein"></div></div>
@@ -104,7 +124,7 @@
 
     <form id="f" novalidate>
       <fieldset>
-        <legend><small>Étape 1 sur 7</small>Toi</legend>
+        <legend><small>Étape 1 sur 8</small>Toi</legend>
         <div class="duo">
           <div class="q"><label for="prenom">Prénom</label><input type="text" id="prenom" maxlength="60" autocomplete="given-name" data-req></div>
           <div class="q"><label for="nom">Nom</label><input type="text" id="nom" maxlength="60" autocomplete="family-name" data-req></div>
@@ -117,7 +137,7 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 2 sur 7</small>Ton objectif</legend>
+        <legend><small>Étape 2 sur 8</small>Ton objectif</legend>
         <div class="q" data-groupe="objectif" data-req-groupe>
           <span class="lbl">Qu’est-ce que tu cherches en priorité ?<span class="aide">Tu peux en cocher plusieurs.</span></span>
           <div class="choix">
@@ -138,14 +158,14 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 3 sur 7</small>Tes repas aujourd’hui</legend>
+        <legend><small>Étape 3 sur 8</small>Tes repas aujourd’hui</legend>
         <div class="q"><label for="journee">Raconte-moi une journée normale côté repas.<span class="aide">Matin, midi, soir, grignotage.</span></label><textarea id="journee" maxlength="1000" data-req></textarea></div>
         <div class="q"><label for="essais">Tu as déjà essayé de mieux manger ? Qu’est-ce qui a coincé ? <span class="fac">(facultatif)</span></label><textarea id="essais" maxlength="800"></textarea></div>
         <div class="q"><label for="vice">Ton petit vice que tu n’arrives pas à lâcher ? <span class="fac">(facultatif)</span></label><input type="text" id="vice" maxlength="200" placeholder="Le sucré du soir, les sodas, le fast-food du vendredi…"></div>
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 4 sur 7</small>Ton sport</legend>
+        <legend><small>Étape 4 sur 8</small>Ton sport</legend>
         <div class="q" data-groupe="seances" data-req-groupe>
           <span class="lbl">Combien de séances par semaine ?</span>
           <div class="choix">
@@ -165,18 +185,39 @@
           </div>
           <span class="aide">Si oui, tu pourras me l’envoyer : je cuisine sur ton plan.</span>
         </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><small>Étape 5 sur 8</small>Ton métabolisme</legend>
+        <p class="aide">De quoi estimer ce que ton corps dépense chaque jour, pour caler tes portions au gramme près. Ce n’est pas un bilan médical.</p>
+        <div class="q" data-groupe="sexe" data-req-groupe>
+          <span class="lbl">Sexe</span>
+          <div class="choix">
+            <label><input type="radio" name="sexe" value="Homme"><span>Homme</span></label>
+            <label><input type="radio" name="sexe" value="Femme"><span>Femme</span></label>
+          </div>
+        </div>
         <div class="q">
-          <span class="lbl">Tes mesures <span class="fac">(facultatif)</span><span class="aide">Elles servent uniquement à calculer tes portions.</span></span>
-          <div class="trio">
-            <input type="number" id="age" min="16" max="99" inputmode="numeric" placeholder="Âge" aria-label="Âge">
-            <input type="number" id="taille" min="120" max="230" inputmode="numeric" placeholder="Taille (cm)" aria-label="Taille en centimètres">
-            <input type="number" id="poids" min="35" max="250" inputmode="decimal" placeholder="Poids (kg)" aria-label="Poids en kilos">
+          <span class="lbl">Tes mesures</span>
+          <div class="trio mesures">
+            <label class="mesure"><span>Âge</span><input type="number" id="age" min="16" max="99" inputmode="numeric" data-req><em>ans</em></label>
+            <label class="mesure"><span>Taille</span><input type="number" id="taille" min="120" max="230" inputmode="numeric" data-req><em>cm</em></label>
+            <label class="mesure"><span>Poids actuel</span><input type="number" id="poids" min="35" max="250" step="0.1" inputmode="decimal" data-req><em>kg</em></label>
+          </div>
+        </div>
+        <div class="q" data-groupe="activite" data-req-groupe>
+          <span class="lbl">Ta dépense au quotidien<span class="aide">Choisis ce qui ressemble le plus à ta semaine, sport compris.</span></span>
+          <div class="niveaux">
+            <label><input type="radio" name="activite" value="Sédentaire"><span><b>Sédentaire</b><i>Assis la plupart du temps, peu de marche, peu ou pas de sport.</i><small class="jauge" style="--n:1"></small></span></label>
+            <label><input type="radio" name="activite" value="Plutôt actif"><span><b>Plutôt actif</b><i>Travail assis, mais tu marches et tu fais du sport 1 à 3 fois par semaine.</i><small class="jauge" style="--n:2"></small></span></label>
+            <label><input type="radio" name="activite" value="Actif"><span><b>Actif</b><i>Debout une bonne partie de la journée, ou sport 3 à 5 fois par semaine.</i><small class="jauge" style="--n:3"></small></span></label>
+            <label><input type="radio" name="activite" value="Très actif"><span><b>Très actif</b><i>Métier physique, ou entraînement intense 6 à 7 fois par semaine.</i><small class="jauge" style="--n:4"></small></span></label>
           </div>
         </div>
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 5 sur 7</small>Dans ton assiette</legend>
+        <legend><small>Étape 6 sur 8</small>Dans ton assiette</legend>
         <div class="q" data-groupe="allergenes" data-req-groupe>
           <span class="lbl">Allergies ou intolérances<span class="aide">Coche tout ce qui te concerne.</span></span>
           <div class="choix">
@@ -202,7 +243,7 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 6 sur 7</small>Mieux te connaître</legend>
+        <legend><small>Étape 7 sur 8</small>Mieux te connaître</legend>
         <p class="intro">Rien d’obligatoire ici. Ça m’aide à cuisiner pour toi, pas pour un profil type.</p>
         <div class="q"><label for="passions">Hors sport, c’est quoi tes passions ? <span class="fac">(facultatif)</span></label><input type="text" id="passions" maxlength="200"></div>
         <div class="q"><label for="journee-libre">Une journée totalement libre, tu fais quoi ? <span class="fac">(facultatif)</span></label><textarea id="journee-libre" maxlength="600"></textarea></div>
@@ -214,7 +255,7 @@
       </fieldset>
 
       <fieldset>
-        <legend><small>Étape 7 sur 7</small>La livraison et la suite</legend>
+        <legend><small>Étape 8 sur 8</small>La livraison et la suite</legend>
         <div class="q" data-groupe="lieu-type" data-req-groupe>
           <span class="lbl">Je te livre où ?<span class="aide">Le lundi et le jeudi, entre 10 h et 11 h 30, à Montpellier.</span></span>
           <div class="choix">
@@ -314,6 +355,17 @@
   }
   f.addEventListener("input", avance); f.addEventListener("change", avance); avance();
 
+  // Estimation Mifflin-St Jeor, envoyée à LF Meal uniquement (pas affichée au client)
+  const FACTEURS = { "Sédentaire":1.2, "Plutôt actif":1.375, "Actif":1.55, "Très actif":1.725 };
+  function metabolisme() {
+    const a = +$("age").value, t = +$("taille").value, pd = +String($("poids").value).replace(",", "."), sx = coches("sexe")[0], act = coches("activite")[0];
+    if (!a || !t || !pd || !sx) return [];
+    const mb = Math.round(10 * pd + 6.25 * t - 5 * a + (sx === "Homme" ? 5 : -161));
+    const out = [["Métabolisme de base estimé (Mifflin-St Jeor)", `${mb} kcal/jour`]];
+    if (act) out.push(["Dépense journalière estimée", `${Math.round(mb * FACTEURS[act])} kcal/jour (facteur ${FACTEURS[act]})`]);
+    return out;
+  }
+
   function recap() {
     const v = id => $(id).value.trim();
     const lignes = [
@@ -323,7 +375,8 @@
       ["Motivation sur 10", coches("motivation")[0]],
       ["Journée type", v("journee")], ["Essais passés", v("essais")], ["Vice", v("vice")],
       ["Séances par semaine", coches("seances")[0]], ["Sport", v("sport")], ["Blessure", v("blessure")], ["Plan d'un coach ou diététicien", coches("plan")[0]],
-      ["Âge", v("age")], ["Taille (cm)", v("taille")], ["Poids (kg)", v("poids")],
+      ["Sexe", coches("sexe")[0]], ["Âge", v("age")], ["Taille (cm)", v("taille")], ["Poids actuel (kg)", v("poids")], ["Dépense au quotidien", coches("activite")[0]],
+      ...metabolisme(),
       ["Allergies ou intolérances", coches("allergenes").join(", ")], ["Précision allergies", v("allergie-detail")],
       ["Aliments préférés", v("aime")], ["Aliments détestés", v("deteste")], ["À savoir pour cuisiner", v("sante")],
       ["Livraison", coches("lieu-type")[0]], ["Adresse", v("adresse")], ["Frigo et micro-ondes", coches("frigo")[0]],
@@ -342,7 +395,7 @@
     const vides = champs.filter(c => !c.value.trim());
     const groupesVides = groupes.filter(g => !coches(g.dataset.groupe).length);
     vides.forEach(c => c.classList.add("manque"));
-    groupesVides.forEach(g => g.querySelector(".choix").classList.add("manque"));
+    groupesVides.forEach(g => g.querySelector(".choix, .niveaux").classList.add("manque"));
     const premier = vides[0] || (groupesVides[0] && groupesVides[0].querySelector("input"));
     const tous = [...vides, ...groupesVides.map(g => g.querySelector("input"))].sort((a, b) => a.compareDocumentPosition(b) & 2 ? 1 : -1);
     if (tous.length) {
